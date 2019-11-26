@@ -102,9 +102,9 @@ def draw_boards_side_by_side(b1, b2, margin=(0, 0, 1)):
 
 
 
-b1 = Board(size=(11, 11), ships=[Ship((0, 0), 4, (1, 0)), Ship((9, 9), 8, (-1, 0)), Ship((5, 2), 2, (0, -1))])
+b1 = Board(size=(12, 12), ships=[Ship((0, 0), 4, (1, 0)), Ship((9, 9), 8, (-1, 0)), Ship((5, 2), 2, (0, -1))])
 b1.create_border()
-b2 = Board(size=(11, 11), ships=[Ship((2, 2), 3, (0, -1))])
+b2 = Board(size=(12, 12), ships=[Ship((2, 2), 3, (0, -1))])
 b2.create_border()
 
 set_color(Color.LIGHTCYAN)
