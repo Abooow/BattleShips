@@ -21,94 +21,55 @@ class Color:
     LIGHTCYAN = '\u001b[36;1m'
     LIGHTWHITE = '\u001b[37;1m'
 
-
-# För att skriva ut färgad text
-print(Color.YELLOW + "Hej i gult")
-# eller
-print(f"{Color.GREEN}Hej i grönt")
-print("Den här texten är också grön")
-
-# För att reseta färgen, använd Color.RESET
-print(Color.RESET)
-
-print("Texten är normal igen")
-
-
-
-
-
-
-
-
+    def print_color(string, color, end='\n'):
+        print(f'{color}{string}{Color.RESET}', end=end)
 
 
 class Ship:
-    def __init__(self, position, lenth, direction):
+    LEFT = (-1, 0)
+    RIGHT = (1, 0)
+    UP = (0, -1)
+    DOWN = (0, 1)
+
+
+    def __init__(self, position, length, rotation):
+        '''
+
+        param position(tuple[int,int]): 
+        param length(int):
+        param rotation(tuple[int,int]): '''
+
         self.position = position
-        self.lenth = lenth
-        self.direction = direction
+        self.length = length
+        self.rotation = rotation
 
 
 class Board:
-    def __init__(self, size, ships):
-        self.list = [[' '] * size[0] for i in range(size[1])] 
-        self.ships = ships
-        
-
-    def create_num(self):
-        for y in range(len(self.list)):
-            for x in range(len(self.list[y])):
-                if x == 0 or x == len(self.list[y]) - 1 or y == 0 or y == len(self.list) - 1:
-                    self.list[y][x] = char
+    def __init__(self):
+        self.list = [[(' ', Color.WHITE)] * 10 for i in range(10)]
 
 
-    def create_border(self, char='\u2588'):
-        for y in range(len(self.list)):
-            for x in range(len(self.list[y])):
-                if x == 0 or x == len(self.list[y]) - 1 or y == 0 or y == len(self.list) - 1:
-                    self.list[y][x] = char
+    def place_ship(self, ship):
+        for i in range(ship.length):
+            x = ship.position[0] + i * ship.rotation[0]
+            y = ship.position[1] + i * ship.rotation[1]
+            self.list[y][x] = ('O', Color.GREEN)
 
 
     def draw(self):
-        for ship in self.ships:
-            for i in range(ship.lenth):
-                x = ship.position[0] + ship.direction[0] * i + 1
-                y = ship.position[1] + ship.direction[1] * i + 1
-                self.list[y][x] = '\u0FD5'
-
-
-        for y in range(len(self.list)):
-            for x in range(len(self.list[y])):
-                print(self.list[y][x], end='')
+        for y in self.list:
+            for x in y:
+                Color.print_color(x[0], x[1], end='')
+                Color.print_color('|', Color.LIGHTCYAN, end='')
             print()
 
 
-def set_color(color):
-    print(color, end='')
+player2 = Board()
+player = Board()
 
-def reset_color():
-    print(Color.RESET, end='')
-
-
-def draw_boards_side_by_side(b1, b2, margin=(0, 0, 1)):
-    for i in range(margin[0]):
-        print()
-
-    for y in range(max(len(b1.list), len(b2.list))):
-        print(' ' * margin[1], end='')
-        print(''.join(b1.list[y]), end='')
-        print(' ' * margin[2], end='')
-        print(''.join(b2.list[y]))
+player.place_ship(Ship((5, 2), 3, Ship.DOWN))
+player.place_ship(Ship((0, 0), 4, Ship.RIGHT))
+player.place_ship(Ship((9, 9), 6, Ship.UP))
 
 
-
-b1 = Board(size=(12, 12), ships=[Ship((0, 0), 4, (1, 0)), Ship((9, 9), 8, (-1, 0)), Ship((5, 2), 2, (0, -1))])
-b1.create_border()
-b2 = Board(size=(12, 12), ships=[Ship((2, 2), 3, (0, -1))])
-b2.create_border()
-
-set_color(Color.LIGHTCYAN)
-b1.draw()
-reset_color()
-print()
-b2.draw()
+player.draw()
