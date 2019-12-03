@@ -1,4 +1,5 @@
 import os
+import sys
 
 
 os.system('color')  
@@ -53,23 +54,42 @@ class Board:
         for i in range(ship.length):
             x = ship.position[0] + i * ship.rotation[0]
             y = ship.position[1] + i * ship.rotation[1]
-            self.list[y][x] = ('O', Color.GREEN)
+            self.list[y][x] = ('O', Color.LIGHTWHITE)
 
 
     def draw(self):
         for y in self.list:
             for x in y:
                 Color.print_color(x[0], x[1], end='')
-                Color.print_color('|', Color.LIGHTCYAN, end='')
+                Color.print_color('|', Color.GREEN, end='')
             print()
 
+state = "menu"
 
-player2 = Board()
-player = Board()
+while True:
+    if state == "start":
+        player2 = Board()
+        player = Board()
 
-player.place_ship(Ship((5, 2), 3, Ship.DOWN))
-player.place_ship(Ship((0, 0), 4, Ship.RIGHT))
-player.place_ship(Ship((9, 9), 6, Ship.UP))
+        player.place_ship(Ship((5, 2), 3, Ship.DOWN))
+        player.place_ship(Ship((0, 0), 4, Ship.RIGHT))
+        player.place_ship(Ship((9, 9), 6, Ship.UP))
+        player.draw()
+        break
+        
+
+    elif state == "menu":
+        Color.print_color('Welcome to Modern Battleship Extreme Warfare', Color.GREEN)
+        print('1. Start')
+        print('2. Quit')
+        choice = input()
+        
+        if choice == '1':
+            state = 'start'
+            os.system('cls')
+
+        elif choice == '2':
+            sys.exit()
 
 
-player.draw()
+        
