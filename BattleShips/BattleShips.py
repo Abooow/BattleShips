@@ -54,6 +54,26 @@ class Board:
             x = ship.position[0] + i * ship.rotation[0]
             y = ship.position[1] + i * ship.rotation[1]
             self.list[y][x] = ('O', Color.GREEN)
+    
+    def can_place_ship(self, ship):
+        '''
+
+        param ship(tuple([int,int]), int, tuple([int,int])):
+        return True or False'''
+        
+        if (ship.position[0] < 0 or ship.position[0] > len(self.list) or 
+            ship.position[1] < 0 or ship.position[1] > len(self.list) or
+            ship.rotation[0]*ship.length+ship.position[0] > len(self.list) or 
+            ship.rotation[0]*ship.length+ship.position[0] < 0 or 
+            ship.rotation[1]*ship.length+ship.position[1] > len(self.list) or 
+            ship.rotation[1]*ship.length+ship.position[1] < 0):
+            return False
+        for i in range(ship.length):
+            x = ship.position[0] + i * ship.rotation[0]
+            y = ship.position[1] + i * ship.rotation[1]
+            if self.list[y][x][2] != None:
+                return False
+        return True
 
 
     def draw(self):
@@ -67,7 +87,7 @@ class Board:
 player2 = Board()
 player = Board()
 
-player.place_ship(Ship((5, 2), 3, Ship.DOWN))
+player.place_ship(Ship((5, 2), 3, Ship.DOWN))   #position(x, y), length, direction
 player.place_ship(Ship((0, 0), 4, Ship.RIGHT))
 player.place_ship(Ship((9, 9), 6, Ship.UP))
 
