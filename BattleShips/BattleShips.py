@@ -64,9 +64,14 @@ class Board:
             print()
 
     def shoot(self, shot_koord):
+
+        '''
+        param shot_koord (tuple[int,int])
+        return True or False '''
         
-        
-        if shot_koord in self.shots_fired:
+
+        #shots_fired checks if coordinate´s been used
+        if shot_koord in self.shots_fired:   
             return False  
         else:
             koordinat =  self.list[shot_koord[1]][shot_koord[0]]
@@ -74,7 +79,7 @@ class Board:
             if koordinat[2] == None:
                 self.list[shot_koord[1]][shot_koord[0]] = ('*', Color.GREEN,  koordinat[2])
             else:
-                self.list[shot_koord[1]][shot_koord[0]] = ('O', Color.RED,  koordinat[2])
+                self.list[shot_koord[1]][shot_koord[0]] = (koordinat[0], Color.RED,  koordinat[2])
             return True
             
     
@@ -90,7 +95,7 @@ player.place_ship(Ship((5, 2), 3, Ship.DOWN))
 player.place_ship(Ship((0, 0), 4, Ship.RIGHT))
 player.place_ship(Ship((9, 9), 6, Ship.UP))
 
-player.shoot((0,0))
+player.shoot((4,7))
 
 
 
