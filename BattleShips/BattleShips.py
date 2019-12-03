@@ -90,6 +90,8 @@ while True:
 
         elif choice == '2':
             sys.exit()
+        else:
+            os.system('cls')
 
 
         
