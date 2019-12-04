@@ -19,8 +19,14 @@ def pang(cord):
 
     cord = re.match('(?P<letter>[A-J])(?P<num>[0-9)])$', str(attack).upper()) or re.match('(?P<num>[0-9])(?P<letter>[A-J)])$', str(attack).upper())
     if cord:
+        """
+        I have no idea?
+        It checks for a letter and a number?
+        
+        """
         y = int(hihi.get(cord.group('letter')))
         x = int(cord.group('num'))
+        return x, y
     else:
         return False
 
