@@ -87,9 +87,42 @@ class Board:
 player2 = Board()
 player = Board()
 
-player.place_ship(Ship((5, 2), 3, Ship.DOWN))   #position(x, y), length, direction
-player.place_ship(Ship((0, 0), 4, Ship.RIGHT))
-player.place_ship(Ship((9, 9), 6, Ship.UP))
+#placing ships state
+all_ships_placed = False
+shipsAvailable = [2, 2, 2, 2, 3, 3, 3, 4, 4, 6]
+
+while not all_ships_placed:
+
+    
+    for ship in range(len(shipsAvailable)):
+        os.system('cls')
+        print('Place your ships onto the battlefield.')
+        player.draw()
+        print(f'Ships: {shipsAvailable}')
+        print(f'Placing a ship with length {shipsAvailable[0]}.')
+        shipLength = shipsAvailable[0]
+        del shipsAvailable[0]
+        shipFirstPos = input('Set start coordinate(x,y(0-9)): ')
+        while True:
+            shipDirection = input('Set direction(LEFT, RIGHT, UP, DOWN)')
+            if shipDirection.upper() == 'LEFT': 
+                dir = Ship.LEFT 
+                break
+            elif shipDirection.upper() == 'RIGHT': 
+                dir = Ship.RIGHT 
+                break
+            elif shipDirection.upper() == 'UP': 
+                dir = Ship.UP
+                break
+            elif shipDirection.upper() == 'DOWN': 
+                dir = Ship.DOWN
+                break
+            else: continue
+        x = int(shipFirstPos[0])
+        y = int(shipFirstPos[1])
+        #place function that converts user input to coordinate tuple here, pang()
+        player.place_ship(Ship((x, y), shipLength, dir))
 
 
-player.draw()
+
+
