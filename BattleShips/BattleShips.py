@@ -4,7 +4,7 @@ import re
 
 os.system('color')
 
-def pang(cord):
+def pang(attack):
     hihi = {
     'A' : 0,
     'B' : 1,
@@ -18,7 +18,9 @@ def pang(cord):
     'J' : 9
 }
 
-    cord = re.match('(?P<letter>[A-J])(?P<num>[0-9)])$', str(attack).upper()) or re.match('(?P<num>[0-9])(?P<letter>[A-J)])$', str(attack).upper())
+    attack = attack.replace(' ', '').upper
+
+    cord = re.match('(?P<letter>[A-J])(?P<num>[0-9)])$', attack) or re.match('(?P<num>[0-9])(?P<letter>[A-J)])$', attack)
     if cord:
         """
         I have no idea?
