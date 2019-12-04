@@ -90,9 +90,8 @@ player = Board()
 #placing ships state
 all_ships_placed = False
 shipsAvailable = [2, 2, 2, 2, 3, 3, 3, 4, 4, 6]
-
+#placing ships state
 while not all_ships_placed:
-
     
     for ship in range(len(shipsAvailable)):
         os.system('cls')
@@ -101,8 +100,8 @@ while not all_ships_placed:
         print(f'Ships: {shipsAvailable}')
         print(f'Placing a ship with length {shipsAvailable[0]}.')
         shipLength = shipsAvailable[0]
-        del shipsAvailable[0]
         shipFirstPos = input('Set start coordinate(x,y(0-9)): ')
+        #place function that converts user input to coordinate tuple here, pang()
         while True:
             shipDirection = input('Set direction(LEFT, RIGHT, UP, DOWN)')
             if shipDirection.upper() == 'LEFT': 
@@ -120,8 +119,12 @@ while not all_ships_placed:
             else: continue
         x = int(shipFirstPos[0])
         y = int(shipFirstPos[1])
-        #place function that converts user input to coordinate tuple here, pang()
-        player.place_ship(Ship((x, y), shipLength, dir))
+        
+        #Check if its ok to place the boat
+        if player.can_place_ship(Ship((x, y), shipLength, dir)) == True:
+            player.place_ship(Ship((x, y), shipLength, dir))
+            del shipsAvailable[0]
+        
 
 
 
