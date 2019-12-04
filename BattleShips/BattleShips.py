@@ -31,6 +31,12 @@ class Ship:
     UP = (0, -1)
     DOWN = (0, 1)
 
+        
+    def get_hit(self):
+        
+        self.health -= 1
+
+
 
     def __init__(self, position, length, rotation):
         '''
@@ -42,6 +48,7 @@ class Ship:
         self.position = position
         self.length = length
         self.rotation = rotation
+        self.health = length
 
 
 class Board:
@@ -63,6 +70,9 @@ class Board:
                 Color.print_color('|', Color.LIGHTCYAN, end='')
             print()
 
+
+    
+
     def shoot(self, shot_koord):
 
         '''
@@ -72,21 +82,32 @@ class Board:
 
         #shots_fired checks if coordinate´s been used
         if shot_koord in self.shots_fired:   
-            return False  
+            return False, None 
         else:
             koordinat =  self.list[shot_koord[1]][shot_koord[0]]
             self.shots_fired.append(shot_koord)
             if koordinat[2] == None:
                 self.list[shot_koord[1]][shot_koord[0]] = ('*', Color.GREEN,  koordinat[2])
+                return True, None
             else:
+                koordinat[2].get_hit()
                 self.list[shot_koord[1]][shot_koord[0]] = (koordinat[0], Color.RED,  koordinat[2])
-            return True
+                return True, koordinat[2]
+                
+
+   
+
+
+    
+
+        
+        
             
     
 
         
         
-                
+            
 
 player2 = Board()
 player = Board()
@@ -95,12 +116,16 @@ player.place_ship(Ship((5, 2), 3, Ship.DOWN))
 player.place_ship(Ship((0, 0), 4, Ship.RIGHT))
 player.place_ship(Ship((9, 9), 6, Ship.UP))
 
+
 player.shoot((4,7))
 
 
-
+print()
 
 player.draw()
+
+  
+
 
 
 
