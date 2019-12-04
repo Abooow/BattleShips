@@ -79,9 +79,24 @@ while True:
         
 
     elif state == "menu":
-        Color.print_color('Welcome to Modern Battleship Extreme Warfare', Color.GREEN)
-        print('1. Start')
-        print('2. Quit')
+        Color.print_color(r"""                                 _      __      __                        ______        
+                                | | /| / /___  / /____ ___   __ _  ___   /_  __/___     
+                                | |/ |/ // -_)/ // __// _ \ /  ' \/ -_)   / /  / _ \    
+                                |__/|__/ \__//_/ \__/ \___//_/_/_/\__/   /_/   \___/    
+                                                         """, Color.WHITE)
+        Color.print_color(r"""     __  ___         __                  ____       __                         _      __            ___               
+    /  |/  /___  ___/ /___  ____ ___    / __/__ __ / /_ ____ ___  __ _  ___   | | /| / /___ _ ____ / _/___ _ ____ ___ 
+   / /|_/ // _ \/ _  // -_)/ __// _ \  / _/  \ \ // __// __// -_)/  ' \/ -_)  | |/ |/ // _ `// __// _// _ `// __// -_)
+  /_/  /_/ \___/\_,_/ \__//_/  /_//_/ /___/ /_\_\ \__//_/   \__//_/_/_/\__/   |__/|__/ \_,_//_/  /_/  \_,_//_/   \__/ 
+                                                                                                                    """, Color.GREEN)
+        print("-" *120)
+        print()
+        print()
+        print()
+        print()
+        print('1. Start'.center(120))
+        print()
+        print('2. Quit'.center(120))
         choice = input()
         
         if choice == '1':
@@ -89,7 +104,7 @@ while True:
             os.system('cls')
 
         elif choice == '2':
-            sys.exit()
+            break
         else:
             os.system('cls')
 
