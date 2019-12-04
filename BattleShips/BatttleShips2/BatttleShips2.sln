@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29230.47
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.902
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "BattleShips", "BattleShips.pyproj", "{6936865C-A62C-4786-9B2E-85C7E42C029A}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "BatttleShips2", "BatttleShips2\BatttleShips2.pyproj", "{98A4A85C-F158-4C61-B37B-9EE783AA6523}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,13 +11,13 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6936865C-A62C-4786-9B2E-85C7E42C029A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6936865C-A62C-4786-9B2E-85C7E42C029A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98A4A85C-F158-4C61-B37B-9EE783AA6523}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98A4A85C-F158-4C61-B37B-9EE783AA6523}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {E4D3C508-0E89-4EEF-8750-A2B3863861EA}
+		SolutionGuid = {4F14810F-D1D5-43DC-B3A8-0D19A9DC1653}
 	EndGlobalSection
 EndGlobal
