@@ -102,7 +102,10 @@ while not all_ships_placed:
         os.system('cls')
         print('Place your ships onto the battlefield.')
         player.draw()
-        print(f'Ships: {shipsAvailable}')
+        counter = 0
+        for i in shipsAvailable:
+            counter += 1
+            print(counter,".",i*"O")
         print(f'Placing a ship with length {shipsAvailable[0]}.')
         shipLength = shipsAvailable[0]
         shipFirstPos = input('Set start coordinate(x,y(0-9)): ')
