@@ -63,6 +63,8 @@ class Board:
             self.list[y][x] = ('O', Color.GREEN, ship)
 
 
+
+
     def draw(self):
         for y in self.list:
             for x in y:
@@ -117,7 +119,7 @@ player.place_ship(Ship((0, 0), 4, Ship.RIGHT))
 player.place_ship(Ship((9, 9), 6, Ship.UP))
 
 
-player.shoot((4,7))
+player.shoot((3,0))
 
 
 print()
