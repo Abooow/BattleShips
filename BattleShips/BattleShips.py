@@ -124,6 +124,9 @@ while not all_ships_placed:
         if player.can_place_ship(Ship((x, y), shipLength, dir)) == True:
             player.place_ship(Ship((x, y), shipLength, dir))
             del shipsAvailable[0]
+
+        if len(shipsAvailable) < 1:
+            all_ships_placed = True
         
 
 
