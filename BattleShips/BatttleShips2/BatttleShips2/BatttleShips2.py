@@ -74,7 +74,7 @@ class Board:
         #for j in alphabet:
         #    print('|' + j, end ='')
         #print('|')
-        i = 1
+        i = 0
         for y in self.list:
             print('{:<3}'.format(str(i)), end='')
             (i) += 1
