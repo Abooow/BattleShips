@@ -1,5 +1,5 @@
 import os
-
+import re
 
 os.system('color')  
 class Color:
@@ -64,6 +64,31 @@ class Board:
             print()
 
 
+
+def pang():
+    hihi = {
+    'A' : 0,
+    'B' : 1,
+    'C' : 2,
+    'D' : 3,
+    'E' : 4,
+    'F' : 5,
+    'G' : 6,
+    'H' : 7,
+    'I' : 8,
+    'J' : 9
+}
+    attack = input('Panga på vart?').replace(' ', '')
+
+
+    cord = re.match('(?P<letter>[A-J])(?P<num>[0-9)])$', str(attack).upper()) or re.match('(?P<num>[0-9])(?P<letter>[A-J)])$', str(attack).upper())
+    if cord:
+        y = int(hihi.get(cord.group('letter')))
+        x = int(cord.group('num'))
+    else:
+        print('fffff')
+
+
 player2 = Board()
 player = Board()
 
@@ -73,3 +98,5 @@ player.place_ship(Ship((9, 9), 6, Ship.UP))
 
 
 player.draw()
+
+
