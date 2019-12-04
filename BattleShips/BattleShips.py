@@ -50,6 +50,10 @@ class Board:
 
 
     def place_ship(self, ship):
+        '''
+
+        param ship(tuple([int,int]), int, tuple([int,int])):'''
+
         for i in range(ship.length):
             x = ship.position[0] + i * ship.rotation[0]
             y = ship.position[1] + i * ship.rotation[1]
@@ -83,21 +87,24 @@ class Board:
                 Color.print_color('|', Color.LIGHTCYAN, end='')
             print()
 
-
+#create players
 player2 = Board()
 player = Board()
 
 #placing ships state
 all_ships_placed = False
 shipsAvailable = [2, 2, 2, 2, 3, 3, 3, 4, 4, 6]
-#placing ships state
+
 while not all_ships_placed:
     
     for ship in range(len(shipsAvailable)):
         os.system('cls')
         print('Place your ships onto the battlefield.')
         player.draw()
-        print(f'Ships: {shipsAvailable}')
+        counter = 0
+        for i in shipsAvailable:
+            counter += 1
+            print(counter,".",i*"O")
         print(f'Placing a ship with length {shipsAvailable[0]}.')
         shipLength = shipsAvailable[0]
         shipFirstPos = input('Set start coordinate(x,y(0-9)): ')
@@ -124,8 +131,14 @@ while not all_ships_placed:
         if player.can_place_ship(Ship((x, y), shipLength, dir)) == True:
             player.place_ship(Ship((x, y), shipLength, dir))
             del shipsAvailable[0]
-        
 
+        if len(shipsAvailable) < 1:
+            all_ships_placed = True
+            os.system('cls')
+            player.draw()
 
-
-
+#gameloop
+while True:
+    input('>')
+    os.system('cls')
+    player.draw()
