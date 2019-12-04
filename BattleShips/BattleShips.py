@@ -59,6 +59,7 @@ class Board:
             y = ship.position[1] + i * ship.rotation[1]
             self.list[y][x] = ('O', Color.GREEN)
     
+
     def can_place_ship(self, ship):
         '''
 
