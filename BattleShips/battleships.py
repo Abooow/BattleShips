@@ -1,4 +1,5 @@
 import console_color as color
+import random
 
 
 class Ship:
@@ -154,3 +155,39 @@ class Board:
         char = ord(char)
         char += 1
         return chr(char)
+
+class AI:
+    def __init__(self):
+        self.board = Board()
+
+    def place_ship(self):
+        ''' 
+
+        param ship (Ship): the ship to place
+        returns: nothing
+        rtype: None '''
+        
+        all_ships_placed = False
+        shipsAvailable = [2, 2, 2, 2, 3, 3, 3, 4, 4, 6]
+        while all_ships_placed == False:
+            xpos = random.randint(0,9)
+            ypos = random.randint(0,9)
+            xdir = random.randint(-1,1)
+            ydir = random.randint(-1,1)
+            rotationtuple = (xdir,ydir)
+            postuple = (xpos, ypos)
+            #(tuple([int,int]), int, tuple([int,int]))
+            if self.board.can_place_ship(postuple,shipsAvailable[0], rotationtuple):
+                self.board.place_ship(postuple,shipsAvailable[0], rotationtuple)
+                del shipsAvailable[0]
+                if len(shipsAvailable) < 1:
+                    all_ships_placed = True
+
+    def shoot(self):
+        #param shot_koord (tuple[int,int]): (x, y)
+        while True:
+            xpos = random.randint(0,9)
+            ypos = random.randint(0,9)
+            shot = self.board.shoot((xpos, ypos))
+            if shot[0]:
+                return shot
