@@ -73,7 +73,7 @@ class Board:
             self.shots_fired.append(shot_koord)
             # successful shot but missed a boat
             if koordinat[2] == None:
-                self.list[shot_koord[1]][shot_koord[0]] = ('*', color.GREEN,  koordinat[2])
+                self.list[shot_koord[1]][shot_koord[0]] = ('*', color.LIGHTCYAN,  koordinat[2])
                 return True, None
             # successful shot and hit a boat
             else:
@@ -156,6 +156,7 @@ class Board:
         char += 1
         return chr(char)
 
+
 class AI:
     def __init__(self):
         self.board = Board()
@@ -172,22 +173,21 @@ class AI:
         while all_ships_placed == False:
             xpos = random.randint(0,9)
             ypos = random.randint(0,9)
-            xdir = random.randint(-1,1)
-            ydir = random.randint(-1,1)
-            rotationtuple = (xdir,ydir)
             postuple = (xpos, ypos)
             #(tuple([int,int]), int, tuple([int,int]))
-            if self.board.can_place_ship(postuple,shipsAvailable[0], rotationtuple):
-                self.board.place_ship(postuple,shipsAvailable[0], rotationtuple)
+            ship = Ship(postuple,shipsAvailable[0], [(1, 0), (-1, 0), (0, 1), (0, -1)][random.randint(0, 3)])
+            if self.board.can_place_ship(ship):
+                self.board.place_ship(ship)
                 del shipsAvailable[0]
                 if len(shipsAvailable) < 1:
                     all_ships_placed = True
 
-    def shoot(self):
+
+    def shoot(self, enemy):
         #param shot_koord (tuple[int,int]): (x, y)
         while True:
             xpos = random.randint(0,9)
             ypos = random.randint(0,9)
-            shot = self.board.shoot((xpos, ypos))
+            shot = enemy.shoot((xpos, ypos))
             if shot[0]:
                 return shot

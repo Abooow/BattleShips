@@ -32,18 +32,16 @@ def pang(attack):
         return None
 
 
-gamestate = State.YOUPLAYING
+gamestate = State.PLACESHIPS
 
 #placing ships state
 all_ships_placed = False
 shipsAvailable = [2, 2, 2, 2, 3, 3, 3, 4, 4, 6]
 
 
-player2 = battleships.AI()
 player = battleships.Board()
+player2 = battleships.AI()
 
-player.place_ship(battleships.Ship((6, 4), 5, (0, -1)))
-player2.place_ship(battleships.Ship((3, 3), 4, (1, 0)))
 
 while True:
     if gamestate == State.MENU:
@@ -119,26 +117,25 @@ while True:
                 if len(shipsAvailable) < 1:
                     all_ships_placed = True
                     os.system('cls')
-                    player.draw()
                     player2.place_ship()
                     gamestate = State.YOUPLAYING
 
     elif gamestate == State.YOUPLAYING:
-        print('Enemy'.center(22))
-        player2.draw_anonymously()
+        print('AI'.center(22))
+        player2.board.draw_anonymously()
         print()
         print('You'.center(22))
         player.draw()
 
         coordinate = pang(input('Select a coordinate to shoot at: '))
         if coordinate != None:
-            shot = player2.shoot(coordinate)
+            shot = player2.board.shoot(coordinate)
             if shot[0]:
                 if shot[1] != None:
                     print('Hit!')
                     if shot[1].health <= 0:
                         print('You sunk a ship!')
-                        if len(player2.ships) == 0:
+                        if len(player2.board.ships) == 0:
                             print('You sunk all the ships!!!')
                             input()
                             gamestate = State.YOUWON
@@ -156,6 +153,28 @@ while True:
         else:
             os.system('cls')
             continue
+    elif gamestate == State.ENEMYPLAYING:
+        print('AI'.center(22))
+        player2.board.draw_anonymously()
+        print()
+        print('You'.center(22))
+        player.draw()
+
+        shot = player2.shoot(player)
+        if shot[1] != None:
+            print('You got hit!')
+            input()
+            os.system('cls')
+        else:
+            print('AI missed!')
+            input()
+            os.system('cls')
+
+        if len(player.ships) == 0:
+            gamestate = State.YOULOST
+        else:
+            gamestate = State.YOUPLAYING
+
     elif gamestate == State.YOULOST:
         print()
         color.print_color(r"""                                     __  __ ____   __  __   __   ____   ____ ______
@@ -176,6 +195,8 @@ while True:
         print('2. Main Menu'.center(120))
         choice = input()
 
+        all_ships_placed = False
+        shipsAvailable = [2, 2, 2, 2, 3, 3, 3, 4, 4, 6]
         if choice == '1':
             gamestate = State.PLACESHIPS
             os.system('cls')
@@ -205,8 +226,10 @@ while True:
         print('2. Main Menu'.center(120))
         choice = input()
 
+        shipsAvailable = [2, 2, 2, 2, 3, 3, 3, 4, 4, 6]
+        gamestate = State.PLACESHIPS
         if choice == '1':
-            gamestate = State.PLACESHIPS
+            all_ships_placed = False
             os.system('cls')
         elif choice == '2':
             gamestate = State.MENU
