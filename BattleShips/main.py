@@ -21,8 +21,9 @@ def pang(attack):
     rtype:
     '''
 
-    cord = re.match('(?:(?P<letter>[A-J])(?P<num>[0-9)])$)|(?:(?P<num>[0-9])(?P<letter>[A-J)])$)', 
-                    attack.replace(' ', '').upper)
+    attack = attack.replace(' ', '').upper()
+
+    cord = re.match('(?P<letter>[A-J])(?P<num>[0-9)])$', attack) or re.match('(?P<num>[0-9])(?P<letter>[A-J)])$', attack)
     if cord:
         y = int(ord(cord.group('letter')) - 65)
         x = int(cord.group('num'))
