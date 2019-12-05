@@ -32,7 +32,7 @@ def pang(attack):
         return None
 
 
-gamestate = State.PLACESHIPS
+gamestate = State.MENU
 
 #placing ships state
 all_ships_placed = False
@@ -177,10 +177,10 @@ while True:
 
     elif gamestate == State.YOULOST:
         print()
-        color.print_color(r"""                                     __  __ ____   __  __   __   ____   ____ ______
-                                     \ \/ // __ \ / / / /  / /  / __ \ / __//_  __/
-                                      \  // /_/ // /_/ /  / /__/ /_/ /_\ \   / /   
-                                      /_/ \____/ \____/  /____/\____//___/  /_/    
+        color.print_color(r"""                                    __  __ ____   __  __   __   ____   ____ ______
+                                    \ \/ // __ \ / / / /  / /  / __ \ / __//_  __/
+                                     \  // /_/ // /_/ /  / /__/ /_/ /_\ \   / /   
+                                     /_/ \____/ \____/  /____/\____//___/  /_/    
                                                """, color.RED)
         print()
         print("-" *120)
@@ -208,10 +208,10 @@ while True:
 
     elif gamestate == State.YOUWON:
         print()
-        color.print_color(r"""                                     __  __ ____   __  __   _      __ ____   _  __
-                                     \ \/ // __ \ / / / /  | | /| / // __ \ / |/ /
-                                      \  // /_/ // /_/ /   | |/ |/ // /_/ //    / 
-                                      /_/ \____/ \____/    |__/|__/ \____//_/|_/  
+        color.print_color(r"""                                      __  __ ____   __  __   _      __ ____   _  __
+                                      \ \/ // __ \ / / / /  | | /| / // __ \ / |/ /
+                                       \  // /_/ // /_/ /   | |/ |/ // /_/ //    / 
+                                       /_/ \____/ \____/    |__/|__/ \____//_/|_/  
                                               """, color.GREEN)
         print()
         print("-" *120)
