@@ -1,60 +1,4 @@
-import os
-import sys
-import re
-
-os.system('color')
-
-def pang(attack):
-    hihi = {
-    'A' : 0,
-    'B' : 1,
-    'C' : 2,
-    'D' : 3,
-    'E' : 4,
-    'F' : 5,
-    'G' : 6,
-    'H' : 7,
-    'I' : 8,
-    'J' : 9
-}
-
-    attack = attack.replace(' ', '').upper
-
-    cord = re.match('(?P<letter>[A-J])(?P<num>[0-9)])$', attack) or re.match('(?P<num>[0-9])(?P<letter>[A-J)])$', attack)
-    if cord:
-        """
-        I have no idea?
-        It checks for a letter and a number?
-        
-        """
-        y = int(hihi.get(cord.group('letter')))
-        x = int(cord.group('num'))
-        return x, y
-    else:
-        return False
-
-
-class Color:
-    RESET = '\u001b[0m'
-    BLACK = '\u001b[30m'
-    RED = '\u001b[31m'
-    GREEN = '\u001b[32m'
-    YELLOW = '\u001b[33m'
-    BLUE = '\u001b[34m'
-    MAGENTA = '\u001b[35m'
-    CYAN = '\u001b[36m'
-    WHITE = '\u001b[37m'
-    LIGHTBLACK = '\u001b[30;1m'
-    LIGHTRED = '\u001b[31;1m'
-    LIGHTGREEN = '\u001b[32;1m'
-    LIGHTYELLOW = '\u001b[33;1m'
-    LIGHTBLUE = '\u001b[34;1m'
-    LIGHTMAGENTA = '\u001b[35;1m'
-    LIGHTCYAN = '\u001b[36;1m'
-    LIGHTWHITE = '\u001b[37;1m'
-
-    def print_color(string, color, end='\n'):
-        print(f'{color}{string}{Color.RESET}', end=end)
+import console_color as color
 
 
 class Ship:
@@ -85,19 +29,70 @@ class Ship:
 
 class Board:
     def __init__(self):
-        self.list = [[(' ', Color.WHITE, None)] * 10 for i in range(10)]
+        self.list = [[(' ', color.WHITE, None)] * 10 for i in range(10)]
         self.shots_fired = []
 
-    def place_ship(self, ship):
-        '''
 
-        param ship(tuple([int,int]), int, tuple([int,int])):'''
+    def place_ship(self, ship):
+        ''' 
+
+        param ship (Ship): the ship to place
+        returns: nothing
+        rtype: None '''
 
         for i in range(ship.length):
             x = ship.position[0] + i * ship.rotation[0]
             y = ship.position[1] + i * ship.rotation[1]
-            self.list[y][x] = ('O', Color.GREEN)
-    
+            self.list[y][x] = ('O', color.GREEN, ship)
+
+        prow = {
+            (1, 0) : '>',
+            (-1, 0) : '<',
+            (0, 1) : 'V',
+            (0, -1) : '^'}
+        x = ship.position[0] + ship.length * ship.rotation[0]
+        y = ship.position[1] + ship.length * ship.rotation[1]
+        self.list[y][x] = (prow[ship.rotation], color.GREEN, ship)
+
+
+    def shoot(self, shot_koord):
+        '''
+        param shot_koord (tuple[int,int]): (x, y)
+        return True or False
+        rtype: tuple[bool,Ship] '''
+        
+        #shots_fired checks if coordinate´s been used
+        if shot_koord in self.shots_fired:   
+            return False, None 
+        else:
+            koordinat =  self.list[shot_koord[1]][shot_koord[0]]
+            self.shots_fired.append(shot_koord)
+            if koordinat[2] == None:
+                self.list[shot_koord[1]][shot_koord[0]] = ('*', color.GREEN,  koordinat[2])
+                return True, None
+            else:
+                koordinat[2].get_hit()
+                self.list[shot_koord[1]][shot_koord[0]] = (koordinat[0], color.RED,  koordinat[2])
+                return True, koordinat[2]
+
+
+    def draw(self):
+        char = 'A'
+        #alphabet = "ABCDEFGHIJ"
+        print('  |', end='')
+        for j in range(len(self.list[0])):
+            color.print_color(char, color.BLUE, end='|')
+            char = Board._increment_char(char)
+        print()
+
+        for y in range(len(self.list)):
+            color.print_color(f'{y} ', color.BLUE, end='')
+            for x in range(len(self.list[y])):
+                color.print_color('|', color.WHITE, end='')
+                color.print_color(self.list[y][x][0], self.list[y][x][1], end='')
+      
+            color.print_color('|', color.WHITE)
+
 
     def can_place_ship(self, ship):
         '''
@@ -120,121 +115,7 @@ class Board:
         return True
 
 
-    def shoot(self, shot_koord):
-
-        '''
-        param shot_koord (tuple[int,int])
-        return True or False '''
-        
-
-        #shots_fired checks if coordinate´s been used
-        if shot_koord in self.shots_fired:   
-            return False, None 
-        else:
-            koordinat =  self.list[shot_koord[1]][shot_koord[0]]
-            self.shots_fired.append(shot_koord)
-            if koordinat[2] == None:
-                self.list[shot_koord[1]][shot_koord[0]] = ('*', Color.GREEN,  koordinat[2])
-                return True, None
-            else:
-                koordinat[2].get_hit()
-                self.list[shot_koord[1]][shot_koord[0]] = (koordinat[0], Color.RED,  koordinat[2])
-                return True, koordinat[2]
-
-
-    def draw(self):
-        for y in self.list:
-            for x in y:
-                Color.print_color(x[0], x[1], end='')
-                Color.print_color('|', Color.GREEN, end='')
-            print()
-
-state = "menu"
-#placing ships state
-all_ships_placed = False
-shipsAvailable = [2, 2, 2, 2, 3, 3, 3, 4, 4, 6]
-
-
-while True:
-    if state == "start":
-        player2 = Board()
-        player = Board()
-
-        player.place_ship(Ship((5, 2), 3, Ship.DOWN))
-        player.place_ship(Ship((0, 0), 4, Ship.RIGHT))
-        player.place_ship(Ship((9, 9), 6, Ship.UP))
-        player.draw()
-        break
-        
-
-    elif state == "menu":
-        Color.print_color(r"""                                 _      __      __                        ______        
-                                | | /| / /___  / /____ ___   __ _  ___   /_  __/___     
-                                | |/ |/ // -_)/ // __// _ \ /  ' \/ -_)   / /  / _ \    
-                                |__/|__/ \__//_/ \__/ \___//_/_/_/\__/   /_/   \___/    
-                                                         """, Color.WHITE)
-        Color.print_color(r"""     __  ___         __                  ____       __                         _      __            ___               
-    /  |/  /___  ___/ /___  ____ ___    / __/__ __ / /_ ____ ___  __ _  ___   | | /| / /___ _ ____ / _/___ _ ____ ___ 
-   / /|_/ // _ \/ _  // -_)/ __// _ \  / _/  \ \ // __// __// -_)/  ' \/ -_)  | |/ |/ // _ `// __// _// _ `// __// -_)
-  /_/  /_/ \___/\_,_/ \__//_/  /_//_/ /___/ /_\_\ \__//_/   \__//_/_/_/\__/   |__/|__/ \_,_//_/  /_/  \_,_//_/   \__/ 
-                                                                                                                    """, Color.GREEN)
-        print("-" *120)
-        print()
-        print()
-        print()
-        print()
-        print('1. Start'.center(120))
-        print()
-        print('2. Quit'.center(120))
-        choice = input()
-        
-        if choice == '1':
-            state = 'start'
-            os.system('cls')
-
-        elif choice == '2':
-            break
-        else:
-            os.system('cls')
-    elif state == 'placeships':
-        while not all_ships_placed:
-            for ship in range(len(shipsAvailable)):
-                os.system('cls')
-                print('Place your ships onto the battlefield.')
-                player.draw()
-                counter = 0
-                for i in shipsAvailable:
-                    counter += 1
-                    print(counter,".",i*"O")
-                print(f'Placing a ship with length {shipsAvailable[0]}.')
-                shipLength = shipsAvailable[0]
-                shipFirstPos = input('Set start coordinate(x,y(0-9)): ')
-                #place function that converts user input to coordinate tuple here, pang()
-                while True:
-                    shipDirection = input('Set direction(LEFT, RIGHT, UP, DOWN)')
-                    if shipDirection.upper() == 'LEFT': 
-                        dir = Ship.LEFT 
-                        break
-                    elif shipDirection.upper() == 'RIGHT': 
-                        dir = Ship.RIGHT 
-                        break
-                    elif shipDirection.upper() == 'UP': 
-                        dir = Ship.UP
-                        break
-                    elif shipDirection.upper() == 'DOWN': 
-                        dir = Ship.DOWN
-                        break
-                    else: continue
-                x = int(shipFirstPos[0])
-                y = int(shipFirstPos[1])
-        
-                #Check if its ok to place the boat
-                if player.can_place_ship(Ship((x, y), shipLength, dir)) == True:
-                    player.place_ship(Ship((x, y), shipLength, dir))
-                    del shipsAvailable[0]
-
-                if len(shipsAvailable) < 1:
-                    all_ships_placed = True
-                    os.system('cls')
-                    player.draw()
-        
+    def _increment_char(char): #skicka in en karaktär
+        char = ord(char)
+        char += 1
+        return chr(char)
