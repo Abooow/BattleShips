@@ -50,8 +50,8 @@ class Board:
             (-1, 0) : '<',
             (0, 1) : 'V',
             (0, -1) : '^'}
-        x = ship.position[0] + ship.length * ship.rotation[0]
-        y = ship.position[1] + ship.length * ship.rotation[1]
+        x = ship.position[0] + (ship.length - 1) * ship.rotation[0]
+        y = ship.position[1] + (ship.length - 1) * ship.rotation[1]
         self.list[y][x] = (prow[ship.rotation], color.GREEN, ship)
 
 

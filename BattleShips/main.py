@@ -85,9 +85,6 @@ while True:
                     print(f'{counter}) {i*"O"}')
                 print(f'Placing a ship with length {shipsAvailable[0]}.')
                 shipLength = shipsAvailable[0]
-                shipFirstPos = input('Set start coordinate(x,y(0-9)): ')
-                print(f'Placing a ship with length {shipsAvailable[0]}.')
-                shipLength = shipsAvailable[0]
                 validCord = False
                 while validCord == False:
                     shipFirstPos = input('Set start coordinate(x,y(0-9)): ')
