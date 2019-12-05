@@ -39,7 +39,7 @@ all_ships_placed = False
 shipsAvailable = [2, 2, 2, 2, 3, 3, 3, 4, 4, 6]
 
 
-player2 = battleships.Board()
+player2 = battleships.AI()
 player = battleships.Board()
 
 
@@ -119,5 +119,6 @@ while True:
                     all_ships_placed = True
                     os.system('cls')
                     player.draw()
+                    player2.place_ship()
                     gamestate = State.YOUPLAYING
         
