@@ -175,6 +175,9 @@ class AI:
 
     def shoot(self):
         #param shot_koord (tuple[int,int]): (x, y)
-        xpos = random.randint(0,9)
-        ypos = random.randint(0,9)
-        self.board.shoot((xpos, ypos))
+        while True:
+            xpos = random.randint(0,9)
+            ypos = random.randint(0,9)
+            shot = self.board.shoot((xpos, ypos))
+            if shot[0]:
+                return shot
