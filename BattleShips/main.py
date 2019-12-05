@@ -29,7 +29,7 @@ def pang(attack):
         x = int(cord.group('num'))
         return x, y
     else:
-        return False
+        return None
 
 
 gamestate = State.MENU
@@ -82,7 +82,7 @@ while True:
                 counter = 0
                 for i in shipsAvailable:
                     counter += 1
-                    print(counter,".",i*"O")
+                    print(f'{counter}) {i*"O"}')
                 print(f'Placing a ship with length {shipsAvailable[0]}.')
                 shipLength = shipsAvailable[0]
                 shipFirstPos = input('Set start coordinate(x,y(0-9)): ')

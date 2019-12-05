@@ -94,6 +94,31 @@ class Board:
             color.print_color('|', color.WHITE)
 
 
+    def draw_anonymously(self):
+        ''' Draws the board with the ships
+        '''
+
+        char = 'A'
+        print('  |', end='')
+        for j in range(len(self.list[0])):
+            color.print_color(char, color.BLUE, end='|')
+            char = Board._increment_char(char)
+        print()
+
+        # Board
+        for y in range(len(self.list)):
+            color.print_color(f'{y} ', color.BLUE, end='')
+            for x in range(len(self.list[y])):
+                cell = self.list[y][x]
+                if cell[2] != None and (x, y) in self.shots_fired:
+                    color.print_color('■', cell[1], end='|')
+                elif (x, y) in self.shots:
+                    color.print_color(cell[0], cell[1], end='|')
+                else:
+                    color.print_color(' ', cell[1], end='|')
+            print()
+
+
     def can_place_ship(self, ship):
         '''
 
