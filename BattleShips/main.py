@@ -146,6 +146,7 @@ while True:
                 else:
                     print('Miss!')
                 input()
+                gamestate = State.ENEMYPLAYING
                 os.system('cls')
             else:
                 print("can't shoot at the same place twice!")
