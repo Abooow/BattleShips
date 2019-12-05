@@ -25,8 +25,8 @@ def pang(attack):
 
     cord = re.match('(?P<letter>[A-J])(?P<num>[0-9)])$', attack) or re.match('(?P<num>[0-9])(?P<letter>[A-J)])$', attack)
     if cord:
-        y = int(ord(cord.group('letter')) - 65)
-        x = int(cord.group('num'))
+        x = int(ord(cord.group('letter')) - 65)
+        y = int(cord.group('num'))
         return x, y
     else:
         return None
@@ -86,7 +86,17 @@ while True:
                 print(f'Placing a ship with length {shipsAvailable[0]}.')
                 shipLength = shipsAvailable[0]
                 shipFirstPos = input('Set start coordinate(x,y(0-9)): ')
-                #place function that converts user input to coordinate tuple here, pang()
+                print(f'Placing a ship with length {shipsAvailable[0]}.')
+                shipLength = shipsAvailable[0]
+                validCord = False
+                while validCord == False:
+                    shipFirstPos = input('Set start coordinate(x,y(0-9)): ')
+                    pangCord = pang(shipFirstPos)
+                    if pangCord != None: 
+                       x = pangCord[0]
+                       y = pangCord[1]
+                       validCord = True
+
                 while True:
                     shipDirection = input('Set direction(LEFT, RIGHT, UP, DOWN)')
                     if shipDirection.upper() == 'LEFT': 
@@ -102,9 +112,7 @@ while True:
                         dir = battleships.Ship.DOWN
                         break
                     else: continue
-                x = int(shipFirstPos[0])
-                y = int(shipFirstPos[1])
-        
+
                 #Check if its ok to place the boat
                 if player.can_place_ship(battleships.Ship((x, y), shipLength, dir)):
                     player.place_ship(battleships.Ship((x, y), shipLength, dir))
