@@ -45,7 +45,7 @@ class Board:
         for i in range(ship.length):
             x = ship.position[0] + i * ship.rotation[0]
             y = ship.position[1] + i * ship.rotation[1]
-            self.list[y][x] = ('O', color.GREEN, ship)
+            self.list[y][x] = ('■', color.GREEN, ship)
 
         prow = {
             (1, 0) : '>',
@@ -139,9 +139,9 @@ class Board:
         if (ship.position[0] < 0 or ship.position[0] > len(self.list) or 
             ship.position[1] < 0 or ship.position[1] > len(self.list) or
             ship.rotation[0]*ship.length+ship.position[0] > len(self.list) or 
-            ship.rotation[0]*ship.length+ship.position[0] < 0 or 
+            ship.rotation[0]*(ship.length - 1)+ship.position[0] < 0 or 
             ship.rotation[1]*ship.length+ship.position[1] > len(self.list) or 
-            ship.rotation[1]*ship.length+ship.position[1] < 0):
+            ship.rotation[1]*(ship.length - 1)+ship.position[1] < 0):
             return False
         for i in range(ship.length):
             x = ship.position[0] + i * ship.rotation[0]
