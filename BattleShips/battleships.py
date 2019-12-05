@@ -31,6 +31,7 @@ class Board:
     def __init__(self):
         self.list = [[(' ', color.WHITE, None)] * 10 for i in range(10)]
         self.shots_fired = []
+        self.ships = []
 
 
     def place_ship(self, ship):
@@ -54,6 +55,8 @@ class Board:
         y = ship.position[1] + (ship.length - 1) * ship.rotation[1]
         self.list[y][x] = (prow[ship.rotation], color.GREEN, ship)
 
+        self.ships.append(ship)
+
 
     def shoot(self, shot_koord):
         '''
@@ -67,12 +70,16 @@ class Board:
         else:
             koordinat =  self.list[shot_koord[1]][shot_koord[0]]
             self.shots_fired.append(shot_koord)
+            # successful shot but missed a boat
             if koordinat[2] == None:
                 self.list[shot_koord[1]][shot_koord[0]] = ('*', color.GREEN,  koordinat[2])
                 return True, None
+            # successful shot and hit a boat
             else:
                 koordinat[2].get_hit()
                 self.list[shot_koord[1]][shot_koord[0]] = (koordinat[0], color.RED,  koordinat[2])
+                if koordinat[2].health <= 0:
+                    self.ships.remove(koordinat[2])
                 return True, koordinat[2]
 
 
@@ -111,12 +118,15 @@ class Board:
             for x in range(len(self.list[y])):
                 cell = self.list[y][x]
                 if cell[2] != None and (x, y) in self.shots_fired:
-                    color.print_color('■', cell[1], end='|')
-                elif (x, y) in self.shots:
-                    color.print_color(cell[0], cell[1], end='|')
+                    color.print_color('|', color.WHITE, end='')
+                    color.print_color('■', cell[1], end='')
+                elif (x, y) in self.shots_fired:
+                    color.print_color('|', color.WHITE, end='')
+                    color.print_color(cell[0], cell[1], end='')
                 else:
-                    color.print_color(' ', cell[1], end='|')
-            print()
+                    color.print_color('|', color.WHITE, end='')
+                    color.print_color(' ', cell[1], end='')
+            color.print_color('|', color.WHITE)
 
 
     def can_place_ship(self, ship):

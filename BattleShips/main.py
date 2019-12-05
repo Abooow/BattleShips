@@ -32,7 +32,7 @@ def pang(attack):
         return None
 
 
-gamestate = State.MENU
+gamestate = State.YOUPLAYING
 
 #placing ships state
 all_ships_placed = False
@@ -42,6 +42,8 @@ shipsAvailable = [2, 2, 2, 2, 3, 3, 3, 4, 4, 6]
 player2 = battleships.Board()
 player = battleships.Board()
 
+player.place_ship(battleships.Ship((6, 4), 5, (0, -1)))
+player2.place_ship(battleships.Ship((3, 3), 4, (1, 0)))
 
 while True:
     if gamestate == State.MENU:
@@ -72,7 +74,6 @@ while True:
             break
         else:
             os.system('cls')
-
     elif gamestate == State.PLACESHIPS:
         while not all_ships_placed:
             for ship in range(len(shipsAvailable)):
@@ -120,4 +121,35 @@ while True:
                     os.system('cls')
                     player.draw()
                     gamestate = State.YOUPLAYING
-        
+    elif gamestate == State.YOUPLAYING:
+        print('Enemy'.center(22))
+        player2.draw_anonymously()
+        print()
+        print('You'.center(22))
+        player.draw()
+
+        coordinate = pang(input('Select a coordinate to shoot at: '))
+        if coordinate != None:
+            shot = player2.shoot(coordinate)
+            if shot[0]:
+                if shot[1] != None:
+                    print('Hit!')
+                    if shot[1].health <= 0:
+                        print('You sunk a ship!')
+                        if len(player2.ships) == 0:
+                            print('You sunk all the ships!!!')
+                            input()
+                            gamestate = State.YOUWON
+                            os.system('cls')
+                            continue
+                else:
+                    print('Miss!')
+                input()
+                os.system('cls')
+            else:
+                print("can't shoot at the same place twice!")
+                input()
+                os.system('cls')
+        else:
+            os.system('cls')
+            continue
