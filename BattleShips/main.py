@@ -32,7 +32,7 @@ def pang(attack):
         return None
 
 
-gamestate = State.PLACESHIPS
+gamestate = State.MENU
 
 #placing ships state
 all_ships_placed = False
