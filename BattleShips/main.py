@@ -119,4 +119,5 @@ while True:
                     all_ships_placed = True
                     os.system('cls')
                     player.draw()
+                    gamestate = State.YOUPLAYING
         
