@@ -87,7 +87,7 @@ while True:
                 shipLength = shipsAvailable[0]
                 validCord = False
                 while validCord == False:
-                    shipFirstPos = input('Set start coordinate(x,y(0-9)): ')
+                    shipFirstPos = input('Set start coordinate: ')
                     pangCord = pang(shipFirstPos)
                     if pangCord != None: 
                        x = pangCord[0]
@@ -121,3 +121,60 @@ while True:
                     player.draw()
                     gamestate = State.YOUPLAYING
         
+    elif gamestate == State.YOULOST:
+        print()
+        color.print_color(r"""                                     __  __ ____   __  __   __   ____   ____ ______
+                                     \ \/ // __ \ / / / /  / /  / __ \ / __//_  __/
+                                      \  // /_/ // /_/ /  / /__/ /_/ /_\ \   / /   
+                                      /_/ \____/ \____/  /____/\____//___/  /_/    
+                                               """, color.RED)
+        print()
+        print("-" *120)
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print('1. Restart'.center(120))
+        print()
+        print('2. Main Menu'.center(120))
+        choice = input()
+
+        if choice == '1':
+            gamestate = State.PLACESHIPS
+            os.system('cls')
+        elif choice == '2':
+            gamestate = State.MENU
+            os.system('cls')
+        else:
+            os.system('cls')
+
+    elif gamestate == State.YOUWON:
+        print()
+        color.print_color(r"""                                     __  __ ____   __  __   _      __ ____   _  __
+                                     \ \/ // __ \ / / / /  | | /| / // __ \ / |/ /
+                                      \  // /_/ // /_/ /   | |/ |/ // /_/ //    / 
+                                      /_/ \____/ \____/    |__/|__/ \____//_/|_/  
+                                              """, color.GREEN)
+        print()
+        print("-" *120)
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print('1. Restart'.center(120))
+        print()
+        print('2. Main Menu'.center(120))
+        choice = input()
+
+        if choice == '1':
+            gamestate = State.PLACESHIPS
+            os.system('cls')
+        elif choice == '2':
+            gamestate = State.MENU
+            os.system('cls')
+        else:
+            os.system('cls')
