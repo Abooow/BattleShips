@@ -1,5 +1,6 @@
 import console_color as color
 import random
+import pygame
 
 
 class Ship:
@@ -33,7 +34,6 @@ class Board:
         self.list = [[(' ', color.WHITE, None)] * 10 for i in range(10)]
         self.shots_fired = []
         self.ships = []
-
 
     def place_ship(self, ship):
         ''' 
@@ -191,3 +191,22 @@ class AI:
             shot = enemy.shoot((xpos, ypos))
             if shot[0]:
                 return shot
+
+
+class Cell:
+        #Board håller koll på Cellens position
+        #Board lägger in info i cell om båtar och träffar
+        #innehåller båt?
+        #träffad?
+    def __init__(self):
+        '''
+        
+        '''
+        self.contains = []
+        self.hit = []
+
+    def update(self):
+        pygame.display.update()
+
+    def draw(self):
+        pass
