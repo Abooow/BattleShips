@@ -32,13 +32,13 @@ screen.fill(background_colour)
 
 
 
-clip = mp.VideoFileClip(r"C:\Users\stefa\Pictures\puff.mp4")
+clip = mp.VideoFileClip(r"content\puff.mp4")
 clip_resized = clip.resize(width=1000)
 clip_resized.preview()
 
 screen = pygame.display.set_mode((x,y))
 
-start = pygame.image.load(r'C:\Users\stefa\Downloads\Menu_test4.png')
+start = pygame.image.load(r'content\Menu_test4.png')
 start = pygame.transform.scale(start, (1000, 800))
 screen.blit(start, (0, -145))
 
@@ -58,17 +58,17 @@ while not done:
     if gamestate == State.PLACESHIPS:
         background_colour = (0, 0, 0)
         screen.fill(background_colour)
-        start = pygame.image.load(r'C:\Users\stefa\Downloads\water_texture.png')
+        start = pygame.image.load(r'content\water_texture.png')
         start = pygame.transform.scale(start, (500, 800))
         screen.blit(start, (250, 0))
-        grid = pygame.image.load(r'C:\Users\stefa\Downloads\a1.png')
+        grid = pygame.image.load(r'content\a1.png')
         grid = pygame.transform.scale(grid, (640, 350))
         screen.blit(grid, (190, -30))
-        grid_2 = pygame.image.load(r'C:\Users\stefa\Downloads\a1.png')
+        grid_2 = pygame.image.load(r'content\a1.png')
         grid_2 = pygame.transform.scale(grid_2, (640, 350))
         screen.blit(grid, (190, 330))
         #screen.fill(background_colour)
-        skepp = pygame.image.load(r'C:\Users\stefa\Downloads\shipz\images\ship_large_body.png')
+        skepp = pygame.image.load(r'content\ship_large_body.png')
         skepp = pygame.transform.scale(skepp, (60, 150))
         skepp = pygame.transform.rotate(skepp, 270)
         screen.blit(skepp, (10, 50))
