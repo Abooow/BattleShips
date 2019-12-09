@@ -2,7 +2,10 @@ import re
 import os
 import battleships
 import console_color as color
-
+import pygame
+from pygame.locals import *
+from moviepy.editor import VideoFileClip
+from moviepy.video.fx.resize import resize
 
 class State:
     MENU = 0,
@@ -11,6 +14,63 @@ class State:
     ENEMYPLAYING = 3,
     YOUWON = 4,
     YOULOST = 5
+
+
+
+pygame.init()
+x = 1000
+y = 655
+
+screen = pygame.display.set_mode((x,y),RESIZABLE)
+
+
+
+pygame.display.set_caption('Sink a skipp')
+background_colour = (255,255,255)
+screen.fill(background_colour)
+
+clip = VideoFileClip(r'C:\Users\stefa\Pictures\puff.mp4', resize((x,y)))
+clip.preview()
+
+start = pygame.image.load(r'C:\Users\stefa\Downloads\Menu_test4.png')
+start = pygame.transform.scale(start, (1000, 800))
+screen.blit(start, (0, -145))
+
+
+done = False
+gamestate = State.MENU
+while not done:
+    mx, my = pygame.mouse.get_pos()
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            done = True
+        if event.type == MOUSEBUTTONDOWN and 300 <= mx <= 700 and 244 <= my <= 312:
+            print('jippie')
+            gamestate = State.PLACESHIPS
+    pygame.display.flip()
+    if gamestate == State.PLACESHIPS:
+        background_colour = (0, 0, 0)
+        screen.fill(background_colour)
+        start = pygame.image.load(r'C:\Users\stefa\Downloads\water_texture.png')
+        start = pygame.transform.scale(start, (500, 800))
+        screen.blit(start, (250, 0))
+        grid = pygame.image.load(r'C:\Users\stefa\Downloads\a1.png')
+        grid = pygame.transform.scale(grid, (640, 350))
+        screen.blit(grid, (190, -30))
+        grid_2 = pygame.image.load(r'C:\Users\stefa\Downloads\a1.png')
+        grid_2 = pygame.transform.scale(grid_2, (640, 350))
+        screen.blit(grid, (190, 330))
+        screen.fill(background_colour)
+        skepp = pygame.image.load(r'C:\Users\stefa\Downloads\shipz\images\ship_large_body.png')
+        skepp = pygame.transform.scale(skepp, (x, y))
+        skepp = pygame.transform.rotate(skepp, 270)
+        screen.blit(skepp, (10, 50))
+        pygame.display.update()
+
+
+
+
 
 
 def pang(attack):
@@ -32,7 +92,7 @@ def pang(attack):
         return None
 
 
-gamestate = State.MENU
+
 
 #placing ships state
 all_ships_placed = False
