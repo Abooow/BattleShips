@@ -6,6 +6,7 @@ import pygame
 from pygame.locals import *
 from moviepy.editor import VideoFileClip
 from moviepy.video.fx.resize import resize
+import moviepy.editor as mp
 
 class State:
     MENU = 0,
@@ -21,7 +22,7 @@ pygame.init()
 x = 1000
 y = 655
 
-screen = pygame.display.set_mode((x,y),RESIZABLE)
+screen = pygame.display.set_mode((x,y))
 
 
 
@@ -29,8 +30,13 @@ pygame.display.set_caption('Sink a skipp')
 background_colour = (255,255,255)
 screen.fill(background_colour)
 
-clip = VideoFileClip(r'C:\Users\stefa\Pictures\puff.mp4', resize((x,y)))
-clip.preview()
+
+
+clip = mp.VideoFileClip(r"C:\Users\stefa\Pictures\puff.mp4")
+clip_resized = clip.resize(width=1000)
+clip_resized.preview()
+
+screen = pygame.display.set_mode((x,y))
 
 start = pygame.image.load(r'C:\Users\stefa\Downloads\Menu_test4.png')
 start = pygame.transform.scale(start, (1000, 800))
@@ -61,12 +67,11 @@ while not done:
         grid_2 = pygame.image.load(r'C:\Users\stefa\Downloads\a1.png')
         grid_2 = pygame.transform.scale(grid_2, (640, 350))
         screen.blit(grid, (190, 330))
-        screen.fill(background_colour)
+        #screen.fill(background_colour)
         skepp = pygame.image.load(r'C:\Users\stefa\Downloads\shipz\images\ship_large_body.png')
-        skepp = pygame.transform.scale(skepp, (x, y))
+        skepp = pygame.transform.scale(skepp, (60, 150))
         skepp = pygame.transform.rotate(skepp, 270)
         screen.blit(skepp, (10, 50))
-        pygame.display.update()
 
 
 
