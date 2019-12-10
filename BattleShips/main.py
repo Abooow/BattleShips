@@ -35,7 +35,7 @@ screen.fill(background_colour)
 
 clip = mp.VideoFileClip(r"content\puff.mp4")
 clip_resized = clip.resize(width=1000)
-clip_resized = clip_resized.volumex(0)
+#clip_resized = clip_resized.volumex(0)
 clip_resized.preview()
 
 screen = pygame.display.set_mode((x,y))
