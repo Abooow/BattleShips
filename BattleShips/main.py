@@ -7,6 +7,8 @@ from pygame.locals import *
 from moviepy.editor import VideoFileClip
 from moviepy.video.fx.resize import resize
 import moviepy.editor as mp
+import time
+from pygame import freetype
 
 class State:
     MENU = 0,
@@ -27,16 +29,17 @@ screen = pygame.display.set_mode((x,y))
 
 
 pygame.display.set_caption('Sink a skipp')
-background_colour = (255,255,255)
+background_colour = (0,0,0)
 screen.fill(background_colour)
-
 
 
 clip = mp.VideoFileClip(r"content\puff.mp4")
 clip_resized = clip.resize(width=1000)
+clip_resized = clip_resized.volumex(0)
 clip_resized.preview()
 
 screen = pygame.display.set_mode((x,y))
+
 
 start = pygame.image.load(r'content\Menu_test4.png')
 start = pygame.transform.scale(start, (1000, 800))
