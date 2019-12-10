@@ -8,7 +8,7 @@ class Screen():
     '''
 
     def __init__(self):
-        pass
+        self.load_content()
 
 
     def load_content(self):
