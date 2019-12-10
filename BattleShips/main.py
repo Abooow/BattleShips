@@ -1,16 +1,35 @@
+# The main file for the program
+
+from screens import menu_screen
 import pygame
 import battleships
-import screens
+import config
+
+# Initialize the game window
+pygame.init()
+window = pygame.display.set_mode((config.SCREEN_WIDTH, config.SCREEN_HEIGHT))
+pygame.display.set_caption('BattleShips')
 
 
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 480
+# Sets the current screen to MenuScreen
+config.current_screen = menu_screen.MenuScreen()
 
 
-exit = False
-current_screen = screens.MenuScreen()
+clock = pygame.time.Clock()
 
-while not exit:
-        current_screen.update()
+# ---------------------- GameLoop ----------------------------------------
+while not config.quit_game:
+    # den här filen är typ klar, inget mer behövs skrivas i den här filen.
 
-        current_screen.draw()
+
+    # --------------------UPDATE--------------------
+    config.current_screen.update(clock.get_time())
+
+    # ---------------------DRAW---------------------
+    config.current_screen.draw()
+    pygame.display.update()
+
+    # FPS
+    clock.tick(60)
+
+pygame.quit()
