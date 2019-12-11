@@ -1,6 +1,6 @@
 # The main file for the program
 
-from screens import menu_screen
+from screens import place_ships_screen
 import pygame
 from framework import ai
 import config
@@ -12,7 +12,7 @@ pygame.display.set_caption('BattleShips')
 
 
 # Sets the current screen to MenuScreen
-config.current_screen = menu_screen.MenuScreen()
+config.current_screen = place_ships_screen.PlaceShipScreen()
 
 
 clock = pygame.time.Clock()
@@ -26,7 +26,11 @@ while not config.quit_game:
     config.current_screen.update(clock.get_time())
 
     # ---------------------DRAW---------------------
+<<<<<<< HEAD
     config.window.fill((255, 255, 255))
+=======
+    config.window.fill((0, 0, 0))
+>>>>>>> b71b0d311b2def795e55c1a11afeed4ea393c46a
     config.current_screen.draw()
     pygame.display.update()
 
