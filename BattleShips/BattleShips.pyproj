@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>0b9a96f5-b226-4ac0-b919-8687291c7825</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>pic_module.py</StartupFile>
+    <StartupFile>main.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>

@@ -6,17 +6,28 @@ import config
 import pic_module
 
 from screens.screen import Screen
+from framework.board import Board
+from framework.ship import Ship
 
 
 class PlaceShipScreen(Screen):
+    _shipRotation_to_deg = {
+            (1, 0) : 270,
+            (-1, 0) : 90,
+            (0, 1) : 180,
+            (0, -1) : 0}
+
+
     def __init__(self):
-        self.rotation = 0
+        self.board = Board()
+        self.ship_rotation = (-1, 0)
+        self.ship_length = 5
 
         super().__init__()
 
 
     def load_content(self):
-        self.image = pygame.image.load('content/sprites/boat_parts/boat_bottom.png')
+        self.image = pic_module.boat_bottom
         self.org_img = self.image
 
         super().load_content()
@@ -28,21 +39,45 @@ class PlaceShipScreen(Screen):
         for event in events:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
-                    self.rotation = 90
-                    self.image = pygame.transform.rotate(self.org_img, self.rotation)
+                    self.ship_rotation = (-1, 0)
                 if event.key == pygame.K_RIGHT:
-                    self.rotation = 270
-                    self.image = pygame.transform.rotate(self.org_img, self.rotation)
+                    self.ship_rotation = (1, 0)
                 if event.key == pygame.K_UP:
-                    self.rotation = 0
-                    self.image = pygame.transform.rotate(self.org_img, self.rotation)
+                    self.ship_rotation = (0, -1)
                 if event.key == pygame.K_DOWN:
-                    self.rotation = 180
-                    self.image = pygame.transform.rotate(self.org_img, self.rotation)
-
+                    self.ship_rotation = (0, 1)
+                if event.key == pygame.K_1:
+                    self.ship_length -= 1
+                if event.key == pygame.K_2:
+                    self.ship_length += 1
 
 
     def draw(self):
-        config.window.blit(self.image, pygame.mouse.get_pos())
+        self.board.draw((100, 100))
+        self._draw_ship()
 
         super().draw()
+
+    
+    def _draw_ship(self):
+        # draw toppart
+        pic = pygame.transform.rotate(pic_module.boat_top, PlaceShipScreen._shipRotation_to_deg[self.ship_rotation])
+        x, y = pygame.mouse.get_pos()
+        x += self.ship_rotation[0] * (self.ship_length - 1) * 50 - 25
+        y += self.ship_rotation[1] * (self.ship_length - 1) * 50 - 25
+        config.window.blit(pic, (x,y))
+
+        # draw midpart
+        pic = pygame.transform.rotate(pic_module.boat_middle, PlaceShipScreen._shipRotation_to_deg[self.ship_rotation])
+        for i in range(1, self.ship_length - 1):
+            x, y = pygame.mouse.get_pos()
+            x += self.ship_rotation[0] * i * 50 - 25
+            y += self.ship_rotation[1] * i * 50 - 25
+            config.window.blit(pic, (x,y))
+
+        # draw bottompart
+        pic = pygame.transform.rotate(pic_module.boat_bottom, PlaceShipScreen._shipRotation_to_deg[self.ship_rotation])
+        x, y = pygame.mouse.get_pos()
+        x += -25
+        y += -25
+        config.window.blit(pic, (x,y))

@@ -28,7 +28,7 @@ class Cell:
         y = position[1]
 
         # draw cell boarder img 50x50
-        config.window.blit(Cell.cellImg, (x,y))
+        config.window.blit(pic_module.board_cell, (x,y))
 
         # draw ship img
         if self.ship != None: 
@@ -45,7 +45,7 @@ class Cell:
         y = position[1]
 
         # draw cell boarder img 50x50
-        config.window.blit(cellImg, (x,y))
+        config.window.blit(pic_module.board_cell, (x,y))
 
         # draw hitmarker after shot
         if self.hit == True and self.ship != None: 

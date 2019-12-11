@@ -2,8 +2,8 @@
 
 import pygame
 import config
+import pic_module
 
-from framework import ai
 from screens import place_ships_screen
 
 
@@ -11,6 +11,9 @@ from screens import place_ships_screen
 pygame.init()
 config.window = pygame.display.set_mode((config.SCREEN_WIDTH, config.SCREEN_HEIGHT))
 pygame.display.set_caption('BattleShips')
+
+# Initialize content
+pic_module.init()
 
 
 # Sets the current screen to MenuScreen
