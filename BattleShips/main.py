@@ -26,11 +26,7 @@ while not config.quit_game:
     config.current_screen.update(clock.get_time())
 
     # ---------------------DRAW---------------------
-<<<<<<< HEAD
     config.window.fill((255, 255, 255))
-=======
-    config.window.fill((0, 0, 0))
->>>>>>> b71b0d311b2def795e55c1a11afeed4ea393c46a
     config.current_screen.draw()
     pygame.display.update()
 
