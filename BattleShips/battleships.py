@@ -202,3 +202,4 @@ class AI:
             shot = enemy.shoot((xpos, ypos))
             if shot[0]:
                 return shot
+
