@@ -16,6 +16,8 @@ class MenuScreen(Screen):
 
     def load_content(self):
         super().load_content()
+        pygame.mixer.music.load(r'content\heli_sound.mp3')
+        pygame.mixer.music.play(0)
         clip = mp.VideoFileClip(r"content\puff.mp4")
         clip_resized = clip.resize(width=1024)
         clip_resized = clip_resized.volumex(0)
@@ -52,8 +54,8 @@ class MenuScreen(Screen):
     def draw(self):
         super().draw()
         config.window.blit(self.game_name, (10, 0))
-        config.window.blit(self.start, (458, 300))
-        config.window.blit(self.quit, (455, 350))
+        config.window.blit(self.start, (448, 300))
+        config.window.blit(self.quit, (445, 350))
         config.window.blit(self.boat_1, (-400, 200))
         config.window.blit(self.boat_2, (320, 260))
         config.window.blit(self.chopper, (1000-self.x, 0-self.y))
