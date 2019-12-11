@@ -23,6 +23,7 @@ class Cell:
         param rotation tuple([int,int]):
         param part string(bottom/middle/top):
         returns None'''
+        position = (5,5)
 
         x = position[0]
         y = position[1]

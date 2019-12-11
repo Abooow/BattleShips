@@ -2,7 +2,7 @@
 
 from screens import menu_screen
 import pygame
-import battleships
+from frameworks import ai
 import config
 
 # Initialize the game window
