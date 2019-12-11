@@ -8,6 +8,8 @@ import config
 
 # Initialize the game window
 pygame.init()
+a = pygame.image.load(r'content\cartman.png')
+pygame.display.set_icon(a)
 config.window = pygame.display.set_mode((config.SCREEN_WIDTH, config.SCREEN_HEIGHT))
 pygame.display.set_caption('BattleShips')
 
