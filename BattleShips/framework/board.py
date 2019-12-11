@@ -29,17 +29,17 @@ class Board:
         for i in range(ship.length):
             x = ship.position[0] + i * ship.rotation[0]
             y = ship.position[1] + i * ship.rotation[1]
-            self.list[y][x] = Cell(Board.midImg, rotation[ship.rotation], ship)
+            self.list[y][x] = Cell(pic_module.boat_middle, rotation[ship.rotation], ship)
 
         # front
         x = ship.position[0] + (ship.length - 1) * ship.rotation[0]
         y = ship.position[1] + (ship.length - 1) * ship.rotation[1]
-        self.list[y][x] = Cell(Board.topImg, rotation[ship.rotation], ship)
+        self.list[y][x] = Cell(pic_module.boat_top, rotation[ship.rotation], ship)
 
         # back
         x = ship.position[0]
         y = ship.position[1]
-        self.list[y][x] = Cell(Board.botImg, rotation[ship.rotation], ship)
+        self.list[y][x] = Cell(pic_module.boat_bottom, rotation[ship.rotation], ship)
 
         self.ships.append(ship)
 
@@ -103,6 +103,6 @@ class Board:
         for i in range(ship.length):
             x = ship.position[0] + i * ship.rotation[0]
             y = ship.position[1] + i * ship.rotation[1]
-            if self.list[y][x][2] != None:
+            if self.list[y][x].ship != None:
                 return False
         return True

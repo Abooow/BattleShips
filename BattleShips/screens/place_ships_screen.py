@@ -37,6 +37,9 @@ class PlaceShipScreen(Screen):
         events = super().update(delta_time)
 
         for event in events:
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                self.__place_ship()
+
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
                     self.ship_rotation = (-1, 0)
@@ -58,7 +61,15 @@ class PlaceShipScreen(Screen):
 
         super().draw()
 
-    
+
+    def __place_ship(self):
+        mouse = pygame.mouse.get_pos()
+        cell = ((mouse[0] - 100) // 50, (mouse[1] - 100) // 50)
+        ship = Ship(cell, self.ship_length, self.ship_rotation)
+        if self.board.can_place_ship(ship):
+            self.board.place_ship(ship)
+
+
     def _draw_ship(self):
         # draw toppart
         pic = pygame.transform.rotate(pic_module.boat_top, PlaceShipScreen._shipRotation_to_deg[self.ship_rotation])
