@@ -1,10 +1,9 @@
 # The screen for the main menu,
 # everything that have to do with Menu state should be in in here
 
-
+from framework.ship import Ship
 from screens.screen import Screen
 from framework.board import Board
-from framework.ship import Ship
 
 
 class MenuScreen(Screen):

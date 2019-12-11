@@ -26,9 +26,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="main.py" />
-    <Compile Include="console_color.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="screens\menu_screen.py">
       <SubType>Code</SubType>
     </Compile>

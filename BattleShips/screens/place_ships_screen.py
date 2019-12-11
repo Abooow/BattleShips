@@ -3,6 +3,8 @@
 
 import pygame
 import config
+import pic_module
+
 from screens.screen import Screen
 
 

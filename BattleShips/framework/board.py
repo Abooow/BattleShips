@@ -1,16 +1,17 @@
-from framework.cell import Cell
+
 import pygame
 import config
+import pic_module
+
+from framework.cell import Cell
+
 
 class Board:
-    botImg = pygame.image.load(r'content\sprites\boat_bottom.png')
-    midImg = pygame.image.load(r'content\sprites\boat_middle.png')
-    topImg = pygame.image.load(r'content\sprites\boat_top.png')
-
     def __init__(self):
         self.list = [[Cell()] * 10 for i in range(10)]
         self.shots_fired = []
         self.ships = []
+
 
     def place_ship(self, ship):
         ''' 
@@ -18,7 +19,6 @@ class Board:
         param ship (Ship): the ship to place
         returns: nothing
         rtype: None '''
-
 
         rotation = {
             (1, 0) : 270,

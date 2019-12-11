@@ -9,6 +9,7 @@ window = None
 # the currently running screen
 current_screen = None
 
+# the main window
 window = None
 
 # if True, then the program quits

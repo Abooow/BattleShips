@@ -10,7 +10,6 @@ class Ship:
         self.health -= 1
 
 
-
     def __init__(self, position, length, rotation):
         '''
 

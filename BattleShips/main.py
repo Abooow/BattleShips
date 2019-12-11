@@ -1,9 +1,11 @@
 # The main file for the program
 
-from screens import place_ships_screen
 import pygame
-from framework import ai
 import config
+
+from framework import ai
+from screens import place_ships_screen
+
 
 # Initialize the game window
 pygame.init()

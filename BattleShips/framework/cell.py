@@ -1,14 +1,10 @@
-import config
-import pygame
-class Cell:
-    
-    cellImg = pygame.image.load(r'content\sprites\Ruta.png')
-    botImg = pygame.image.load(r'content\sprites\boat_bottom.png')
-    midImg = pygame.image.load(r'content\sprites\boat_middle.png')
-    topImg = pygame.image.load(r'content\sprites\boat_top.png')
-    missImg = pygame.image.load(r'content\sprites\hitmarker.png')
-    hitImg = pygame.image.load(r'content\sprites\hitmarker_red.png')
 
+import pygame
+import config
+import pic_module
+
+
+class Cell:
     def __init__(self, image = None, rotation = 0, ship= None):
         '''
         param None
@@ -19,6 +15,7 @@ class Cell:
         self.ship = ship
         self.hit = False
         #self.mine = False SPRINT3
+
 
     def draw(self, position):
         '''
@@ -56,7 +53,8 @@ class Cell:
         elif self.hit == True and self.ship == None:
             config.window.blit(missImg, (x,y))
 
-        # draw placed mine SPRINT3
-        #if self.mine != None: 
-        #    config.window.blit(mineImg, (x,y))
+
+    # draw placed mine SPRINT3
+    #if self.mine != None: 
+    #    config.window.blit(mineImg, (x,y))
     
