@@ -8,5 +8,7 @@ SCREEN_HEIGHT = 480
 # the currently running screen
 current_screen = None
 
+window = None
+
 # if True, then the program quits
 quit_game = False
