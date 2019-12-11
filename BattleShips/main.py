@@ -2,7 +2,7 @@
 
 from screens import menu_screen
 import pygame
-from frameworks import ai
+from framework import ai
 import config
 
 # Initialize the game window
