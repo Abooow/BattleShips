@@ -14,6 +14,7 @@ class Cell:
 
         self.ship = None
         self.hit = False
+        #self.mine = False SPRINT3
 
     def draw(self, position, rotation, part):
         '''
@@ -26,7 +27,7 @@ class Cell:
         y = position[1]
 
         # draw cell boarder img 50x50
-        window.blit(cellImg, (x,y))
+        config.window.blit(cellImg, (x,y))
 
         # set rotate value for ship img
         if self.ship != None:
@@ -38,13 +39,13 @@ class Cell:
         # draw ship img
         if self.ship != None and part == 'bottom': 
             botImg = pygame.transform.rotate(botImg, dir)
-            window.blit(botImg, (x,y))
+            config.window.blit(botImg, (x,y))
         elif self.ship != None and part == 'middle':
             midImg = pygame.transform.rotate(midImg, dir)
-            window.blit(midImg, (x,y))
+            config.window.blit(midImg, (x,y))
         elif self.ship != None and part == 'top':
             topImg = pygame.transform.rotate(topImg, dir)
-            window.blit(topImg, (x,y))
+            config.window.blit(topImg, (x,y))
 
     def draw_enemy(self, position):
         '''
@@ -55,12 +56,15 @@ class Cell:
         y = position[1]
 
         # draw cell boarder img 50x50
-        window.blit(cellImg, (x,y))
+        config.window.blit(cellImg, (x,y))
 
         # draw hitmarker after shot
         if self.hit == True and self.ship != None: 
-            window.blit(hitImg, (x,y))
+            config.window.blit(hitImg, (x,y))
         elif self.hit == True and self.ship == None:
-            window.blit(missImg, (x,y))
+            config.window.blit(missImg, (x,y))
 
+        # draw placed mine SPRINT3
+        #if self.mine != None: 
+        #    config.window.blit(mineImg, (x,y))
     
