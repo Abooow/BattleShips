@@ -16,9 +16,12 @@ class Screen():
 
 
     def update(self, delta_time):
-        for event in pygame.event.get():
+        events = pygame.event.get()
+        for event in events:
             if event.type == pygame.QUIT:
                 config.quit_game = True
+
+        return events
 
 
     def draw(self):

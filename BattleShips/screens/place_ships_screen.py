@@ -21,7 +21,9 @@ class PlaceShipScreen(Screen):
 
 
     def update(self, delta_time):
-        for event in pygame.event.get():
+        events = super().update(delta_time)
+
+        for event in events:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
                     self.rotation = 90
@@ -36,7 +38,6 @@ class PlaceShipScreen(Screen):
                     self.rotation = 180
                     self.image = pygame.transform.rotate(self.org_img, self.rotation)
 
-        super().update(delta_time)
 
 
     def draw(self):
