@@ -144,3 +144,4 @@ class Board:
         char = ord(char)
         char += 1
         return chr(char)
+    
