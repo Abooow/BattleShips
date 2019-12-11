@@ -4,6 +4,7 @@
 # window size
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 480
+window = None
 
 # the currently running screen
 current_screen = None
