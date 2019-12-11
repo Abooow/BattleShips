@@ -1,3 +1,4 @@
+import config
 class Cell:
     
     cellImg = pygame.image.load(r'content\sprites\Ruta.png')
