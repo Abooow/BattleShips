@@ -8,8 +8,10 @@ import config
 # Initialize the game window
 pygame.init()
 window = pygame.display.set_mode((config.SCREEN_WIDTH, config.SCREEN_HEIGHT))
-pygame.display.set_caption('BattleShips')
-
+pygame.display.set_caption('Modern Battleship Extreme Warfare')
+# Icon
+icon = pygame.image.load('icon.png')
+pygame.display.set_icon(icon)
 
 # Sets the current screen to MenuScreen
 config.current_screen = menu_screen.MenuScreen()
