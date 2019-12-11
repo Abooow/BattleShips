@@ -3,6 +3,7 @@
 
 
 from screens.screen import Screen
+from framework.cell import Cell
 
 
 class MenuScreen(Screen):
@@ -11,6 +12,7 @@ class MenuScreen(Screen):
 
 
     def load_content(self):
+        self.board = 
         super().load_content()
 
 

@@ -13,11 +13,12 @@ class Cell:
         param None
         returns None'''
 
+        self.ship_image = None
         self.ship = None
         self.hit = False
         #self.mine = False SPRINT3
 
-    def draw(self, position, rotation, part):
+    def draw(self, position):
         '''
         param position tuple([int,int]):
         param rotation tuple([int,int]):
@@ -31,23 +32,10 @@ class Cell:
         # draw cell boarder img 50x50
         config.window.blit(cellImg, (x,y))
 
-        # set rotate value for ship img
-        if self.ship != None:
-            if rotation == (-1, 0): dir = -90 #LEFT
-            elif rotation == (1, 0): dir = 90 #RIGHT
-            elif rotation == (0, 1): dir = 180 #DOWN
-            else: dir = 0 #UP
-
         # draw ship img
-        if self.ship != None and part == 'bottom': 
-            botImg = pygame.transform.rotate(botImg, dir)
-            config.window.blit(botImg, (x,y))
-        elif self.ship != None and part == 'middle':
-            midImg = pygame.transform.rotate(midImg, dir)
-            config.window.blit(midImg, (x,y))
-        elif self.ship != None and part == 'top':
-            topImg = pygame.transform.rotate(topImg, dir)
-            config.window.blit(topImg, (x,y))
+        if self.ship != None: 
+            config.window.blit(self.ship_image, (x,y))
+
 
     def draw_enemy(self, position):
         '''

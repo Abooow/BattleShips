@@ -1,10 +1,16 @@
-import console_color as color
+from framework.cell import Cell
 import pygame
+import config
 import ship
 import ai
+
 class Board:
+    botImg = pygame.image.load(r'content\sprites\boat_bottom.png')
+    midImg = pygame.image.load(r'content\sprites\boat_middle.png')
+    topImg = pygame.image.load(r'content\sprites\boat_top.png')
+
     def __init__(self):
-        self.list = [[(' ', color.WHITE, None)] * 10 for i in range(10)]
+        self.list = [[Cell()] * 10 for i in range(10)]
         self.shots_fired = []
         self.ships = []
 
@@ -15,20 +21,27 @@ class Board:
         returns: nothing
         rtype: None '''
 
+
+        rotation = {
+            (1, 0) : 270,
+            (-1, 0) : 90,
+            (0, 1) : 180,
+            (0, -1) : 0}
+        # enitre boat
         for i in range(ship.length):
             x = ship.position[0] + i * ship.rotation[0]
             y = ship.position[1] + i * ship.rotation[1]
-            self.list[y][x] = ('■', color.GREEN, ship)
+            self.list[y][x].ship_image = pygame.transform.rotate(Board.midImg, rotation[ship.rotation])
 
-        prow = {
-            (1, 0) : '>',
-            (-1, 0) : '<',
-            (0, 1) : 'V',
-            (0, -1) : '^'}
+        # front
         x = ship.position[0] + (ship.length - 1) * ship.rotation[0]
         y = ship.position[1] + (ship.length - 1) * ship.rotation[1]
         self.list[y][x] = (prow[ship.rotation], color.GREEN, ship)
 
+        # back
+
+
+        self.list[y][x].ship = ship
         self.ships.append(ship)
 
 
@@ -75,7 +88,7 @@ class Board:
             color.print_color('|', color.WHITE)
 
 
-    def draw_anonymously(self):
+    def draw_enemy(self):
         ''' Draws the board with the ships
         '''
 
@@ -122,9 +135,3 @@ class Board:
             if self.list[y][x][2] != None:
                 return False
         return True
-
-
-    def _increment_char(char): #skicka in en karaktär
-        char = ord(char)
-        char += 1
-        return chr(char)
