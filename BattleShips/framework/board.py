@@ -1,8 +1,6 @@
 from framework.cell import Cell
 import pygame
 import config
-import ship
-import ai
 
 class Board:
     botImg = pygame.image.load(r'content\sprites\boat_bottom.png')
@@ -31,17 +29,18 @@ class Board:
         for i in range(ship.length):
             x = ship.position[0] + i * ship.rotation[0]
             y = ship.position[1] + i * ship.rotation[1]
-            self.list[y][x].ship_image = pygame.transform.rotate(Board.midImg, rotation[ship.rotation])
+            self.list[y][x] = Cell(Board.midImg, rotation[ship.rotation], ship)
 
         # front
         x = ship.position[0] + (ship.length - 1) * ship.rotation[0]
         y = ship.position[1] + (ship.length - 1) * ship.rotation[1]
-        self.list[y][x] = (prow[ship.rotation], color.GREEN, ship)
+        self.list[y][x] = Cell(Board.topImg, rotation[ship.rotation], ship)
 
         # back
+        x = ship.position[0]
+        y = ship.position[1]
+        self.list[y][x] = Cell(Board.botImg, rotation[ship.rotation], ship)
 
-
-        self.list[y][x].ship = ship
         self.ships.append(ship)
 
 
@@ -70,50 +69,22 @@ class Board:
                 return True, koordinat[2]
 
 
-    def draw(self):
-        char = 'A'
-        #alphabet = "ABCDEFGHIJ"
-        print('  |', end='')
-        for j in range(len(self.list[0])):
-            color.print_color(char, color.BLUE, end='|')
-            char = Board._increment_char(char)
-        print()
-
+    def draw(self, position):
+        ''' Draws the board with the ships
+        '''
+        size = (50, 50)
         for y in range(len(self.list)):
-            color.print_color(f'{y} ', color.BLUE, end='')
             for x in range(len(self.list[y])):
-                color.print_color('|', color.WHITE, end='')
-                color.print_color(self.list[y][x][0], self.list[y][x][1], end='')
-      
-            color.print_color('|', color.WHITE)
-
+                self.list[y][x].draw((x * size[0] + position[0], y * size[1] + position[1]))
 
     def draw_enemy(self):
         ''' Draws the board with the ships
         '''
 
-        char = 'A'
-        print('  |', end='')
-        for j in range(len(self.list[0])):
-            color.print_color(char, color.BLUE, end='|')
-            char = Board._increment_char(char)
-        print()
-
-        # Board
+        size = (50, 50)
         for y in range(len(self.list)):
-            color.print_color(f'{y} ', color.BLUE, end='')
             for x in range(len(self.list[y])):
-                cell = self.list[y][x]
-                if cell[2] != None and (x, y) in self.shots_fired:
-                    color.print_color('|', color.WHITE, end='')
-                    color.print_color('■', cell[1], end='')
-                elif (x, y) in self.shots_fired:
-                    color.print_color('|', color.WHITE, end='')
-                    color.print_color(cell[0], cell[1], end='')
-                else:
-                    color.print_color('|', color.WHITE, end='')
-                    color.print_color(' ', cell[1], end='')
-            color.print_color('|', color.WHITE)
+                self.list[y][x].draw_enemy((x * size[0], y * size[1]))
 
 
     def can_place_ship(self, ship):

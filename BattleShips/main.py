@@ -7,7 +7,7 @@ import config
 
 # Initialize the game window
 pygame.init()
-window = pygame.display.set_mode((config.SCREEN_WIDTH, config.SCREEN_HEIGHT))
+config.window = pygame.display.set_mode((config.SCREEN_WIDTH, config.SCREEN_HEIGHT))
 pygame.display.set_caption('BattleShips')
 
 
@@ -26,6 +26,7 @@ while not config.quit_game:
     config.current_screen.update(clock.get_time())
 
     # ---------------------DRAW---------------------
+    config.window.fill((255, 255, 255))
     config.current_screen.draw()
     pygame.display.update()
 

@@ -2,8 +2,8 @@
 
 
 # window size
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 480
+SCREEN_WIDTH = 1024
+SCREEN_HEIGHT = 700
 window = None
 
 # the currently running screen

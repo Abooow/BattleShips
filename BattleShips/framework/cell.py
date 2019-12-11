@@ -1,4 +1,5 @@
 import config
+import pygame
 class Cell:
     
     cellImg = pygame.image.load(r'content\sprites\Ruta.png')
@@ -6,15 +7,16 @@ class Cell:
     midImg = pygame.image.load(r'content\sprites\boat_middle.png')
     topImg = pygame.image.load(r'content\sprites\boat_top.png')
     missImg = pygame.image.load(r'content\sprites\hitmarker.png')
-    hitImg = pygmae.image.load(r'content\sprites\hitmarker_red.png')
+    hitImg = pygame.image.load(r'content\sprites\hitmarker_red.png')
 
-    def __init__(self):
+    def __init__(self, image = None, rotation = 0, ship= None):
         '''
         param None
         returns None'''
 
-        self.ship_image = None
-        self.ship = None
+        self.ship_image = image
+        self.ship_rotation = rotation
+        self.ship = ship
         self.hit = False
         #self.mine = False SPRINT3
 
@@ -24,17 +26,17 @@ class Cell:
         param rotation tuple([int,int]):
         param part string(bottom/middle/top):
         returns None'''
-        position = (5,5)
 
         x = position[0]
         y = position[1]
 
         # draw cell boarder img 50x50
-        config.window.blit(cellImg, (x,y))
+        config.window.blit(Cell.cellImg, (x,y))
 
         # draw ship img
         if self.ship != None: 
-            config.window.blit(self.ship_image, (x,y))
+            img = pygame.transform.rotate(self.ship_image, self.ship_rotation)
+            config.window.blit(img, (x,y))
 
 
     def draw_enemy(self, position):
