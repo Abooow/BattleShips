@@ -4,7 +4,8 @@ import pygame
 import config
 import pic_module
 
-from screens import place_ships_screen
+from screens.place_ships_screen import PlaceShipScreen
+from screens.menu_screen import MenuScreen
 
 
 # Initialize the game window
@@ -17,7 +18,7 @@ pic_module.init()
 
 
 # Sets the current screen to MenuScreen
-config.current_screen = place_ships_screen.PlaceShipScreen()
+config.current_screen = MenuScreen()
 
 
 clock = pygame.time.Clock()
@@ -31,7 +32,7 @@ while not config.quit_game:
     config.current_screen.update(clock.get_time())
 
     # ---------------------DRAW---------------------
-    config.window.fill((255, 255, 255))
+    config.window.fill((20, 20, 20))
     config.current_screen.draw()
     pygame.display.update()
 
