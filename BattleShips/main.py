@@ -11,11 +11,14 @@ from screens.menu_screen import MenuScreen
 # Initialize the game window
 pygame.init()
 config.window = pygame.display.set_mode((config.SCREEN_WIDTH, config.SCREEN_HEIGHT))
-pygame.display.set_caption('BattleShips')
+pygame.display.set_caption('Modern Battleship Extreme Warfare')
 
 # Initialize content
 pic_module.init()
 
+# Icon
+icon = pygame.image.load('icon.png')
+pygame.display.set_icon(icon)
 
 # Sets the current screen to MenuScreen
 config.current_screen = MenuScreen()
