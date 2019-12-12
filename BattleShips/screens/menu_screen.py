@@ -18,7 +18,7 @@ class MenuScreen(Screen):
         super().load_content()
         clip = mp.VideoFileClip(r"content\sprites\puff.mp4")
         clip_resized = clip.resize(width=1024)
-        clip_resized = clip_resized.volumex(0)
+        #clip_resized = clip_resized.volumex(0)
         clip_resized.preview()
         pygame.mixer.music.load(r'content\sprites\heli_sound.mp3')
         pygame.mixer.music.play(0)
@@ -46,7 +46,7 @@ class MenuScreen(Screen):
 
     def update(self, delta_time):
         super().update(delta_time)
-        self.y = math.sin(self.x/100)*50
+        self.y = math.sin(self.x/100)*80
 
         self.x += 5
         if self.x == 2000:
