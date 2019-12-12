@@ -23,7 +23,7 @@ icon = pygame.image.load('content\sprites\icon.png')
 pygame.display.set_icon(icon)
 
 # Sets the current screen to MenuScreen
-config.current_screen = TestScreen()
+config.current_screen = PlaceShipScreen()
 
 
 clock = pygame.time.Clock()

@@ -69,22 +69,21 @@ class Board:
                 return True, koordinat[2]
 
 
-    def draw(self, position):
-        ''' Draws the board with the ships
-        '''
-        size = (50, 50)
-        for y in range(len(self.list)):
-            for x in range(len(self.list[y])):
-                self.list[y][x].draw((x * size[0] + position[0], y * size[1] + position[1]))
-
-    def draw_enemy(self):
+    def draw(self, position, cell_size):
         ''' Draws the board with the ships
         '''
 
-        size = (50, 50)
         for y in range(len(self.list)):
             for x in range(len(self.list[y])):
-                self.list[y][x].draw_enemy((x * size[0], y * size[1]))
+                self.list[y][x].draw((x * cell_size + position[0], y * cell_size + position[1]))
+
+    def draw_enemy(self, position, cell_size):
+        ''' Draws the board with the ships
+        '''
+
+        for y in range(len(self.list)):
+            for x in range(len(self.list[y])):
+                self.list[y][x].draw_enemy((x * cell_size + position[0], y * cell_size + position[1]))
 
     def can_place_ship(self, ship):
         '''
