@@ -17,11 +17,11 @@ pygame.display.set_caption('Modern Battleship Extreme Warfare')
 pic_module.init()
 
 # Icon
-icon = pygame.image.load('icon.png')
+icon = pygame.image.load('content\sprites\icon.png')
 pygame.display.set_icon(icon)
 
 # Sets the current screen to MenuScreen
-config.current_screen = MenuScreen()
+config.current_screen = PlaceShipScreen()
 
 
 clock = pygame.time.Clock()

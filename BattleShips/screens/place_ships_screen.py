@@ -2,6 +2,7 @@
 # everything that have to do with PlaceShips state should be in in here
 
 import pygame
+import random
 import config
 import pic_module
 
@@ -29,9 +30,21 @@ class PlaceShipScreen(Screen):
     def load_content(self):
         self.image = pic_module.boat_bottom
         self.org_img = self.image
-
+        self.text_img = pygame.image.load(r'content\sprites\placeYourShips.png')
+        self.amount = 50
+        self.xy = []
+        self.creat_rain()
+       
         super().load_content()
+        
 
+    def creat_rain(self):
+
+        for i in range(self.amount):
+            x = random.randint(0,config.SCREEN_WIDTH)
+            y = random.randint(0,config.SCREEN_HEIGHT)
+            speed = random.randint(10,20)
+            self.xy.append((x,y,speed))
 
     def update(self, delta_time):
         events = super().update(delta_time)
@@ -54,13 +67,26 @@ class PlaceShipScreen(Screen):
                 if event.key == pygame.K_2:
                     self.ship_length += 1
 
+        for i in range(self.amount):
+            if (self.xy[i][1] > config.SCREEN_HEIGHT):
+                x = random.randint(0,config.SCREEN_WIDTH)
+                self.xy[i] = (x, -100, self.xy[i][2])
+            self.xy[i] = (self.xy[i][0], self.xy[i][1]  + self.xy[i][2], self.xy[i][2])
+
+        super().update(delta_time)
 
     def draw(self):
+        for i in self.xy:
+            green = (i[2], 255-i[2]*1.5, 72-i[2])
+            pygame.draw.rect(config.window, green, (i[0],i[1],10,100))
+
+        config.window.blit(self.text_img, (config.SCREEN_WIDTH*0.5-self.text_img.get_rect().size[0]*0.5, config.SCREEN_HEIGHT*0.05))
+
         config.window.blit(pic_module.board_water, (100, 100))
         self.board.draw((100, 100))
         self._draw_ship()
 
-        super().draw()
+        super().draw() 
 
 
     def __place_ship(self):
