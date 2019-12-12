@@ -14,8 +14,10 @@ class Ship:
         '''
 
         param position(tuple[int,int]): 
+        param position(tuple[int,int]):
         param length(int):
         param rotation(tuple[int,int]): '''
+
 
         self.position = position
         self.length = length

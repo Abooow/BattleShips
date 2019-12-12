@@ -86,13 +86,11 @@ class Board:
             for x in range(len(self.list[y])):
                 self.list[y][x].draw_enemy((x * size[0], y * size[1]))
 
-
     def can_place_ship(self, ship):
         '''
 
         param ship(tuple([int,int]), int, tuple([int,int])):
         return True or False'''
-        
         if (ship.position[0] < 0 or ship.position[0] > len(self.list) - 1 or 
             ship.position[1] < 0 or ship.position[1] > len(self.list) - 1 or
             ship.rotation[0]*ship.length+ship.position[0] > len(self.list) or 
