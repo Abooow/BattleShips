@@ -1,22 +1,48 @@
-class Buttons():
-    def __init__ (self,canvas,position,size,colorr,action = None):
-        self.position = position
-        self.size = size
-        self.colorr = colorr
+import pygame
+import config
+
+class Button():
+    def __init__ (self, rect, bg = (255, 255, 255), fg = (0, 0, 0), image = None,  action = None):
+        '''
+
+        param position(tuple[int,int]):
+
+        '''
+
+        self.rect = rect
+        self.bg = bg
+        self.fg = fg
+        self.image = image
         self.action = action
-        self.canvas = canvas
         
 
-    def update(self):
+    def update(self, obj):
         mouse = pygame.mouse.get_pos()
-        click = pygame.mouse.get_pressed()
         
-
-        if click[0] == 1 and action != None:
-            action()
+        if (self.action != None and
+            self._is_hovering()):
+            self.action(obj)
 
 
     def draw(self):
-        #if(self.position[0]+self.size[0]> mouse[0] < self.position[0] and self.position[1]+self.size[1] > mouse[1] > self.position[1]):
+        if self.image == None:
+            if self._is_hovering():
+                bg = (self.bg[0] * 0.65, self.bg[1] * 0.65, self.bg[2] * 0.65)
+                pygame.draw.rect(config.window, bg, self.rect)
+            else:
+                pygame.draw.rect(config.window, self.bg, self.rect)
+        else:
+            if self._is_hovering():
+                bg = (self.bg[0] * 0.65, self.bg[1] * 0.65, self.bg[2] * 0.65)
+                pygame.draw.rect(config.window, bg, self.rect)
 
-        pygame.draw.rect(config.window, colorr, (self.position[0],self.position[1],self.size[0],self.size[1]))
+            size = self.image.get_rect().size
+            x = (self.rect[0] + self.rect[2] * 0.5) - size[0] * 0.5
+            y = (self.rect[1] + self.rect[3] * 0.5) - size[1] * 0.5
+            config.window.blit(self.image, (x, y))
+
+
+    def _is_hovering(self):
+        mouse = pygame.mouse.get_pos()
+        return (self.rect[0] + self.rect[2] > mouse[0] > self.rect[0] and
+                self.rect[1] + self.rect[3] > mouse[1] > self.rect[1])

@@ -38,6 +38,9 @@
     <Compile Include="screens\screen.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="screens\test_screen.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="screens\__init__.py">
       <SubType>Code</SubType>
     </Compile>

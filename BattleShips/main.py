@@ -6,6 +6,8 @@ import pic_module
 
 from screens.place_ships_screen import PlaceShipScreen
 from screens.menu_screen import MenuScreen
+from screens.test_screen import TestScreen
+
 
 
 # Initialize the game window
@@ -21,7 +23,7 @@ icon = pygame.image.load('content\sprites\icon.png')
 pygame.display.set_icon(icon)
 
 # Sets the current screen to MenuScreen
-config.current_screen = PlaceShipScreen()
+config.current_screen = TestScreen()
 
 
 clock = pygame.time.Clock()

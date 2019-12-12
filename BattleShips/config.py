@@ -10,7 +10,6 @@ window = None
 
 # the currently running screen
 current_screen = None
+
 # if True, then the program quits
 quit_game = False
-
-window = None
