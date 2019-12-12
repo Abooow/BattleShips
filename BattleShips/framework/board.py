@@ -93,8 +93,8 @@ class Board:
         param ship(tuple([int,int]), int, tuple([int,int])):
         return True or False'''
         
-        if (ship.position[0] < 0 or ship.position[0] > len(self.list) or 
-            ship.position[1] < 0 or ship.position[1] > len(self.list) or
+        if (ship.position[0] < 0 or ship.position[0] > len(self.list) - 1 or 
+            ship.position[1] < 0 or ship.position[1] > len(self.list) - 1 or
             ship.rotation[0]*ship.length+ship.position[0] > len(self.list) or 
             ship.rotation[0]*(ship.length - 1)+ship.position[0] < 0 or 
             ship.rotation[1]*ship.length+ship.position[1] > len(self.list) or 

@@ -56,6 +56,7 @@ class PlaceShipScreen(Screen):
 
 
     def draw(self):
+        config.window.blit(pic_module.board_water, (100, 100))
         self.board.draw((100, 100))
         self._draw_ship()
 
