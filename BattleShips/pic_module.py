@@ -7,7 +7,11 @@ boat_top = None
 
 board_cell = None
 board_water = None
-explosion = None
+
+explosion_anim = None
+fire_anim = None
+jet_anim = None
+missile_anim = None
 
 menu_text = None
 menu_start_button = None
@@ -30,10 +34,13 @@ def __boat_parts():
     boat_top = pygame.image.load(f'{__path}boat_parts/boat_top.png')
 
 
-def __explosion():
-    global explosion
+def __animations():
+    global explosion_anim, fire_anim, jet_anim, missile_anim
 
-    explosion = [pygame.image.load(f'{__path}explosion/ex_{i+1}.png') for i in range(5)]
+    explosion_anim = [pygame.image.load(f'{__path}explosion/ex_{i+1}.png') for i in range(5)]
+    fire_anim = [pygame.image.load(f'{__path}fire_animation/Fire{i+1}_resize.png') for i in range(10)]
+    jet_anim = [pygame.image.load(f'{__path}jet/jet{i+1}.png') for i in range(5)]
+    missile_anim = [pygame.image.load(f'{__path}missile/{i+1}.png') for i in range(6)]
         
 
 def __menu_layout():
@@ -62,7 +69,7 @@ def init():
     __menu_layout()
     __board_layout()
     __boat_parts()
-    __explosion()
+    __animations()
 
 
     

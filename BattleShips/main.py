@@ -23,18 +23,20 @@ icon = pygame.image.load('content\sprites\icon.png')
 pygame.display.set_icon(icon)
 
 # Sets the current screen to MenuScreen
-config.current_screen = PlaceShipScreen()
+config.current_screen = TestScreen()
 
 
 clock = pygame.time.Clock()
 
 # ---------------------- GameLoop ----------------------------------------
 while not config.quit_game:
-    # den här filen är typ klar, inget mer behövs skrivas i den här filen.
+    delta_time = clock.get_time()
 
+    if delta_time > 0:
+        pygame.display.set_caption(f'Modern Battleship Extreme Warfare - {1000 // delta_time}')
 
     # --------------------UPDATE--------------------
-    config.current_screen.update(clock.get_time())
+    config.current_screen.update(delta_time)
 
     # ---------------------DRAW---------------------
     config.window.fill((20, 20, 20))

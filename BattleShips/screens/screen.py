@@ -9,7 +9,6 @@ class Screen():
 
     def __init__(self):
         self.buttons = []
-        self.animations = []
         self.load_content()
 
 
@@ -26,12 +25,6 @@ class Screen():
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 for button in self.buttons:
                     button.update(self)
-
-
-        for animation in self.animations:
-            animation.update(delta_time)
-            if animation.done and not animation.loop:
-                self.animations.remove(animation)
 
         return events
 
