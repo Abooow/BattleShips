@@ -1,55 +1,18 @@
-
 import pygame
-import random
 import pic_module
+import config
 
-from screens.screen import Screen
-from framework.button import Button
 from framework.animation import Animation
 
 
-class TestScreen(Screen):
-    def __init__(self):
-        super().__init__()
-        self.start = False
-
-
-    def load_content(self):
-        super().load_content()
-
-        self.jet = Jet()
-        self.buttons.append(Button((300, 300, 405, 60), 
-                                   image=pic_module.menu_start_button, 
-                                   bg=(60,60,60), 
-                                   action=self._press))
-
-
-    def update(self, delta_time):
-        events = super().update(delta_time)
-
-        if self.start:
-            self.jet.update(delta_time)
-
-
-    def draw(self):
-        super().draw()
-        self.jet.draw()
-
-
-    def _press(self):
-        self.start = True
-        self.jet.x = -200
-
-
 class Jet(Animation):
-    def __init__(self, fps=14):
-        super().__init__(pic_module.jet_anim, fps, (1, 1), 270, True)
+    def __init__(self, position, velocity, fps=14, scale=1, rotation=0):
+        super().__init__(pic_module.jet_anim, fps, scale, rotation, True)
+
+        self.position = position
+        self.velocity = velocity
 
         self.missiles = []
-        self.x = -200
-        self.y = 100
-
-        print(type(pic_module.board_cell))
 
 
     def update(self, delta_time):
@@ -63,7 +26,7 @@ class Jet(Animation):
             missile.update(delta_time)
                 #self.missiles.remove(missile)
 
-        if 1024 > self.x > 0 and random.random() < 0.1:
+        if 1024 > self.x > 0 and random.random() < 0.05:
             self._drop_bomb()
 
 
@@ -74,20 +37,20 @@ class Jet(Animation):
             missile.draw()
 
 
-    def _drop_bomb(self):
+    def drop_bomb(self):
         self.missiles.append(Missile(self.x, self.y))
 
 
 class Missile(Animation):
     def __init__(self, x, y, fps = 12):
-        super().__init__(pic_module.missile_anim, fps, loop=True)
+        super().__init__(pic_module.missile_anim, fps, True)
 
         self.x = x
         self.y = y
         self.max_y = 550 - random.random() * 100
         self._explode = False
-        self._explodsion_anim = Animation(pic_module.explosion_anim, 12, (1, 1), 0, False)
-        self._fire_anim = Animation(pic_module.fire_anim, 12, (3, 3), 0, True)
+        self._explodsion_anim = Animation(pic_module.explosion_anim, 12, 1, 0, False)
+        self._fire_anim = Animation(pic_module.fire_anim, 12, 3, 0, True)
 
 
     def update(self, delta_time):

@@ -35,18 +35,10 @@ class PlaceShipScreen(Screen):
         self.text_img = pygame.image.load(r'content\sprites\placeYourShips_background.png')
         self.amount = 50
         self.xy = []
-        self.creat_rain()
+        self._creat_rain()
        
         super().load_content()
         
-
-    def creat_rain(self):
-        for i in range(self.amount):
-            x = random.randint(0, config.SCREEN_WIDTH)
-            y = random.randint(0, config.SCREEN_HEIGHT)
-            speed = random.randint(10,20)
-            self.xy.append((x, y, speed))
-
 
     def update(self, delta_time):
         events = super().update(delta_time)
@@ -80,7 +72,7 @@ class PlaceShipScreen(Screen):
 
     def draw(self):
         for i in self.xy:
-            green = (i[2], 255-i[2]*2, 72-i[2])
+            green = (i[2]*3, 100+i[2]*5, 200-i[2]*6)
             pygame.draw.rect(config.window, green, (i[0],i[1],10,100))
 
         config.window.blit(self.text_img, (0, 0))
@@ -89,6 +81,14 @@ class PlaceShipScreen(Screen):
         self._draw_ship()
 
         super().draw() 
+
+
+    def _creat_rain(self):
+        for i in range(self.amount):
+            x = random.randint(0, config.SCREEN_WIDTH)
+            y = random.randint(0, config.SCREEN_HEIGHT)
+            speed = random.randint(8,30)
+            self.xy.append((x, y, speed))
 
 
     def __place_ship(self):

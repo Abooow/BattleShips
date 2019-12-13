@@ -5,24 +5,57 @@ import pic_module
 
 
 class Cell:
-    def __init__(self, image = None, rotation = 0, ship= None):
+    def __init__(self, ship = None, image_set = None, image_index = 0, rotation = 0):
         '''
-        param None
-        returns None'''
+        param ship(Ship): the reference to the ship 
+        param image_set(list[Surface]): a list of ship parts (images)
+        param image_index(int): the index to use from image_set
+        param rotation(int): the rotation of the ship image
+        '''
 
-        self.ship_image = image
-        self.ship_rotation = rotation
         self.ship = ship
+        self.ship_image = ship_image
+        self.ship_rotation = rotation
+        self.ship_part = ship_part
+
         self.hit = False
+
+        self._fire_anim = None
+        self._explotion_anim = None
+
         #self.mine = False SPRINT3
 
 
-    def draw(self, position):
+    def fire_at(self) -> None:
         '''
-        param position tuple([int,int]):
-        param rotation tuple([int,int]):
-        param part string(bottom/middle/top):
-        returns None'''
+
+        returns: nothing
+        rtype: None
+        '''
+
+        pass
+
+
+    def update(self, delta_time) -> None:
+        '''
+
+        param delta_time(int): the time since last frame
+
+        returns: nothing
+        rtype: None
+        '''
+
+        pass
+
+
+    def draw(self, position) -> None:
+        ''' 
+
+        param position(tuple[int,int]): where to draw the Cell
+
+        returns: nothing
+        rtype: None
+        '''
 
         x = position[0]
         y = position[1]
@@ -36,10 +69,14 @@ class Cell:
             config.window.blit(img, (x,y))
 
 
-    def draw_enemy(self, position):
+    def draw_enemy(self, position) -> None:
+        ''' 
+
+        param position(tuple[int,int]): where to draw the Cell
+
+        returns: nothing
+        rtype: None
         '''
-        param position tuple([int,int]):
-        returns None'''
 
         x = position[0]
         y = position[1]

@@ -26,6 +26,14 @@ menu_explosion = None
 __path = 'content/sprites/'
 
 
+def init():
+    __menu_layout()
+    __board_layout()
+    __boat_parts()
+    __animations()
+
+
+
 def __boat_parts():
     global boat_bottom, boat_middle, boat_top
 
@@ -63,15 +71,3 @@ def __board_layout():
 
     board_water = pygame.image.load(f'{__path}test/vatten.jpg')
     board_cell = pygame.image.load(f'{__path}board/cell.png')
-
-
-def init():
-    __menu_layout()
-    __board_layout()
-    __boat_parts()
-    __animations()
-
-
-    
-
-       

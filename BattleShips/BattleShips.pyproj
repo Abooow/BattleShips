@@ -44,6 +44,9 @@
     <Compile Include="screens\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="surface_change.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="screens\" />
