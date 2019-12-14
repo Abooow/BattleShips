@@ -7,26 +7,45 @@ class Animation():
     ''' The base class for an animation, this class can either be instantiated directly or inherited
     
     example 1:
-        anim = Animation(...)
+
+        def load_content(self):
+            ...
+            anim = Animation(...)
+
+        def update(self, delta_time):
+            ...
+            anim.update(delta_time)
+
+        def draw(self):
+            ...
+            anim.draw(...)
+
 
     example 2:
         class Missile(Animation):
-            ...
+            def __init__(self, ...):
+                super().__init__(...)
+
+            def update(self, delta_time):
+                super().update(delta_time)
+
+            def draw(self):
+                super().draw(...)
 
 
     To update the animation: call the update method, otherwise the animation won't animate
-
     To display/draw the animation: call the draw method, otherwise the animation won't be shown
     '''
 
 
-    def __init__(self, frames, fps, scale = (1, 1), rotation = 0, loop = True):
+    def __init__(self, frames, fps, scale = (1, 1), rotation = 0, loop = True, offset = 0):
         '''
         :param frames (list[surface]): all the frames to be used
         :param fps (int): the animation speed (frames per second)
         :param scale (tuple[int,int]): the scale of each frame (width, height)
         :param rotation (int): the rotation of each frame
         :param loop (bool): allow the animation to loop
+        :param offset (int): what frame to start animate from
         '''
 
         self.fps = fps
@@ -35,7 +54,7 @@ class Animation():
 
         self._scale = scale
         self._rotation = rotation
-        self._frame = 0
+        self._frame = offset % len(frames)
         self._timer = 0
         self._original_frames = frames
 

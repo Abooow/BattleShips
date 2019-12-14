@@ -7,99 +7,128 @@ from framework.cell import Cell
 
 
 class Board:
+    '''
+    '''
+
+
     def __init__(self):
+        # create a 2d array filled with cells
         self.list = [[Cell()] * 10 for i in range(10)]
         self.shots_fired = []
         self.ships = []
 
 
-    def place_ship(self, ship):
-        ''' 
+    def place_ship(self, ship) -> bool:
+        ''' Places a ship on the board
 
-        param ship (Ship): the ship to place
-        returns: nothing
-        rtype: None '''
+        :param ship (Ship): the ship to place
+        :returns: True if the placement was successful, otherwise False
+        :rtype: bool
+        '''
+
+        if not self.can_place_ship(ship):
+            return False
 
         rotation = {
             (1, 0) : 270,
             (-1, 0) : 90,
             (0, 1) : 180,
-            (0, -1) : 0}
+            (0, -1) : 0 }
+
         # enitre boat
         for i in range(ship.length):
             x = ship.position[0] + i * ship.rotation[0]
             y = ship.position[1] + i * ship.rotation[1]
-            self.list[y][x] = Cell(pic_module.boat_middle, rotation[ship.rotation], ship)
+            image_index = 0 if i == 0 else 2 if i == ship.length-1 else 1
 
-        # front
-        x = ship.position[0] + (ship.length - 1) * ship.rotation[0]
-        y = ship.position[1] + (ship.length - 1) * ship.rotation[1]
-        self.list[y][x] = Cell(pic_module.boat_top, rotation[ship.rotation], ship)
-
-        # back
-        x = ship.position[0]
-        y = ship.position[1]
-        self.list[y][x] = Cell(pic_module.boat_bottom, rotation[ship.rotation], ship)
+            self.list[y][x] = Cell(ship=ship, image_index=image_index, ship_part=i, rotation=rotation[ship.rotation])
 
         self.ships.append(ship)
-
-
-    def shoot(self, shot_koord):
-        '''
-        param shot_koord (tuple[int,int]): (x, y)
-        return True or False
-        rtype: tuple[bool,Ship] '''
         
-        #shots_fired checks if coordinate´s been used
+        return True
+
+
+    def shoot_at(self, coordinate) -> tuple:
+        ''' Shoot at this board at the given coordinate
+        
+        :param coordinate (tuple[int,int]): the coordinate to shoot at (x, y)
+
+        :return: first value: (True if a shot was successfully fired otherwise False) second value: (the ship that was hit, if any was hit, otherwise None)
+        :rtype: tuple[bool,Ship]
+        '''
+        
+        # checks if the coordinate have been used
         if shot_koord in self.shots_fired:   
             return False, None 
         else:
-            koordinat =  self.list[shot_koord[1]][shot_koord[0]]
-            self.shots_fired.append(shot_koord)
+            # coordinate have not been used, add it to shots_fired list
+            self.shots_fired.append(coordinate)
+            
+            # the cell at this coordinate
+            cell =  self.list[coordinate[1]][coordinate[0]]
+
             # successful shot but missed a boat
-            if koordinat[2] == None:
-                self.list[shot_koord[1]][shot_koord[0]] = ('*', color.LIGHTCYAN,  koordinat[2])
+            # cell.shoot_at() returns True if a ship was hit
+            if cell.shoot_at():
                 return True, None
             # successful shot and hit a boat
             else:
-                koordinat[2].get_hit()
-                self.list[shot_koord[1]][shot_koord[0]] = (koordinat[0], color.RED,  koordinat[2])
-                if koordinat[2].health <= 0:
-                    self.ships.remove(koordinat[2])
-                return True, koordinat[2]
+                return True, cell.ship
 
 
-    def draw(self, position, cell_size):
-        ''' Draws the board with the ships
+    def draw(self, position, cell_size) -> None:
+        ''' Draws every cell on that are on this board
+
+        :param position (tuple[int,int]): where to draw the board (x, y)
+        :param cell_size (tuple[int,int]): how big every cell is (width, height)
+
+        :returns: nothing
+        :rtype: None
         '''
 
         for y in range(len(self.list)):
             for x in range(len(self.list[y])):
                 self.list[y][x].draw((x * cell_size + position[0], y * cell_size + position[1]))
 
-    def draw_enemy(self, position, cell_size):
-        ''' Draws the board with the ships
+
+    def draw_enemy(self, position, cell_size) -> None:
+        ''' Draws every cell on that are on this board but doesn't show the placed ships, only hits and misses
+
+        :param position (tuple[int,int]): where to draw the board (x, y)
+        :param cell_size (tuple[int,int]): how big every cell is (width, height)
+
+        :returns: nothing
+        :rtype: None
         '''
 
         for y in range(len(self.list)):
             for x in range(len(self.list[y])):
                 self.list[y][x].draw_enemy((x * cell_size + position[0], y * cell_size + position[1]))
 
-    def can_place_ship(self, ship):
-        '''
 
-        param ship(tuple([int,int]), int, tuple([int,int])):
-        return True or False'''
+    def can_place_ship(self, ship) -> bool:
+        ''' Check if the ship can be placed on this board
+
+        :param ship(Ship): the ship to check if it's placeable
+
+        :return: True if the ship can be placed, otherwise False
+        :rtype: bool
+        '''
+        
+        # checks if the ship is outside the boundaries
         if (ship.position[0] < 0 or ship.position[0] > len(self.list) - 1 or 
             ship.position[1] < 0 or ship.position[1] > len(self.list) - 1 or
-            ship.rotation[0]*ship.length+ship.position[0] > len(self.list) or 
-            ship.rotation[0]*(ship.length - 1)+ship.position[0] < 0 or 
-            ship.rotation[1]*ship.length+ship.position[1] > len(self.list) or 
-            ship.rotation[1]*(ship.length - 1)+ship.position[1] < 0):
+            ship.rotation[0] * ship.length+ship.position[0] > len(self.list) or 
+            ship.rotation[0] * (ship.length - 1)+ship.position[0] < 0 or 
+            ship.rotation[1] * ship.length+ship.position[1] > len(self.list) or 
+            ship.rotation[1] * (ship.length - 1)+ship.position[1] < 0):
             return False
+
+        # checks if the ship is overlapping any other ship on the board
         for i in range(ship.length):
             x = ship.position[0] + i * ship.rotation[0]
             y = ship.position[1] + i * ship.rotation[1]
             if self.list[y][x].ship != None:
                 return False
+
         return True

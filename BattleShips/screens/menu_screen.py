@@ -21,12 +21,11 @@ class MenuScreen(Screen):
 
     def load_content(self):
         super().load_content()
-        clip = mp.VideoFileClip(r"content\sprites\puff.mp4")
-        clip_resized = clip.resize(width=1024)
-        #clip_resized = clip_resized.volumex(0)
-        clip_resized.preview()
-        pygame.mixer.music.load(r'content\sprites\heli_sound.mp3')
-        pygame.mixer.music.play(0)
+        #clip = mp.VideoFileClip(r"content\sprites\puff.mp4")
+        #clip_resized = clip.resize(width=1024)
+        #clip_resized.preview()
+        #pygame.mixer.music.load(r'content\sprites\heli_sound.mp3')
+        #pygame.mixer.music.play(0)
         config.window = pygame.display.set_mode((config.SCREEN_WIDTH, config.SCREEN_HEIGHT))
         self.game_name = pygame.image.load(r'content\sprites\Game_name.png')
         self.game_name = pygame.transform.scale(self.game_name, (1000, 35))

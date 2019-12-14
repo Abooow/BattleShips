@@ -9,13 +9,17 @@ class Button():
     example:
         def load_content(self):
             ...
-            test_btn = Button(rect=(100, 100, 100), bg=(100, 0, 220), action=test_btn_clicked)
+            test_btn = Button(rect=(100, 100, 100, 50), bg=(100, 0, 220), action=test_btn_clicked)
 
-            self.buttons.append(test_btn)  <- the button must be appended to self.buttons in order to update and draw the button correctly
+            self.buttons.append(test_btn)  <- !! the button must be appended to self.buttons in order to update and draw the button correctly
 
 
         def test_btn_clicked(self):
             print('Hello World!')
+
+
+    This example will create a button at position: (100, 100) and a size of: (100, 50),
+    the background color will be purple and when the button is pressed it will print out 'Hello World!' to the console
     '''
 
 
@@ -23,7 +27,7 @@ class Button():
         '''
         :param rect (tuple[int,int,int,int]): (x, y, width, height) position and size of the button
         :param bg (tuple[int,int,int]): (red, green, blue) color of the background (use None to remove bg)
-        :param fg (tuple[int,int,int]): (red, green, blue) color of the foreground (use None to remove fg)
+        :param fg (tuple[int,int,int]): (red, green, blue) color of the foreground (use None to remove fg) !!NOT USED!!
         :param image (surface): a image to the button
         :param action (function): the function to instantiate when the button is clicked
         '''
@@ -81,7 +85,7 @@ class Button():
 
 
     def _draw_hovering(self) -> None:
-        ''' Draws 
+        ''' Draws the button but with a darker background (35% darker)
 
         :returns: nothing
         :rtype: None
@@ -92,7 +96,7 @@ class Button():
 
 
     def _is_hovering(self) -> bool:
-        '''
+        ''' Determines if the mouse is hovering over the button
         
         :returns: True is the mouse is hovering the button
         :rtype: bool

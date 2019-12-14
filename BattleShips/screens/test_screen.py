@@ -63,7 +63,7 @@ class Jet(Animation):
             missile.update(delta_time)
                 #self.missiles.remove(missile)
 
-        if 1024 > self.x > 0 and random.random() < 0.1:
+        if 1024 > self.x > 0 and random.random() <= 0.05:
             self._drop_bomb()
 
 
