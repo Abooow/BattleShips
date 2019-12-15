@@ -1,3 +1,5 @@
+''' This module contains the Board class
+'''
 
 import pygame
 import config
@@ -8,7 +10,7 @@ from framework.cell import Cell
 class Board:
     ''' Base class for a board
 
-    A Board is the playground 
+    A Board is the playfield where all the ships are placed
 
 
     example of a placed ship:
@@ -48,7 +50,7 @@ class Board:
             (0, -1) : 0 } # up
         rotation = tuple_to_deg[ship.rotation]
 
-        # devide the ship in different parts and place each part on a cell
+        # divide the ship in different parts and place each part on a cell
         for i in range(ship.length):
             # the cell index
             x = ship.position[0] + i * ship.rotation[0]
@@ -81,7 +83,7 @@ class Board:
             # coordinate have not been used, add it to shots_fired list
             self.shots_fired.append(coordinate)
             
-            # the cell at this coordinate
+            # get the cell at this coordinate
             cell =  self.list[coordinate[1]][coordinate[0]]
 
             # successful shot but missed a boat
@@ -93,34 +95,32 @@ class Board:
                 return True, cell.ship
 
 
-    def draw(self, position, cell_size) -> None:
+    def draw(self, position) -> None:
         ''' Draws every cell on that are on this board
 
         :param position (tuple[int,int]): where to draw the board (x, y)
-        :param cell_size (tuple[int,int]): how big every cell is (width, height)
 
-        :returns: nothing
+        :returns: NoReturn
         :rtype: None
         '''
 
         for y in range(len(self.list)):
             for x in range(len(self.list[y])):
-                self.list[y][x].draw((x * cell_size + position[0], y * cell_size + position[1]))
+                self.list[y][x].draw((x * config.CELL_SIZE + position[0], y * config.CELL_SIZE + position[1]))
 
 
-    def draw_enemy(self, position, cell_size) -> None:
+    def draw_enemy(self, position) -> None:
         ''' Draws every cell on that are on this board but doesn't show the placed ships, only hits and misses
 
         :param position (tuple[int,int]): where to draw the board (x, y)
-        :param cell_size (tuple[int,int]): how big every cell is (width, height)
 
-        :returns: nothing
+        :returns: NoReturn
         :rtype: None
         '''
 
         for y in range(len(self.list)):
             for x in range(len(self.list[y])):
-                self.list[y][x].draw_enemy((x * cell_size + position[0], y * cell_size + position[1]))
+                self.list[y][x].draw_enemy((x * config.CELL_SIZE + position[0], y * config.CELL_SIZE + position[1]))
 
 
     def can_place_ship(self, ship) -> bool:

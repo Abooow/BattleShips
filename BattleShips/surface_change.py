@@ -1,7 +1,6 @@
 ''' This module contains functions that allows you to change properties a pygame.surface (image)
 '''
 
-
 import pygame
 
 
@@ -23,6 +22,20 @@ def transform(image, scale, rotation) -> pygame.surface:
     new_image = pygame.transform.rotate(new_image, rotation)
     
     return new_image
+
+
+def transform_many(images, scale, rotation) -> list:
+    ''' Change the transform on many images at once
+
+    :param images (list[surface]): the images to change
+    :param scale (tuple[int,int]): the new scale
+    :param rotation (int): the new rotation
+
+    :returns: a copy of the images but with a new transform
+    :rtype: list
+    '''
+
+    return [transform(img, scale, rotation) for img in images]
 
 
 def colorize(image, new_color) -> pygame.surface:

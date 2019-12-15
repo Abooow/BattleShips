@@ -1,17 +1,26 @@
+''' This module contains the AI class
+'''
 
 import random
 
+from framework.board import Board
+
 
 class AI:
+    ''' A very basic AI that shoots at a random cell each time
+    '''
+
+
     def __init__(self):
         self.board = Board()
 
-    def place_ship(self):
-        ''' 
 
-        param ship (Ship): the ship to place
-        returns: nothing
-        rtype: None '''
+    def place_ships(self) -> None:
+        ''' Places all ships on randomly the board
+
+        returns: NoReturn
+        rtype: None
+        '''
         
         all_ships_placed = False
         shipsAvailable = [2, 2, 2, 2, 3, 3, 3, 4, 4, 6]
@@ -28,11 +37,23 @@ class AI:
                     all_ships_placed = True
 
 
-    def shoot(self, enemy):
-        #param shot_koord (tuple[int,int]): (x, y)
+    def random_shot(self, enemy) -> None:
+        ''' Shoot at a random coordinate
+
+        :param enemy (Board): the enemy board to shoot on
+
+        :returns: NoReturn
+        :rtype: None
+        '''
+
         while True:
+            # get random coordinate
             xpos = random.randint(0,9)
             ypos = random.randint(0,9)
-            shot = enemy.shoot((xpos, ypos))
+
+            # shoot at that coordinate
+            shot = enemy.shoot_at((xpos, ypos))
+
+            # if shot was successful, then return, otherwise try again
             if shot[0]:
-                return shot
+                return

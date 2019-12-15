@@ -1,5 +1,7 @@
-# The screen for place ships,
-# everything that have to do with PlaceShips state should be in in here
+''' This module contains the PlaceShipScreen which is the second screen to be shown
+
+everything that have to do with PlaceShips state should be in in here
+'''
 
 import pygame
 import random
@@ -13,38 +15,64 @@ from framework.ship import Ship
 
 
 class PlaceShipScreen(Screen):
-    _shipRotation_to_deg = {
-            (1, 0) : 270,
-            (-1, 0) : 90,
-            (0, 1) : 180,
-            (0, -1) : 0 }
+    ''' The screen for placing your ships
+
+
+    This screen can change the current_screen to:
+        BattleScreen - when the start button is pressed
+
+    other functionalities:
+        -
+    '''
+
+
+    # convert the ships rotation (which is a tuple[int,int]) to degrees, so we can use it to rotate the image
+    tuple_to_deg = {
+        (1, 0) : 270, # right
+        (-1, 0) : 90, # left
+        (0, 1) : 180, # down
+        (0, -1) : 0 } # up
 
 
     def __init__(self):
-        self.board = Board()
-        self.ship_rotation = (-1, 0)
-        self.ship_length = 5
-        self.cell_size = 40
-        self.board_pos = (123, 120)
-
         super().__init__()
 
 
-    def load_content(self):
-        self.amount = 50
-        self.xy = []
-        self._creat_rain()
-       
+    def load_content(self) -> None:
+        ''' Initializes/load all content
+
+        :returns: NoReturn
+        :rtype: None
+        '''
+
         super().load_content()
+
+        self.board = Board()            # the board to place the ships on
+        self.ship_rotation = (-1, 0)    # the rotaion of the ship
+        self.ship_length = 5            # the lenth of the ship
+        self.board_pos = (123, 120)     # where to draw the board
+
+        self.rain_drops = []            # -> list(tuple[int,int,int]) (x, y, speed)
+        self.rain_amount = 50           
+        
+        self._creat_rain()
         
 
-    def update(self, delta_time):
+    def update(self, delta_time) -> None:
+        ''' Updates everything
+
+        :returns: NoReturn
+        :rtype: None
+        '''
+
         events = super().update(delta_time)
 
+        # place ship when mouse clicked
         for event in events:
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                self.__place_ship()
+                self._place_ship()
 
+            # rotate ship
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
                     self.ship_rotation = (-1, 0)
@@ -59,76 +87,120 @@ class PlaceShipScreen(Screen):
                 if event.key == pygame.K_2:
                     self.ship_length += 1
 
-        for i in range(self.amount):
-            if (self.xy[i][1] > config.SCREEN_HEIGHT):
+        # update rain drops
+        for i in range(self.rain_amount):
+            if (self.rain_drops[i][1] > config.SCREEN_HEIGHT):
                 x = random.randint(0,config.SCREEN_WIDTH)
-                self.xy[i] = (x, -100, self.xy[i][2])
-            self.xy[i] = (self.xy[i][0], self.xy[i][1]  + self.xy[i][2], self.xy[i][2])
-
-        super().update(delta_time)
+                self.rain_drops[i] = (x, -100, self.rain_drops[i][2])
+            self.rain_drops[i] = (self.rain_drops[i][0], self.rain_drops[i][1]  + self.rain_drops[i][2], self.rain_drops[i][2])
 
 
-    def draw(self):
-        for i in self.xy:
-            green = (i[2]*3, 100+i[2]*5, 200-i[2]*6)
-            pygame.draw.rect(config.window, green, (i[0],i[1],10,100))
 
-        config.window.blit(sprites.img_explosion, (0, 0))
+    def draw(self) -> None:
+        ''' Draws everything to the screen
 
-        self.board.draw(self.board_pos, self.cell_size)
-        self._draw_ship()
+        :returns: NoReturn
+        :rtype: None
+        '''
 
         super().draw() 
 
+        # draw rain
+        for i in self.rain_drops:
+            green = (i[2]*3, 100+i[2]*5, 200-i[2]*6)
+            pygame.draw.rect(config.window, green, (i[0],i[1],10,20+i[2]*2))
 
-    def _creat_rain(self):
-        for i in range(self.amount):
+        # draw background
+        config.window.blit(sprites.img_explosion, (0, 0))
+
+        # draw board
+        self.board.draw(self.board_pos)
+        #draw ship
+        self._draw_ship()
+
+
+    def _creat_rain(self) -> None:
+        ''' Instantiates the rain
+
+        :returns: NoReturn
+        :rtype: None
+        '''
+
+        # x, y, speed
+        for i in range(self.rain_amount):
             x = random.randint(0, config.SCREEN_WIDTH)
             y = random.randint(0, config.SCREEN_HEIGHT)
             speed = random.randint(8,30)
-            self.xy.append((x, y, speed))
+            self.rain_drops.append((x, y, speed))
 
 
-    def __place_ship(self):
+    def _get_cell_index_at_mouse(self) -> tuple:
+        ''' Get the cell index the mouse is hovering over
+
+        :returns: the (x, y) index
+        :rtype: tuple[int,int]
+        '''
+
         mouse = pygame.mouse.get_pos()
-        cell_index = ((mouse[0] - self.board_pos[0]) // self.cell_size, (mouse[1] - self.board_pos[1]) // self.cell_size)
+        return ((mouse[0] - self.board_pos[0]) // config.CELL_SIZE,
+                (mouse[1] - self.board_pos[1]) // config.CELL_SIZE)
+
+
+    def _place_ship(self) -> None:
+        ''' Place the current selected ship to the board
+
+        :returns: NoReturn
+        :rtype: None
+        '''
+
+        cell_index = self._get_cell_index_at_mouse()
         ship = Ship(sprites.set_ship_texture0, cell_index, self.ship_length, self.ship_rotation)
         self.board.place_ship(ship)
 
+        
+    def _can_place(self) -> bool:
+        ''' Checks if the current selected ship can be placed on the board
 
-    def _draw_ship(self):
+        :returns: True if the ship can be placed, otherwise False
+        :rtype: bool
+        '''
+
+        cell_index = self._get_cell_index_at_mouse()
+        ship = Ship(sprites.set_ship_texture0, cell_index, self.ship_length, self.ship_rotation)
+        return self.board.can_place_ship(ship)
+
+
+    def _draw_ship(self) -> None:
+        ''' Draws the current selected ship at the mouse position
+        
+        :returns: NoReturn
+        :rtype: None
+        '''
+
+        # the color for the ship. if can_place then color is white otherwise it's red
         color = (255, 255, 255) if self._can_place() else (255, 50, 50)
 
-        # draw toppart
-        pic = pygame.transform.rotate(sprites.set_ship_texture0[2], PlaceShipScreen._shipRotation_to_deg[self.ship_rotation])
+        # draw top-part of the ship
+        pic = pygame.transform.rotate(sprites.set_ship_texture0[2], PlaceShipScreen.tuple_to_deg[self.ship_rotation])
         x, y = pygame.mouse.get_pos()
-        x += self.ship_rotation[0] * (self.ship_length - 1) * self.cell_size - self.cell_size * 0.5
-        y += self.ship_rotation[1] * (self.ship_length - 1) * self.cell_size - self.cell_size * 0.5
+        x += self.ship_rotation[0] * (self.ship_length - 1) * config.CELL_SIZE - config.CELL_SIZE * 0.5
+        y += self.ship_rotation[1] * (self.ship_length - 1) * config.CELL_SIZE - config.CELL_SIZE * 0.5
         pic = surface_change.colorize(pic.copy(), color)
         config.window.blit(pic, (x,y))
 
-        # draw midpart
-        pic = pygame.transform.rotate(sprites.set_ship_texture0[1], PlaceShipScreen._shipRotation_to_deg[self.ship_rotation])
+        # draw mid-part of the ship
+        pic = pygame.transform.rotate(sprites.set_ship_texture0[1], PlaceShipScreen.tuple_to_deg[self.ship_rotation])
         for i in range(1, self.ship_length - 1):
             x, y = pygame.mouse.get_pos()
-            x += self.ship_rotation[0] * i * self.cell_size - self.cell_size * 0.5
-            y += self.ship_rotation[1] * i * self.cell_size - self.cell_size * 0.5
-            
+            x += self.ship_rotation[0] * i * config.CELL_SIZE - config.CELL_SIZE * 0.5
+            y += self.ship_rotation[1] * i * config.CELL_SIZE - config.CELL_SIZE * 0.5
             pic = surface_change.colorize(pic.copy(), color)
             config.window.blit(pic, (x,y))
 
-        # draw bottompart
-        pic = pygame.transform.rotate(sprites.set_ship_texture0[0], PlaceShipScreen._shipRotation_to_deg[self.ship_rotation])
+        # draw bottom-part of the ship
+        pic = pygame.transform.rotate(sprites.set_ship_texture0[0], PlaceShipScreen.tuple_to_deg[self.ship_rotation])
         x, y = pygame.mouse.get_pos()
-        x += -self.cell_size * 0.5
-        y += -self.cell_size * 0.5
+        x += -config.CELL_SIZE * 0.5
+        y += -config.CELL_SIZE * 0.5
         pic = surface_change.colorize(pic.copy(), color)
         config.window.blit(pic, (x,y))
-
-
-
-    def _can_place(self):
-        mouse = pygame.mouse.get_pos()
-        cell_index = ((mouse[0] - self.board_pos[0]) // self.cell_size, (mouse[1] - self.board_pos[1]) // self.cell_size)
-        ship = Ship(sprites.set_ship_texture0, cell_index, self.ship_length, self.ship_rotation)
-        return self.board.can_place_ship(ship)

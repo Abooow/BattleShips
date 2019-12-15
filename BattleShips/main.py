@@ -1,9 +1,12 @@
 ''' The main file for the program
 '''
 
+import sys
 import pygame
 import config
 import sprites
+
+sprites.init() # Initialize content
 
 from screens.place_ships_screen import PlaceShipScreen
 from screens.menu_screen import MenuScreen
@@ -15,20 +18,21 @@ pygame.init()
 config.window = pygame.display.set_mode((config.SCREEN_WIDTH, config.SCREEN_HEIGHT))
 pygame.display.set_caption('Modern Battleship Extreme Warfare')
 
-# Initialize content
-sprites.init()
-
 # Icon
 #icon = pygame.image.load('content\sprites\icon.png')
 #pygame.display.set_icon(icon)
 
 # Sets the current screen to MenuScreen
-config.current_screen = MenuScreen()
+config.current_screen = TestScreen()
 
+# clock is used to get a framerate of 60fps
 clock = pygame.time.Clock()
 
 
-def main():
+def main() -> None:
+    ''' The main function of the program
+    '''
+
     # ---------------------- GameLoop
     while not config.quit_game:
         delta_time = clock.get_time()
@@ -44,9 +48,12 @@ def main():
         config.current_screen.draw()        # draw everything in the current screen
         pygame.display.update()             # render everything
 
-        # FPS
-        clock.tick(60)
+        clock.tick(60) # set the FPS to 60
 
 if __name__ == '__main__':
+    # main loop
     main()
+
+    # Quit
     pygame.quit()
+    #sys.exit()

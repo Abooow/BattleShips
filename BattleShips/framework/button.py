@@ -1,3 +1,6 @@
+''' This module contains the Button class
+'''
+
 import pygame
 import config
 
@@ -23,18 +26,16 @@ class Button():
     '''
 
 
-    def __init__ (self, rect, bg = (255, 255, 255), fg = (0, 0, 0), image = None,  action = None):
+    def __init__ (self, rect, bg = (255, 255, 255), image = None,  action = None):
         '''
         :param rect (tuple[int,int,int,int]): (x, y, width, height) position and size of the button
         :param bg (tuple[int,int,int]): (red, green, blue) color of the background (use None to remove bg)
-        :param fg (tuple[int,int,int]): (red, green, blue) color of the foreground (use None to remove fg) !!NOT USED!!
         :param image (surface): a image to the button
         :param action (function): the function to instantiate when the button is clicked
         '''
 
         self.rect = rect
         self.bg = bg
-        self.fg = fg
         self.image = image
         self.action = action
 
@@ -46,7 +47,7 @@ class Button():
         ''' This method is called when the mouse is clicked
         note: this method does NOT check if the mouse is clicked, only call this method after mouse pressed event
         
-        :returns: nothing
+        :returns: NoReturn
         :rtype: None
         '''
 
@@ -58,7 +59,7 @@ class Button():
     def draw(self) -> None:
         ''' Draw the button
         
-        :returns: nothing
+        :returns: NoReturn
         :rtype: None
         '''
 
@@ -87,7 +88,7 @@ class Button():
     def _draw_hovering(self) -> None:
         ''' Draws the button but with a darker background (35% darker)
 
-        :returns: nothing
+        :returns: NoReturn
         :rtype: None
         '''
 

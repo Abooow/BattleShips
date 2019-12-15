@@ -26,7 +26,7 @@ txt_select = None
 txt_start = None
 txt_quit = None
 
-set_ship_texture0_scetch = None
+set_ship_texture0_sketch = None
 set_ship_texture0 = None
 
 anim_explosion = None
@@ -46,7 +46,7 @@ def init() -> None:
 
     global img_explosion, img_chopper, img_boat1, img_boat2, img_boat3, img_boat4, img_cell
     global txt_mission_accomplished, txt_place_your_ships, txt_main_menu, txt_game_name, txt_restart, txt_select, txt_start, txt_quit
-    global set_ship_texture0_scetch, set_ship_texture0
+    global set_ship_texture0_sketch, set_ship_texture0
     global anim_explosion, anim_missile, anim_water, anim_fire, anim_jet
 
     path = 'content/sprites/'
@@ -71,7 +71,7 @@ def init() -> None:
     txt_quit = pygame.image.load(f'{path}buttons/quit.png')
 
     # all set_
-    set_ship_texture0_scetch = None
+    set_ship_texture0_sketch = None
     set_ship_texture0 = [pygame.image.load(f'{path}ship_parts/set0/part{i}.png') for i in range(3)]
 
     # all anim_

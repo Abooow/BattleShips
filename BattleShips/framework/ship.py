@@ -1,3 +1,6 @@
+''' This module contains the Ship class
+'''
+
 class Ship:
     ''' Base class for a ship
 

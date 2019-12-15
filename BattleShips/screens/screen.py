@@ -1,7 +1,6 @@
 ''' This module contains the Screen class
 '''
 
-
 import pygame
 import config
 
@@ -55,6 +54,8 @@ class Screen():
     def update(self, delta_time) -> list:
         ''' Every thing that are supposed to update every frame are meant to belong in this method, this method is called 60 FPS
         note: This method is called BEFORE the draw() method
+
+        :param delta_time (int): the time since last frame
 
         :returns: every events that occured
         :rtype: list[event]
