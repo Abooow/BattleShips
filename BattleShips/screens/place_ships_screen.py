@@ -4,7 +4,8 @@
 import pygame
 import random
 import config
-import pic_module
+import sprites
+import surface_change
 
 from screens.screen import Screen
 from framework.board import Board
@@ -30,9 +31,6 @@ class PlaceShipScreen(Screen):
 
 
     def load_content(self):
-        self.image = pic_module.boat_bottom
-        self.org_img = self.image
-        self.text_img = pygame.image.load(r'content\sprites\placeYourShips_background.png')
         self.amount = 50
         self.xy = []
         self._creat_rain()
@@ -75,7 +73,7 @@ class PlaceShipScreen(Screen):
             green = (i[2]*3, 100+i[2]*5, 200-i[2]*6)
             pygame.draw.rect(config.window, green, (i[0],i[1],10,100))
 
-        config.window.blit(self.text_img, (0, 0))
+        config.window.blit(sprites.img_explosion, (0, 0))
 
         self.board.draw(self.board_pos, self.cell_size)
         self._draw_ship()
@@ -93,33 +91,44 @@ class PlaceShipScreen(Screen):
 
     def __place_ship(self):
         mouse = pygame.mouse.get_pos()
-        cell = ((mouse[0] - self.board_pos[0]) // self.cell_size, (mouse[1] - self.board_pos[1]) // self.cell_size)
-        ship = Ship(cell, self.ship_length, self.ship_rotation)
-        if self.board.can_place_ship(ship):
-            self.board.place_ship(ship)
+        cell_index = ((mouse[0] - self.board_pos[0]) // self.cell_size, (mouse[1] - self.board_pos[1]) // self.cell_size)
+        ship = Ship(sprites.set_ship_texture0, cell_index, self.ship_length, self.ship_rotation)
+        self.board.place_ship(ship)
 
 
     def _draw_ship(self):
+        color = (255, 255, 255) if self._can_place() else (255, 50, 50)
+
         # draw toppart
-        pic = pygame.transform.rotate(pic_module.boat_top, PlaceShipScreen._shipRotation_to_deg[self.ship_rotation])
+        pic = pygame.transform.rotate(sprites.set_ship_texture0[2], PlaceShipScreen._shipRotation_to_deg[self.ship_rotation])
         x, y = pygame.mouse.get_pos()
         x += self.ship_rotation[0] * (self.ship_length - 1) * self.cell_size - self.cell_size * 0.5
-        y += self.ship_rotation[1] * (self.ship_length - 1) *self.cell_size - self.cell_size * 0.5
+        y += self.ship_rotation[1] * (self.ship_length - 1) * self.cell_size - self.cell_size * 0.5
+        pic = surface_change.colorize(pic.copy(), color)
         config.window.blit(pic, (x,y))
 
         # draw midpart
-        pic = pygame.transform.rotate(pic_module.boat_middle, PlaceShipScreen._shipRotation_to_deg[self.ship_rotation])
+        pic = pygame.transform.rotate(sprites.set_ship_texture0[1], PlaceShipScreen._shipRotation_to_deg[self.ship_rotation])
         for i in range(1, self.ship_length - 1):
             x, y = pygame.mouse.get_pos()
             x += self.ship_rotation[0] * i * self.cell_size - self.cell_size * 0.5
             y += self.ship_rotation[1] * i * self.cell_size - self.cell_size * 0.5
             
-            pic.set_alpha(100)
+            pic = surface_change.colorize(pic.copy(), color)
             config.window.blit(pic, (x,y))
 
         # draw bottompart
-        pic = pygame.transform.rotate(pic_module.boat_bottom, PlaceShipScreen._shipRotation_to_deg[self.ship_rotation])
+        pic = pygame.transform.rotate(sprites.set_ship_texture0[0], PlaceShipScreen._shipRotation_to_deg[self.ship_rotation])
         x, y = pygame.mouse.get_pos()
         x += -self.cell_size * 0.5
         y += -self.cell_size * 0.5
+        pic = surface_change.colorize(pic.copy(), color)
         config.window.blit(pic, (x,y))
+
+
+
+    def _can_place(self):
+        mouse = pygame.mouse.get_pos()
+        cell_index = ((mouse[0] - self.board_pos[0]) // self.cell_size, (mouse[1] - self.board_pos[1]) // self.cell_size)
+        ship = Ship(sprites.set_ship_texture0, cell_index, self.ship_length, self.ship_rotation)
+        return self.board.can_place_ship(ship)

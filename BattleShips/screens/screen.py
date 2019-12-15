@@ -1,3 +1,6 @@
+''' This module contains the Screen class
+'''
+
 
 import pygame
 import config
@@ -5,6 +8,9 @@ import config
 
 class Screen():
     '''Base class for all screens, this class is ment to be inhereted
+
+    A super class that is used for different screens
+
 
     How to use:
         class MenuScreen(Screen):

@@ -1,5 +1,5 @@
-# Configurations for the program 
-
+''' Configurations for the BattleShips program 
+'''
 
 # window size
 SCREEN_WIDTH = 1024

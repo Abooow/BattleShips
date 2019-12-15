@@ -1,8 +1,12 @@
 class Ship:
     ''' Base class for a ship
 
+    A Ship have a image set (texture), a coordinate where the ship starts, a lenth and a rotation
+    ment to be used together with the Board class
+
+
     example:
-        ship_texure1 = [^, #, U]  <- it have to be (top_part, middle_part, bottom_part) (prow, deck, stern)
+        ship_texure1 = [U, #, ^]  <- the order is important, it have to be (bottom-part, middle-part, top-part) (stern, deck, prow)
 
         ship1 = Ship(image_set=ship_texure1, position=(1, 5), length=4, rotation=(0, -1))
 
@@ -27,8 +31,16 @@ class Ship:
 
         player_board.place_ship(ship1)
 
-        
     for more info, look at the Board class
+
+
+    example of a placed ship:
+        image_set = [U, #, ^]
+
+        ^  <- prow  | image_index = 2 | ship_part = 3
+        #  <- deck  | image_index = 1 | ship_part = 2
+        #  <- deck  | image_index = 1 | ship_part = 1
+        U  <- stern | image_index = 0 | ship_part = 0
     '''
 
 
@@ -41,7 +53,7 @@ class Ship:
 
     def __init__(self, image_set, position, length, rotation):
         '''
-        :param image_set (list[surface]): what texture this ship uses (top-part, middle-part, bottom-part) (prow, deck, stern)
+        :param image_set (list[surface]): what texture this ship uses (bottom-part, middle-part, top-part) (stern, deck, prow)
         :param position (tuple[int,int]): (x, y) index where the ship starts
         :param length (int): the lenght of the ship
         :param rotation (tuple[int,int]): the rotation of the ship
@@ -51,9 +63,11 @@ class Ship:
         self.position = position
         self.length = length
         self.rotation = rotation
-        self.health = length
 
-        self.parts = [True] * length
+        # health of the ship (same as length)
+        self.health = length
+        # all parts of the ship that are hit/destroyed
+        self.hit_parts = [False] * length
 
 
     def get_hit(self, part) -> bool:
@@ -61,9 +75,10 @@ class Ship:
 
         :param part (int): what part of the ship to shoot at
 
-        :returns: True if the ship have sunken(0 health) otherwise False
+        :returns: True if the ship have sunken (0 health), otherwise False
         :rtype: bool
         '''
 
         self.health -= 1
+        self.parts[part] = True
         return True if self.health <= 0 else False

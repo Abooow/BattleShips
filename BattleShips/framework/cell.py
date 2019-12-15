@@ -1,7 +1,7 @@
 
 import pygame
 import config
-import pic_module
+import sprites
 
 from framework.animation import Animation
 from framework.ship import Ship
@@ -10,7 +10,17 @@ from framework.ship import Ship
 class Cell:
     ''' Base class for a cell
     
+    A Cell contains ether a part of a ship or it's empty, can contain a mine as well (SPRINT 3)
+    ment to be used by the Board class
 
+
+    example of a placed ship:
+        image_set = [U, #, ^]
+
+        ^  <- prow  | image_index = 2 | ship_part = 3
+        #  <- deck  | image_index = 1 | ship_part = 2
+        #  <- deck  | image_index = 1 | ship_part = 1
+        U  <- stern | image_index = 0 | ship_part = 0
     '''
 
 
@@ -18,7 +28,7 @@ class Cell:
         '''
         :param ship (Ship): the reference to the ship 
         :param image_index (int): index for the image to use in the ship.image_set
-        :param ship_part (int): what part of the this is on this cell (0 is the part furthest back (the stern))
+        :param ship_part (int): what part of the ship is on this cell (0 is the part furthest back (the stern))
         :param rotation (int): the rotation of the ship image
         '''
 
@@ -29,8 +39,8 @@ class Cell:
 
         self.hit = False
 
-        self._fire_anim = Animation(pic_module.fire_anim, 12)
-        self._explotion_anim = Animation(pic_module.explosion_anim, 12, loop=False)
+        self._fire_anim = Animation(sprites.anim_fire, 12)
+        self._explotion_anim = Animation(sprites.anim_explosion, 12, loop=False)
 
 
     def shoot_at(self) -> bool:
@@ -41,15 +51,16 @@ class Cell:
         '''
 
         self.hit = True
+        # the ship that was standing on this cell will take damage, if any
         if self.ship is not None:
-            self.ship.get_hit()
+            self.ship.get_hit(self.ship_part)
             return True
         else:
             return False
 
 
     def update(self, delta_time) -> None:
-        ''' Updates all animation in this cell if any
+        ''' Updates all animation in this cell, if any
 
         :param delta_time (int): the time since last frame
 
@@ -62,7 +73,7 @@ class Cell:
 
 
     def draw(self, position) -> None:
-        ''' Draws everything on this cell
+        ''' Draws everything that's in this cell
 
         :param position (tuple[int,int]): where to draw the Cell
 
@@ -74,11 +85,11 @@ class Cell:
         y = position[1]
 
         # draw cell boarder img 50x50
-        config.window.blit(pic_module.board_cell, (x, y))
+        config.window.blit(sprites.img_cell, (x, y))
 
         # draw ship img
         if self.ship != None: 
-            img = pygame.transform.rotate(self.ship_image, self.ship_rotation)
+            img = pygame.transform.rotate(self.ship.image_set[self.image_index], self.rotation)
             config.window.blit(img, (x, y))
 
 
@@ -95,7 +106,7 @@ class Cell:
         y = position[1]
 
         # draw cell boarder img 50x50
-        config.window.blit(pic_module.board_cell, (x, y))
+        config.window.blit(sprites.img_cell.board_cell, (x, y))
 
         # draw hitmarker after shot
         if self.hit:

@@ -1,7 +1,7 @@
 
 import pygame
 import random
-import pic_module
+import sprites
 
 from screens.screen import Screen
 from framework.button import Button
@@ -19,7 +19,7 @@ class TestScreen(Screen):
 
         self.jet = Jet()
         self.buttons.append(Button((300, 300, 405, 60), 
-                                   image=pic_module.menu_start_button, 
+                                   image=sprites.txt_start, 
                                    bg=(60,60,60), 
                                    action=self._press))
 
@@ -43,13 +43,11 @@ class TestScreen(Screen):
 
 class Jet(Animation):
     def __init__(self, fps=14):
-        super().__init__(pic_module.jet_anim, fps, (1, 1), 270, True)
+        super().__init__(sprites.anim_jet, fps, (1, 1), 270, True)
 
         self.missiles = []
         self.x = -200
         self.y = 100
-
-        print(type(pic_module.board_cell))
 
 
     def update(self, delta_time):
@@ -80,14 +78,14 @@ class Jet(Animation):
 
 class Missile(Animation):
     def __init__(self, x, y, fps = 12):
-        super().__init__(pic_module.missile_anim, fps, loop=True)
+        super().__init__(sprites.anim_missile, fps, loop=True)
 
         self.x = x
         self.y = y
         self.max_y = 550 - random.random() * 100
         self._explode = False
-        self._explodsion_anim = Animation(pic_module.explosion_anim, 12, (1, 1), 0, False)
-        self._fire_anim = Animation(pic_module.fire_anim, 12, (3, 3), 0, True)
+        self._explodsion_anim = Animation(sprites.anim_explosion, 12, (1, 1), 0, False)
+        self._fire_anim = Animation(sprites.anim_fire, 12, (3, 3), 0, True)
 
 
     def update(self, delta_time):

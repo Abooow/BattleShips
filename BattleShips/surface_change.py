@@ -1,3 +1,7 @@
+''' This module contains functions that allows you to change properties a pygame.surface (image)
+'''
+
+
 import pygame
 
 
@@ -35,6 +39,7 @@ def colorize(image, new_color) -> pygame.surface:
     # zero out RGB values
     #image.fill((0, 0, 0, 255), None, pygame.BLEND_RGBA_MULT)
     # add in new RGB values
-    image.fill(new_color[0:3] + (0,), None, pygame.BLEND_RGBA_ADD)
+    image = image.convert_alpha()
+    image.fill(new_color, None, pygame.BLEND_RGBA_MULT)
 
     return image

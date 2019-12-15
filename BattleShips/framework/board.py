@@ -1,13 +1,23 @@
 
 import pygame
 import config
-import pic_module
 
 from framework.cell import Cell
 
 
 class Board:
-    '''
+    ''' Base class for a board
+
+    A Board is the playground 
+
+
+    example of a placed ship:
+        image_set = [U, #, ^]
+
+        ^  <- prow  | image_index = 2 | ship_part = 3
+        #  <- deck  | image_index = 1 | ship_part = 2
+        #  <- deck  | image_index = 1 | ship_part = 1
+        U  <- stern | image_index = 0 | ship_part = 0
     '''
 
 
@@ -27,24 +37,31 @@ class Board:
         '''
 
         if not self.can_place_ship(ship):
+            # placement failed
             return False
 
-        rotation = {
-            (1, 0) : 270,
-            (-1, 0) : 90,
-            (0, 1) : 180,
-            (0, -1) : 0 }
+        # convert the ships rotation (which is a tuple[int,int]) to degrees, so we can use it to rotate the image
+        tuple_to_deg = {
+            (1, 0) : 270, # right
+            (-1, 0) : 90, # left
+            (0, 1) : 180, # down
+            (0, -1) : 0 } # up
+        rotation = tuple_to_deg[ship.rotation]
 
-        # enitre boat
+        # devide the ship in different parts and place each part on a cell
         for i in range(ship.length):
+            # the cell index
             x = ship.position[0] + i * ship.rotation[0]
             y = ship.position[1] + i * ship.rotation[1]
+            # the image index for each part (0=stern, 1=deck, 2=prow)
             image_index = 0 if i == 0 else 2 if i == ship.length-1 else 1
 
-            self.list[y][x] = Cell(ship=ship, image_index=image_index, ship_part=i, rotation=rotation[ship.rotation])
+            self.list[y][x] = Cell(ship=ship, image_index=image_index, ship_part=i, rotation=rotation)
 
+        # save the ship in self.ships list
         self.ships.append(ship)
         
+        # placement was successful
         return True
 
 

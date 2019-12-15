@@ -22,6 +22,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="audio.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="config.py">
       <SubType>Code</SubType>
     </Compile>
@@ -50,7 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="screens\" />
-    <Compile Include="pic_module.py">
+    <Compile Include="sprites.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="screens\menu_screen.py">

@@ -6,7 +6,10 @@ import surface_change
 class Animation():
     ''' The base class for an animation, this class can either be instantiated directly or inherited
     
-    example 1:
+    The Animation class takes a list of images wich is used as frames and changes what frame to draw after a specified time
+
+
+    how to use, example 1:
 
         def load_content(self):
             ...
@@ -21,7 +24,7 @@ class Animation():
             anim.draw(...)
 
 
-    example 2:
+    how to use, example 2:
         class Missile(Animation):
             def __init__(self, ...):
                 super().__init__(...)
