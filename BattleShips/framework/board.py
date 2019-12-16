@@ -77,7 +77,7 @@ class Board:
         '''
         
         # checks if the coordinate have been used
-        if shot_koord in self.shots_fired:   
+        if coordinate in self.shots_fired:   
             return False, None 
         else:
             # coordinate have not been used, add it to shots_fired list

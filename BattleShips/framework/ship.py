@@ -83,5 +83,5 @@ class Ship:
         '''
 
         self.health -= 1
-        self.parts[part] = True
+        self.hit_parts[part] = True
         return True if self.health <= 0 else False
