@@ -100,7 +100,11 @@ class Cell:
             config.window.blit(img, (x, y))
 
         # TODO: draw explosion and fire animation if hit
-
+        if self.hit:
+            if self.ship != None: # Hit
+                pygame.draw.rect(config.window, (0, 100, 70), (x+1, y+1, 40, 40))
+            elif self.ship == None: # Miss
+                pygame.draw.rect(config.window, (100, 30, 30), (x+1, y+1, 40, 40))
 
     def draw_enemy(self, position) -> None:
         ''' Draws hit/miss but not the ship
@@ -115,14 +119,16 @@ class Cell:
         y = position[1]
 
         # draw cell boarder img 50x50
-        config.window.blit(sprites.img_cell.board_cell, (x, y))
+        config.window.blit(sprites.img_cell, (x, y))
 
         # draw hitmarker after shot
         if self.hit:
             # TODO: if the ship is hit draw a destroyed sprite
-            if self.ship != None:
-                config.window.blit(hitImg, (x, y))
-            elif self.ship == None:
-                config.window.blit(missImg, (x, y))
+            if self.ship != None: # Hit
+                #config.window.blit(hitImg, (x, y))
+                pygame.draw.rect(config.window, (0, 100, 70), (x+1, y+1, 40, 40))
+            elif self.ship == None: # Miss
+                #config.window.blit(missImg, (x, y))
+                pygame.draw.rect(config.window, (100, 30, 30), (x+1, y+1, 40, 40))
                 
         # TODO: draw explosion and fire animation if hit

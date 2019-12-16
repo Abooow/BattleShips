@@ -3,8 +3,11 @@
 
 import pygame
 import config
+import sprites
+import random
 
 from framework.cell import Cell
+from framework.ship import Ship
 
 
 class Board:
@@ -22,10 +25,37 @@ class Board:
         U  <- stern | image_index = 0 | ship_part = 0
     '''
 
+    def place_ships_randomely(board) -> None:
+        ''' Places all ships on randomly the board
+
+        :param board (Board): the board to place the ships on
+
+        returns: NoReturn
+        rtype: None
+        '''
+        
+        ships_available = [2, 2, 2, 3, 3, 4, 4, 5]
+        while len(ships_available) > 0:
+            xpos = random.randint(0,9)
+            ypos = random.randint(0,9)
+            pos_tuple = (xpos, ypos)
+
+            # create a ship
+            ship = Ship(sprites.set_ship_texture0, 
+                        pos_tuple, 
+                        ships_available[0], 
+                        [(1, 0), (-1, 0), (0, 1), (0, -1)][random.randint(0, 3)])
+
+            if board.place_ship(ship):
+                del ships_available[0]
+
 
     def __init__(self):
         # create a 2d array filled with cells
-        self.list = [[Cell()] * 10 for i in range(10)]
+        self.list = [[0] * 10 for i in range(10)]
+        for i in range(10):
+            for j in range(10):
+                self.list[i][j] = Cell()
         self.shots_fired = []
         self.ships = []
 
@@ -77,7 +107,7 @@ class Board:
         '''
         
         # checks if the coordinate have been used
-        if shot_koord in self.shots_fired:   
+        if coordinate in self.shots_fired:   
             return False, None 
         else:
             # coordinate have not been used, add it to shots_fired list

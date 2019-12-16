@@ -10,8 +10,7 @@ sprites.init() # Initialize content
 
 from screens.place_ships_screen import PlaceShipScreen
 from screens.menu_screen import MenuScreen
-from screens.test_screen import TestScreen
-
+from screens.battle_screen import BattleScreen
 
 # Initialize the game window
 pygame.init()
@@ -23,7 +22,7 @@ pygame.display.set_caption('Modern Battleship Extreme Warfare')
 #pygame.display.set_icon(icon)
 
 # Sets the current screen to MenuScreen
-config.current_screen = TestScreen()
+config.current_screen = BattleScreen()
 
 # clock is used to get a framerate of 60fps
 clock = pygame.time.Clock()
