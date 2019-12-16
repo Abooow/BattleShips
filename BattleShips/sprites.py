@@ -61,6 +61,7 @@ def init() -> None:
     img_boat3 = pygame.image.load(f'{path}menu_screen/boat3.png')
     img_boat4 = pygame.image.load(f'{path}menu_screen/boat4.png')
     img_cell = pygame.image.load(f'{path}board/cell.png')
+    img_battlescreen_foreground = pygame.image.load(f'{path}battle_screen/foreground.png')
 
     # all txt_
     txt_mission_accomplished = pygame.image.load(f'{path}win_screen/mission_accomplished.png')
