@@ -13,7 +13,6 @@ from screens.battle_screen import BattleScreen
 from screens.menu_screen import MenuScreen
 from screens.test_screen import TestScreen
 
->>>>>>> battle_screen_health
 
 # Initialize the game window
 pygame.init()

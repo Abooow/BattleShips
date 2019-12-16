@@ -10,6 +10,7 @@ import pygame
 # anim_ = animation, an array of images
 
 img_battle_screen_foreground = None
+img_crosshair = None
 img_explosion = None
 img_chopper = None
 img_boat1 = None
@@ -45,7 +46,7 @@ def init() -> None:
     :rtype: None
     '''
 
-    global img_battle_screen_foreground, img_explosion, img_chopper, img_boat1, img_boat2, img_boat3, img_boat4, img_cell
+    global img_battle_screen_foreground, img_crosshair, img_explosion, img_chopper, img_boat1, img_boat2, img_boat3, img_boat4, img_cell
     global txt_mission_accomplished, txt_place_your_ships, txt_main_menu, txt_game_name, txt_restart, txt_select, txt_start, txt_quit
     global set_ship_texture0_sketch, set_ship_texture0
     global anim_explosion, anim_missile, anim_water, anim_fire, anim_jet
@@ -54,6 +55,7 @@ def init() -> None:
 
     # all img_
     img_battle_screen_foreground = pygame.image.load(f'{path}battle_screen/foreground.png')
+    img_crosshair = pygame.image.load(f'{path}battle_screen/crosshair.png')
     img_explosion = pygame.image.load(f'{path}menu_screen/explosion.png')
     img_chopper = pygame.image.load(f'{path}menu_screen/chopper.png')
     img_boat1 = pygame.image.load(f'{path}menu_screen/boat1.png')
@@ -61,7 +63,6 @@ def init() -> None:
     img_boat3 = pygame.image.load(f'{path}menu_screen/boat3.png')
     img_boat4 = pygame.image.load(f'{path}menu_screen/boat4.png')
     img_cell = pygame.image.load(f'{path}board/cell.png')
-    img_battlescreen_foreground = pygame.image.load(f'{path}battle_screen/foreground.png')
 
     # all txt_
     txt_mission_accomplished = pygame.image.load(f'{path}win_screen/mission_accomplished.png')

@@ -1,12 +1,11 @@
 import pygame
 import config
 import sprites
-<<<<<<< HEAD
 
-from framework.board import Board
-from framework.ship import Ship
-from screens.screen import Screen
 from framework.ai import AI
+from framework.ship import Ship
+from framework.board import Board
+from screens.screen import Screen
 
 
 class BattleScreen(Screen):
@@ -51,14 +50,43 @@ class BattleScreen(Screen):
         # draw player board
         self.enemy.board.draw_enemy(self.enemy_board_pos)
 
+        # when it's players turn
         if self.player_turn:
             self._draw_hovering_cell() # draw the hovering cell
-            self._draw_cross_mark()    # draw cross mark
+            self._draw_crosshair()     # draw crosshair
 
+            
         # draw foreground
         config.window.blit(sprites.img_battle_screen_foreground, (0, 0))
         
+        # draw player's ships health squares bottom left
+        self._draw_player_ship_health()
+        # draw player's ships health squares bottom right
+        self._draw_enemy_ship_health()
+
         super().draw()
+
+
+    def _draw_player_ship_health(self):
+        for y in range(len(self.player.ships)):
+            ship = self.player.ships[y]
+
+            for x in range (ship.length):
+                if ship.hit_parts[x]: # Hit
+                    pygame.draw.rect(config.window, (255, 0, 0), (5 + 25 * x, 535 + (20 * y), 20, 10)) #x,y
+                else: # Not hit
+                    pygame.draw.rect(config.window, (0, 255, 0), (5 + 25 * x, 535 + (20 * y), 20, 10))
+
+
+    def _draw_enemy_ship_health(self):
+
+        # draw enemy's ships health squares bottom left
+        for y in range(len(self.enemy.board.ships)):
+            ship = self.enemy.board.ships[y]
+            color = (255, 0, 0) if all(ship.hit_parts) else (0, 255, 0) # sets the color to red (255, 0, 0) if ALL ship_parts is hit, otherwise green (0, 255, 0)
+
+            for x in range (ship.length):
+                pygame.draw.rect(config.window, color, (995 - (25 * x), 535 + (20 * y), 20, 10))
 
 
     def _get_cell_index_at_mouse(self) -> tuple:
@@ -94,88 +122,19 @@ class BattleScreen(Screen):
                                                               config.CELL_SIZE - 1, 
                                                               config.CELL_SIZE - 1))
 
-    def _draw_cross_mark(self):
+    def _draw_crosshair(self):
         mouse = pygame.mouse.get_pos()
 
         hor_line = (0, mouse[1] - 2, 1024, 4)
         ver_line = (mouse[0] - 2, 0, 4, 700)
-
         pygame.draw.rect(config.window, (0, 200, 70), hor_line)
         pygame.draw.rect(config.window, (0, 200, 70), ver_line)
+
+        cross_pos = (mouse[0] - 80, mouse[1] - 80)
+        config.window.blit(sprites.img_crosshair, cross_pos)
 
 
 
 class GameState():
     PLAYER_TURN = 0
     ENEMY_TURN = 1
-=======
-from framework.board import Board
-from framework.ship import Ship
-from screens.screen import Screen
-
-
-class BattleScreen(Screen):
-    
-    def __init__(self):
-        super().__init__()
-        
-    
-    def load_content(self):
-        super().load_content()
-        
-        self.player_board = Board()
-        self.enemy_board = Board()
-        #test placed boats
-        self.player_board.place_ship(Ship(sprites.set_ship_texture0, (0,0), 2, (1, 0)))
-        self.player_board.place_ship(Ship(sprites.set_ship_texture0, (0,1), 2, (1, 0)))
-        self.player_board.place_ship(Ship(sprites.set_ship_texture0, (0,2), 2, (1, 0)))
-        self.player_board.place_ship(Ship(sprites.set_ship_texture0, (0,3), 3, (1, 0)))
-        self.player_board.place_ship(Ship(sprites.set_ship_texture0, (0,4), 3, (1, 0)))
-        self.player_board.place_ship(Ship(sprites.set_ship_texture0, (0,5), 4, (1, 0)))
-        self.player_board.place_ship(Ship(sprites.set_ship_texture0, (0,6), 4, (1, 0)))
-        self.player_board.place_ship(Ship(sprites.set_ship_texture0, (0,7), 5, (1, 0)))
-
-        self.enemy_board.place_ship(Ship(sprites.set_ship_texture0, (0,0), 2, (1, 0)))
-        self.enemy_board.place_ship(Ship(sprites.set_ship_texture0, (0,1), 2, (1, 0)))
-        self.enemy_board.place_ship(Ship(sprites.set_ship_texture0, (0,2), 2, (1, 0)))
-        self.enemy_board.place_ship(Ship(sprites.set_ship_texture0, (0,3), 3, (1, 0)))
-        self.enemy_board.place_ship(Ship(sprites.set_ship_texture0, (0,4), 3, (1, 0)))
-        self.enemy_board.place_ship(Ship(sprites.set_ship_texture0, (0,5), 4, (1, 0)))
-        self.enemy_board.place_ship(Ship(sprites.set_ship_texture0, (0,6), 4, (1, 0)))
-        self.enemy_board.place_ship(Ship(sprites.set_ship_texture0, (0,7), 5, (1, 0)))
-        #test hit
-        self.player_board.shoot_at((0,1))
-        self.enemy_board.shoot_at((0,1))
-        self.enemy_board.shoot_at((1,1))
-
-    def update(self, delta_time):
-        super().update(delta_time)
-    
-    
-    def draw(self):
-
-        config.window.blit(sprites.img_battlescreen_foreground, (0,0))
-
-        # draw player's ships health squares bottom left
-        for y in range(len(self.player_board.ships)):
-            ship = self.player_board.ships[y]
-            for x in range (ship.length):
-                if ship.hit_parts[x]: #träffad
-                    pygame.draw.rect(config.window,(255,0,0),(5+25*x,535+(20*y),20,10)) #x,y
-                else: #ej träffad
-                    pygame.draw.rect(config.window,(0,255,0),(5+25*x,535+(20*y),20,10))
-
-        self.draw_enemy()
-        super().draw()
-
-    def draw_enemy(self):
-        num_hits = 0
-        # draw enemy's ships health squares bottom left
-        for y in range(len(self.enemy_board.ships)):
-            ship = self.enemy_board.ships[y]
-            for x in range (ship.length):
-                pygame.draw.rect(config.window,(0,255,0),(995-(25*x),535+(20*y),20,10))
-                if all(ship.hit_parts): #only draw's red rectangles if whole ship is sunk
-                    pygame.draw.rect(config.window,(255,0,0),(995-(25*x),535+(20*y),20,10)) #x,y
-                
->>>>>>> battle_screen_health
