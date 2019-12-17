@@ -204,3 +204,31 @@ class PlaceShipScreen(Screen):
         y += -config.CELL_SIZE * 0.5
         pic = surface_change.colorize(pic.copy(), color)
         config.window.blit(pic, (x,y))
+
+image_set0 ['part0','part2',(part0.png),(part2.png)]
+image_set1 ['part0','part2',(part0.png),(part2.png)]
+image_set2 ['part0','part2',(part0.png),(part2.png)]
+image_set3 ['part0','part1','part2', (part0.png), (part1.png),(part2.png)]
+image_set4 ['part0','part1','part2', (part0.png), (part1.png),(part2.png)]
+image_set5 ['part0','part1','part2', (part0.png), (part1.png),(part2.png)]
+image_set6 ['part0','part1','part1','part2', (part0.png), (part1.png),(part1.png), (part2.png)]
+image_set7 ['part0','part1','part1','part2', (part0.png),(part1.png),(part1.png),(part2.png)]
+image_set8 ['part1','part1','part1','part1','part2', (part0.png), (part1.png),(part1.png),(part1.png),(part2.png)]
+
+ship_texture0_sketch = None
+ship_texture0 = [pygame.image.load(f'{path}ship_parts/set0/part{i}.png') for i in range(3)]
+   
+ship_texture1_sketch = None
+ship_texture1 = [pygame.image.load(f'{path}ship_parts/set1/part{i}.png') for i in range(3)]
+
+ship_texture2_sketch = None
+ship_texture2 = [pygame.image.load(f'{path}ship_parts/set2/part{i}.png') for i in range(3)]
+
+ship1 = Ship(image_set0 = image_texture0)
+ship2 = Ship(image_set1 = image_texture1)
+ship3 = Ship(image_set2 = image_texture2)
+ship4 = Ship(image_set3 = image_texture1)
+ship5 = Ship(image_set4 = image_texture2)
+ship6 = Ship(image_set5 = image_texture1)
+ship7 = Ship(image_set6 = image_texture2)
+ship8 = Ship(image_set7 = image_texture0)
