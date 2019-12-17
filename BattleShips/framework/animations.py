@@ -42,4 +42,3 @@ class Explosion(Animation):
         :rtype: None
         '''
         super().draw((self.x, self.y))
-       
