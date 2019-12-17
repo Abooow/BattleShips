@@ -5,8 +5,11 @@ import sys
 import pygame
 import config
 import sprites
+import audio
 
+pygame.init()
 sprites.init() # Initialize content
+audio.init() # Initialize audio
 
 from screens.place_ships_screen import PlaceShipScreen
 from screens.battle_screen import BattleScreen
@@ -15,7 +18,6 @@ from screens.test_screen import TestScreen
 
 
 # Initialize the game window
-pygame.init()
 config.window = pygame.display.set_mode((config.SCREEN_WIDTH, config.SCREEN_HEIGHT))
 pygame.display.set_caption('Modern Battleship Extreme Warfare')
 

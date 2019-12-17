@@ -1,6 +1,9 @@
 ''' Configurations for the BattleShips program 
 '''
 
+song_on = True
+effects_on = True
+
 # window size
 SCREEN_WIDTH = 1024
 SCREEN_HEIGHT = 700
