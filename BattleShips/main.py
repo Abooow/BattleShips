@@ -15,6 +15,8 @@ from screens.place_ships_screen import PlaceShipScreen
 from screens.battle_screen import BattleScreen
 from screens.menu_screen import MenuScreen
 from screens.test_screen import TestScreen
+#remove later
+from screens.test_emir import emir
 
 
 # Initialize the game window
