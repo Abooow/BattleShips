@@ -25,7 +25,7 @@ class BattleScreen(Screen):
 
         super().load_content()
 
-        escape_menu_button = Button(rect=(89,512,55,17),bg=(0,255,0),action=esc_menu_button)
+        escape_menu_button = Button(rect=(89,512,55,17),bg=(0,255,0),action=self._esc_menu_button)
 
         self.buttons.append(escape_menu_button)
 
@@ -152,7 +152,7 @@ class BattleScreen(Screen):
         config.window.blit(sprites.img_crosshair, cross_pos)
 
 
-    def esc_menu_button():
+    def _esc_menu_button(self):
         pass
 
 

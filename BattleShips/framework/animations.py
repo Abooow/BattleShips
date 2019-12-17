@@ -41,4 +41,5 @@ class Explosion(Animation):
         :returns: NoReturn
         :rtype: None
         '''
+
         super().draw((self.x, self.y))
