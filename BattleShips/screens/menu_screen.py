@@ -44,12 +44,15 @@ class MenuScreen(Screen):
 
         super().load_content()
 
-        start_button = Button(rect=(305,378,406,59),bg=(0,255,0),action=self._place_ships_menu)
-        quit_button = Button(rect=(375,474,406,59),bg=(0,255,0),action=self._exit_button)
-
+        start_button = Button(rect=(305,378,406,59),image=(sprites.txt_start),action=self._place_ships_menu)
+        quit_button = Button(rect=(305,474,406,59),image=(sprites.txt_quit),action=self._exit_button)
+        sound_effects_button = Button(rect=(305,580, 50,50),bg=(0,255,0))
+        sound_music_button = Button(rect=(375,580,50,50),bg=(0,255,0))
 
         self.buttons.append(start_button)
         self.buttons.append(quit_button)
+        self.buttons.append(sound_effects_button)
+        self.buttons.append(sound_music_button)
 
 
         #clip = mp.VideoFileClip(r"content\sprites\puff.mp4")
@@ -89,8 +92,8 @@ class MenuScreen(Screen):
         super().draw()
 
         config.window.blit(sprites.txt_game_name, (10, 0))
-        config.window.blit(sprites.txt_start, (448, 300))
-        config.window.blit(sprites.txt_quit, (445, 350))
+        #config.window.blit(sprites.txt_start, (305, 378))
+        #config.window.blit(sprites.txt_quit, (305, 474))
         config.window.blit(sprites.img_boat1, (-400, 200))
         config.window.blit(sprites.img_boat2, (320, 260))
         config.window.blit(sprites.img_chopper, (1000-self.heli_x, 0-self.heli_y))
@@ -102,5 +105,13 @@ class MenuScreen(Screen):
 
     def _exit_button(self):
         config.quit_game =True
+    
+
+    def _sound_effects_button(self):
+        pass
+
+
+    def _sound_music_button(self):
+        pass
 
 
