@@ -13,10 +13,10 @@ import sprites
 #from moviepy.editor import VideoFileClip
 #from moviepy.video.fx.resize import resize
 from screens.screen import Screen
-from screens.place_ships_screen import PlaceShipScreen
 from framework.ship import Ship
 from framework.board import Board
 from framework.button import Button
+from screens.place_ships_screen import PlaceShipScreen
 
 
 class MenuScreen(Screen):

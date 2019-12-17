@@ -96,9 +96,6 @@ class PlaceShipScreen(Screen):
                 if event.key == pygame.K_2:
                     self.ship_length += 1
 
-        
-
-
 
     def draw(self) -> None:
         ''' Draws everything to the screen
@@ -107,28 +104,20 @@ class PlaceShipScreen(Screen):
         :rtype: None
         ''' 
 
-       
-
         # draw background
         config.window.blit(sprites.img_background, (0, 0))
 
-
         #Draw foreground
         config.window.blit(sprites.img_foreground, (0, 0))
-
 
         # draw board
         self.board.draw(self.board_pos)
         #draw ship
         self._draw_ship()
 
-
-
         super().draw()
 
     
-
-
     def _get_cell_index_at_mouse(self) -> tuple:
         ''' Get the cell index the mouse is hovering over
 
@@ -209,15 +198,6 @@ class PlaceShipScreen(Screen):
         self._trash_button()
         utils.place_ships_randomly(self.board)
         
-
     
     def _trash_button(self):
         self.board = Board()
-
-
-
-
-
-
-        
-
