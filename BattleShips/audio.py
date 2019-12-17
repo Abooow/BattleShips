@@ -44,19 +44,31 @@ def init() -> None:
     song_game_background = f'{path_songs}song_game_background.mp3'
     song_main_menu = f'{path_songs}song_main_menu.mp3'
 
-#function to choose what effect is going to be played
-def play_effect(effect):
+
+def play_effect(effect) -> None:
+    ''' Play a sound effent
+    
+    :param effect (Sound): the sound effect to play
+
+    :returns: NoReturn
+    :rtype: None
     '''
-    play_effect(effect_name)
-    '''
+
+    # only play sound effect if sound_effects_on is True
     if config.effects_on:
         effect.play()
 
-#function to choose what song is going to be played
+
 def play_song(path):
+    ''' Play a song (only one at a time)
+    
+    :param path (path): the path to the song
+
+    :returns: NoReturn
+    :rtype: None
     '''
-    play_song(song_name)
-    '''
+
+    # only play the song if sound_song_on is True
     pygame.mixer.music.load(path)
     if config.song_on:
         pygame.mixer.music.play(-1)
