@@ -106,6 +106,7 @@ class Cell:
             elif self.ship == None: # Miss
                 pygame.draw.rect(config.window, (100, 30, 30), (x+1, y+1, 40, 40))
 
+
     def draw_enemy(self, position) -> None:
         ''' Draws hit/miss but not the ship
 
@@ -125,10 +126,10 @@ class Cell:
         if self.hit:
             # TODO: if the ship is hit draw a destroyed sprite
             if self.ship != None: # Hit
-                #config.window.blit(hitImg, (x, y))
-                pygame.draw.rect(config.window, (0, 100, 70), (x+1, y+1, 40, 40))
+                config.window.blit(sprites.img_hitmarker, (x+1, y+1))
+                #pygame.draw.rect(config.window, (0, 100, 70), (x+1, y+1, 40, 40))
             elif self.ship == None: # Miss
-                #config.window.blit(missImg, (x, y))
-                pygame.draw.rect(config.window, (100, 30, 30), (x+1, y+1, 40, 40))
+                config.window.blit(sprites.img_missmarker, (x+1, y+1))
+                #pygame.draw.rect(config.window, (100, 30, 30), (x+1, y+1, 40, 40))
                 
         # TODO: draw explosion and fire animation if hit

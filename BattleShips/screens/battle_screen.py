@@ -128,13 +128,11 @@ class BattleScreen(Screen):
         index = self._get_cell_index_at_mouse()
 
         if 0 <= index[0] < 10 and 0 <= index[1] < 10:
-            pos = (self.enemy_board_pos[0] + index[0] * config.CELL_SIZE + 1,
-                   self.enemy_board_pos[1] + index[1] * config.CELL_SIZE + 1)
+            pos = (self.enemy_board_pos[0] + index[0] * config.CELL_SIZE,
+                   self.enemy_board_pos[1] + index[1] * config.CELL_SIZE)
 
-            pygame.draw.rect(config.window, (150, 150, 150), (pos[0], 
-                                                              pos[1], 
-                                                              config.CELL_SIZE - 1, 
-                                                              config.CELL_SIZE - 1))
+            config.window.blit(sprites.img_marked_cell, pos)
+
 
     def _draw_crosshair(self):
         mouse = pygame.mouse.get_pos()

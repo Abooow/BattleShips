@@ -104,10 +104,10 @@ class PlaceShipScreen(Screen):
         ''' 
 
         # draw background
-        config.window.blit(sprites.img_background, (0, 0))
+        config.window.blit(sprites.img_place_ships_background, (0, 0))
 
         #Draw foreground
-        config.window.blit(sprites.img_foreground, (0, 0))
+        config.window.blit(sprites.img_place_ships_foreground, (0, 0))
 
         # draw board
         self.board.draw(self.board_pos)

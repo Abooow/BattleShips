@@ -19,10 +19,13 @@ img_boat3 = None
 img_boat4 = None
 img_cell = None
 img_start_button = None
-img_foreground = None
-img_background = None
+img_place_ships_foreground = None
+img_place_ships_background = None
 img_random_button = None
 img_trash_button = None
+img_missmarker = None
+img_hitmarker = None
+img_marked_cell = None
 
 txt_mission_accomplished = None
 txt_place_your_ships = None
@@ -53,7 +56,8 @@ def init() -> None:
     '''
 
     global img_battle_screen_foreground, img_crosshair, img_explosion, img_chopper, img_boat1, img_boat2, img_boat3, img_boat4, img_cell
-    global img_start_button, img_foreground, img_background, img_random_button, img_trash_button
+    global img_start_button, img_place_ships_foreground, img_place_ships_background, img_random_button, img_trash_button
+    global img_missmarker, img_hitmarker, img_marked_cell
     global txt_mission_accomplished, txt_place_your_ships, txt_main_menu, txt_game_name, txt_restart, txt_select, txt_start, txt_quit
     global set_ship_texture0_sketch, set_ship_texture0
     global anim_explosion, anim_missile, anim_water, anim_radar, anim_fire, anim_jet
@@ -62,6 +66,8 @@ def init() -> None:
 
     # all img_
     img_battle_screen_foreground = pygame.image.load(f'{path}battle_screen/foreground.png')
+    img_place_ships_foreground = pygame.image.load(f'{path}place_ship_screen/foreground.png')
+    img_place_ships_background = pygame.image.load(f'{path}place_ship_screen/background.png')
     img_crosshair = pygame.image.load(f'{path}battle_screen/crosshair.png')
     img_explosion = pygame.image.load(f'{path}menu_screen/explosion.png')
     img_chopper = pygame.image.load(f'{path}menu_screen/chopper.png')
@@ -70,9 +76,11 @@ def init() -> None:
     img_boat3 = pygame.image.load(f'{path}menu_screen/boat3.png')
     img_boat4 = pygame.image.load(f'{path}menu_screen/boat4.png')
     img_cell = pygame.image.load(f'{path}board/cell.png')
+    img_missmarker = pygame.image.load(f'{path}board/missmarker.png')
+    img_hitmarker = pygame.image.load(f'{path}board/hitmarker.png')
+    img_marked_cell = pygame.image.load(f'{path}board/marked_cell.png')
+
     img_start_button = pygame.image.load(f'{path}place_ship_screen/start_button.png')
-    img_foreground = pygame.image.load(f'{path}place_ship_screen/foreground.png')
-    img_background = pygame.image.load(f'{path}place_ship_screen/background.png')
     img_random_button = pygame.image.load(f'{path}place_ship_screen/random_button.png')
     img_trash_button = pygame.image.load(f'{path}place_ship_screen/trash_button.png')
 

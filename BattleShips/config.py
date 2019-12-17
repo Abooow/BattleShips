@@ -15,7 +15,7 @@ CELL_SIZE = 40
 # the main window
 window = None
 
-# a instance to the main menu
+# an instance of the main menu
 menu_screen = None
 
 # the currently running screen
