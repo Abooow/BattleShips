@@ -15,6 +15,8 @@ from screens.place_ships_screen import PlaceShipScreen
 from screens.battle_screen import BattleScreen
 from screens.menu_screen import MenuScreen
 from screens.test_screen import TestScreen
+#remove later
+from screens.test_emir import emir
 
 
 # Initialize the game window
@@ -26,7 +28,7 @@ pygame.display.set_caption('Modern Battleship Extreme Warfare')
 #pygame.display.set_icon(icon)
 
 # Sets the current screen to MenuScreen
-config.current_screen = MenuScreen()
+config.current_screen = emir()
 
 # clock is used to get a framerate of 60fps
 clock = pygame.time.Clock()
