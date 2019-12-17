@@ -5,6 +5,7 @@ import sprites
 from framework.ai import AI
 from framework.ship import Ship
 from framework.board import Board
+from framework.animation import Animation
 from screens.screen import Screen
 
 
@@ -19,6 +20,7 @@ class BattleScreen(Screen):
 
         super().load_content()
 
+        self.water_anim = Animation(sprites.anim_water, 11)
         self.player_turn = True
 
         self.player = Board()
@@ -32,6 +34,10 @@ class BattleScreen(Screen):
     def update(self, delta_time):
         events = super().update(delta_time)
 
+        # update water animation
+        self.water_anim.update(delta_time)
+
+        # get event
         for event in events:
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and self.player_turn:
                 self._shoot_at_enemy()
@@ -43,6 +49,9 @@ class BattleScreen(Screen):
 
 
     def draw(self):
+
+        # draw water animation
+        self.water_anim.draw((0, 0))
 
         # draw player board
         self.player.draw(self.player_board_pos)
