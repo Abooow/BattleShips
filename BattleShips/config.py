@@ -1,8 +1,9 @@
 ''' Configurations for the BattleShips program 
 '''
 
-song_on = True
-effects_on = True
+# set music and sound effects on or off
+sound_song_on = True
+sound_effects_on = True
 
 # window size
 SCREEN_WIDTH = 1024
@@ -13,6 +14,9 @@ CELL_SIZE = 40
 
 # the main window
 window = None
+
+# a instance to the main menu
+menu_screen = None
 
 # the currently running screen
 current_screen = None

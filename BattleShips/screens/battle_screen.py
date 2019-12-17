@@ -2,16 +2,12 @@ import pygame
 import config
 import sprites
 
-
-
 from framework.ai import AI
 from framework.ship import Ship
 from framework.board import Board
 from framework.button import Button
 from framework.animation import Animation
 from screens.screen import Screen
-
-
 
 
 class BattleScreen(Screen):
@@ -153,7 +149,7 @@ class BattleScreen(Screen):
 
 
     def _esc_menu_button(self):
-        pass
+        config.current_screen = config.menu_screen
 
 
 class GameState():
