@@ -16,7 +16,7 @@ class AI:
 
     def __init__(self):
         self.board = Board()
-        Board.place_ships_randomely(self.board)
+        Board.place_ships_randomly(self.board)
 
             
     def random_shot(self, enemy) -> None:

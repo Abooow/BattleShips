@@ -42,8 +42,8 @@ class Animation():
     To update the animation: call the update method, otherwise the animation won't animate
     To display/draw the animation: call the draw method, otherwise the animation won't be shown
     '''
-
-
+    
+    
     def __init__(self, frames, fps, loop = True, offset = 0):
         '''
         :param frames (list[surface]): all the frames to be used

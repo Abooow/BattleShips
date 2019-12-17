@@ -32,6 +32,9 @@ clock = pygame.time.Clock()
 
 def main() -> None:
     ''' The main function of the program
+
+    :returns: nothing
+    :rtype: None
     '''
 
     # ---------------------- GameLoop

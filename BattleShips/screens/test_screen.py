@@ -36,6 +36,11 @@ class TestScreen(Screen):
 
         super().load_content()
 
+
+        self.water_anim = Animation(sprites.anim_water, 8)
+
+        self.radar_anim = Animation(sprites.anim_radar, 10)
+
         self.start = False
         self.jet = Jet()
 
@@ -52,6 +57,9 @@ class TestScreen(Screen):
 
         events = super().update(delta_time)
 
+        self.water_anim.update(delta_time)
+        self.radar_anim.update(delta_time)
+
         if self.start:
             self.jet.update(delta_time)
 
@@ -63,8 +71,13 @@ class TestScreen(Screen):
         :rtype: None
         '''
 
+        self.water_anim.draw((0, 0))
+        
         super().draw()
+        self.radar_anim.draw(pygame.mouse.get_pos())
         self.jet.draw()
+
+
 
 
     def button_pressed(self) -> None:
@@ -120,7 +133,7 @@ class Jet(Animation):
             missile.update(delta_time)
                 #self.missiles.remove(missile)
 
-        if 1024 > self.x > 0 and random.random() <= 0.1:
+        if 1024 > self.x > 0 and random.random() <= 1:
             self._drop_bomb()
 
 

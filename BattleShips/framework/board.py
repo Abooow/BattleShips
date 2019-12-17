@@ -25,7 +25,7 @@ class Board:
         U  <- stern | image_index = 0 | ship_part = 0
     '''
 
-    def place_ships_randomely(board) -> None:
+    def place_ships_randomly(board) -> None:
         ''' Places all ships on randomly the board
 
         :param board (Board): the board to place the ships on

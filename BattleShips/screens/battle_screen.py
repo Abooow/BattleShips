@@ -26,7 +26,7 @@ class BattleScreen(Screen):
         self.player_board_pos = (74, 93)
         self.enemy_board_pos = (549, 93)
 
-        Board.place_ships_randomely(self.player)
+        Board.place_ships_randomly(self.player)
 
 
     def update(self, delta_time):
@@ -39,7 +39,7 @@ class BattleScreen(Screen):
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     self.player = Board()
-                    Board.place_ships_randomely(self.player)
+                    Board.place_ships_randomly(self.player)
 
 
     def draw(self):
@@ -130,7 +130,7 @@ class BattleScreen(Screen):
         pygame.draw.rect(config.window, (0, 200, 70), hor_line)
         pygame.draw.rect(config.window, (0, 200, 70), ver_line)
 
-        cross_pos = (mouse[0] - 80, mouse[1] - 80)
+        cross_pos = (mouse[0] - 90, mouse[1] - 90)
         config.window.blit(sprites.img_crosshair, cross_pos)
 
 
