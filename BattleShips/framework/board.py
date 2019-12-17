@@ -116,13 +116,13 @@ class Board:
             # get the cell at this coordinate
             cell =  self.list[coordinate[1]][coordinate[0]]
 
-            # successful shot but missed a boat
+            # successful shot but missed a ship
             # cell.shoot_at() returns True if a ship was hit
             if cell.shoot_at():
-                return True, None
-            # successful shot and hit a boat
-            else:
                 return True, cell.ship
+            # successful shot but missed a ship
+            else:
+                return True, None
 
 
     def draw(self, position) -> None:

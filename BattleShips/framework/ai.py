@@ -50,7 +50,8 @@ class AI:
                 # if shot was successful, then return, otherwise try again
                 if shot[0]:
                     self.shots.append((x, y))
-                    self._on_hit_ship(shot[1])
+                    if shot[1] if not None:
+                        self._on_hit_ship(shot[1])
                     return
 
 
