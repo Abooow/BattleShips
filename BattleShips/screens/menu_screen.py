@@ -13,8 +13,10 @@ import sprites
 #from moviepy.editor import VideoFileClip
 #from moviepy.video.fx.resize import resize
 from screens.screen import Screen
+from screens.place_ships_screen import PlaceShipScreen
 from framework.ship import Ship
 from framework.board import Board
+from framework.button import Button
 
 
 class MenuScreen(Screen):
@@ -41,6 +43,14 @@ class MenuScreen(Screen):
         '''
 
         super().load_content()
+
+        start_button = Button(rect=(305,378,406,59),bg=(0,255,0),action=self._place_ships_menu)
+        quit_button = Button(rect=(375,474,406,59),bg=(0,255,0),action=self._exit_button)
+
+
+        self.buttons.append(start_button)
+        self.buttons.append(quit_button)
+
 
         #clip = mp.VideoFileClip(r"content\sprites\puff.mp4")
         #clip_resized = clip.resize(width=1024)
@@ -84,3 +94,13 @@ class MenuScreen(Screen):
         config.window.blit(sprites.img_boat1, (-400, 200))
         config.window.blit(sprites.img_boat2, (320, 260))
         config.window.blit(sprites.img_chopper, (1000-self.heli_x, 0-self.heli_y))
+
+    
+    def _place_ships_menu(self):
+        config.current_screen = PlaceShipScreen()
+
+
+    def _exit_button(self):
+        config.quit_game =True
+
+

@@ -8,10 +8,14 @@ import random
 import config
 import sprites
 import surface_change
+import utils
+
+
 
 from screens.screen import Screen
 from framework.board import Board
 from framework.ship import Ship
+from framework.button import Button
 
 
 class PlaceShipScreen(Screen):
@@ -46,16 +50,21 @@ class PlaceShipScreen(Screen):
         '''
 
         super().load_content()
+        #Creates start, trash and random buttons
+        start_button = Button(rect=(780,637,186,51),image=(sprites.img_start_button), action=self._start_game_button)
+        trash_button = Button(rect=(434,637,77,51),image=(sprites.img_trash_button), action=self._trash_button)
+        random_button = Button(rect=(540,637,77,51),image=(sprites.img_random_button),action=self._random_button)
 
+        #Adds the buttons to the "buttons" -list
+        self.buttons.append(start_button)
+        self.buttons.append(trash_button)
+        self.buttons.append(random_button)
+        
         self.board = Board()            # the board to place the ships on
         self.ship_rotation = (-1, 0)    # the rotaion of the ship
         self.ship_length = 5            # the lenth of the ship
-        self.board_pos = (123, 120)     # where to draw the board
+        self.board_pos = (233, 120)     # where to draw the board
 
-        self.rain_drops = []            # -> list(tuple[int,int,int]) (x, y, speed)
-        self.rain_amount = 50           
-        
-        self._creat_rain()
         
 
     def update(self, delta_time) -> None:
@@ -87,12 +96,7 @@ class PlaceShipScreen(Screen):
                 if event.key == pygame.K_2:
                     self.ship_length += 1
 
-        # update rain drops
-        for i in range(self.rain_amount):
-            if (self.rain_drops[i][1] > config.SCREEN_HEIGHT):
-                x = random.randint(0,config.SCREEN_WIDTH)
-                self.rain_drops[i] = (x, -100, self.rain_drops[i][2])
-            self.rain_drops[i] = (self.rain_drops[i][0], self.rain_drops[i][1]  + self.rain_drops[i][2], self.rain_drops[i][2])
+        
 
 
 
@@ -101,17 +105,17 @@ class PlaceShipScreen(Screen):
 
         :returns: NoReturn
         :rtype: None
-        '''
+        ''' 
 
-        super().draw() 
-
-        # draw rain
-        for i in self.rain_drops:
-            green = (i[2]*3, 100+i[2]*5, 200-i[2]*6)
-            pygame.draw.rect(config.window, green, (i[0],i[1],10,20+i[2]*2))
+       
 
         # draw background
-        config.window.blit(sprites.img_explosion, (0, 0))
+        config.window.blit(sprites.img_background, (0, 0))
+
+
+        #Draw foreground
+        config.window.blit(sprites.img_foreground, (0, 0))
+
 
         # draw board
         self.board.draw(self.board_pos)
@@ -119,19 +123,10 @@ class PlaceShipScreen(Screen):
         self._draw_ship()
 
 
-    def _creat_rain(self) -> None:
-        ''' Instantiates the rain
 
-        :returns: NoReturn
-        :rtype: None
-        '''
+        super().draw()
 
-        # x, y, speed
-        for i in range(self.rain_amount):
-            x = random.randint(0, config.SCREEN_WIDTH)
-            y = random.randint(0, config.SCREEN_HEIGHT)
-            speed = random.randint(8,30)
-            self.rain_drops.append((x, y, speed))
+    
 
 
     def _get_cell_index_at_mouse(self) -> tuple:
@@ -204,3 +199,25 @@ class PlaceShipScreen(Screen):
         y += -config.CELL_SIZE * 0.5
         pic = surface_change.colorize(pic.copy(), color)
         config.window.blit(pic, (x,y))
+
+
+    def _start_game_button(self):
+        config.current_screen = ()
+
+    
+    def _random_button(self):
+        self._trash_button()
+        utils.place_ships_randomly(self.board)
+        
+
+    
+    def _trash_button(self):
+        self.board = Board()
+
+
+
+
+
+
+        
+

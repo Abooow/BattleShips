@@ -5,7 +5,7 @@ import pygame
 
 
 def transform(image, scale, rotation) -> pygame.surface:
-    ''' Transform a image
+    ''' Transform an image
 
     :param image (surface): the image to change
     :param scale (tuple[int,int]): the new scale
