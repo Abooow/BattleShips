@@ -2,11 +2,16 @@ import pygame
 import config
 import sprites
 
+
+
 from framework.ai import AI
 from framework.ship import Ship
 from framework.board import Board
+from framework.button import Button
 from framework.animation import Animation
 from screens.screen import Screen
+
+
 
 
 class BattleScreen(Screen):
@@ -19,6 +24,10 @@ class BattleScreen(Screen):
         '''
 
         super().load_content()
+
+        escape_menu_button = Button(rect=(89,512,55,17),bg=(0,255,0),action=esc_menu_button)
+
+        self.buttons.append(escape_menu_button)
 
         self.water_anim = Animation(sprites.anim_water, 11)
         self.player_turn = True
@@ -142,6 +151,9 @@ class BattleScreen(Screen):
         cross_pos = (mouse[0] - 90, mouse[1] - 90)
         config.window.blit(sprites.img_crosshair, cross_pos)
 
+
+    def esc_menu_button():
+        pass
 
 
 class GameState():
