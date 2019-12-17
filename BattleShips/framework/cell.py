@@ -4,6 +4,7 @@
 import pygame
 import config
 import sprites
+import surface_change
 
 from framework.animation import Animation
 from framework.ship import Ship
@@ -55,7 +56,7 @@ class Cell:
         self.hit = True
         # the ship that was standing on this cell will take damage, if any
         if self.ship is not None:
-            self.ship.get_hit(self.ship_part)
+            self.ship.hit(self.ship_part)
             return True
         else:
             return False
@@ -93,18 +94,17 @@ class Cell:
         # draw cell boarder img 50x50
         config.window.blit(sprites.img_cell, (x, y))
 
-        # draw ship img
-        if self.ship != None:
-            # TODO: if the ship is hit, draw a destroyed sprite instead
-            img = pygame.transform.rotate(self.ship.image_set[self.image_index], self.rotation)
-            config.window.blit(img, (x, y))
-
         # TODO: draw explosion and fire animation if hit
-        if self.hit:
-            if self.ship != None: # Hit
-                pygame.draw.rect(config.window, (0, 100, 70), (x+1, y+1, 40, 40))
-            elif self.ship == None: # Miss
-                pygame.draw.rect(config.window, (100, 30, 30), (x+1, y+1, 40, 40))
+        if self.ship != None: # if it's a cell on this cell
+            img = pygame.transform.rotate(self.ship.image_set[self.image_index], self.rotation)
+
+            # draw ship image
+            if self.hit: # hit, draw the ship part red
+                config.window.blit(surface_change.colorize(img, (150, 0, 0)), (x, y))
+            else: # not hit, draw the ship part normally
+                config.window.blit(img, (x, y))
+        elif self.hit: # not a ship part, draw miss marker if hit
+            config.window.blit(sprites.img_missmarker, (x+1, y+1))
 
 
     def draw_enemy(self, position) -> None:

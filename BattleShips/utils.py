@@ -3,8 +3,9 @@ import sprites
 
 from framework.ship import Ship
 
+
 def place_ships_randomly(board) -> None:
-        ''' Places all ships on randomly the board
+        ''' Places all shipsthe the board randomly
 
         :param board (Board): the board to place the ships on
 

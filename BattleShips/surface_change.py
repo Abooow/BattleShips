@@ -38,21 +38,22 @@ def transform_many(images, scale, rotation) -> list:
     return [transform(img, scale, rotation) for img in images]
 
 
-def colorize(image, new_color) -> pygame.surface:
-    ''' Create a "colorized" copy of a surface (replaces RGB values with the given color, preserving the per-pixel alphas of original).
+def colorize(image, color) -> pygame.surface:
+    ''' Create a "colorized" copy of a surface (replaces RGB values with the given color).
 
-    :param image (surface): surface to create a colorized copy of
-    :param new_color (tuple[int,int,int]): RGB color to use (original alpha values are preserved)
+    :param image (surface): surface to create a colorize
+    :param color (tuple[int,int,int]): the color for the filter
 
     :return: new colorized Surface instance
     :rtype: surface
     '''
+
     image = image.copy()
 
     # zero out RGB values
     #image.fill((0, 0, 0, 255), None, pygame.BLEND_RGBA_MULT)
     # add in new RGB values
     image = image.convert_alpha()
-    image.fill(new_color, None, pygame.BLEND_RGBA_MULT)
+    image.fill(color, None, pygame.BLEND_RGBA_MULT)
 
     return image

@@ -3,6 +3,7 @@
 
 import pygame
 import config
+import surface_change
 
 
 class Button():
@@ -26,16 +27,18 @@ class Button():
     '''
 
 
-    def __init__ (self, rect, bg = (255, 255, 255), image = None,  action = None):
+    def __init__ (self, rect, bg=(255, 255, 255), hc=(100, 100, 100), image=None,  action=None):
         '''
         :param rect (tuple[int,int,int,int]): (x, y, width, height) position and size of the button
-        :param bg (tuple[int,int,int]): (red, green, blue) color of the background (use None to remove bg)
+        :param bg (tuple[int,int,int]): (red, green, blue) (highlight color) color of the background (use None to remove bg)
+        :param hc (tuple[int,int,int]): (red, green, blue) color filter for the image when hovering
         :param image (surface): a image to the button
         :param action (function): the function to instantiate when the button is clicked
         '''
 
         self.rect = rect
         self.bg = bg
+        self.hc = hc
         self.image = image
         self.action = action
 
@@ -82,7 +85,8 @@ class Button():
             size = self.image.get_rect().size
             x = (self.rect[0] + self.rect[2] * 0.5) - size[0] * 0.5
             y = (self.rect[1] + self.rect[3] * 0.5) - size[1] * 0.5
-            config.window.blit(self.image, (x, y))
+            img = surface_change.colorize(self.image, self.hc) if self._is_hovering() else self.image
+            config.window.blit(img, (x, y))
 
 
     def _draw_hovering(self) -> None:
@@ -91,6 +95,9 @@ class Button():
         :returns: NoReturn
         :rtype: None
         '''
+
+        if self.bg == None:
+            return
 
         bg = (self.bg[0] * 0.65, self.bg[1] * 0.65, self.bg[2] * 0.65)
         pygame.draw.rect(config.window, bg, self.rect)

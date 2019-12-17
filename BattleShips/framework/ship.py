@@ -73,7 +73,7 @@ class Ship:
         self.hit_parts = [False] * length
 
 
-    def get_hit(self, part) -> bool:
+    def hit(self, part) -> bool:
         ''' Takes a hit and loses 1 health
 
         :param part (int): what part of the ship to shoot at

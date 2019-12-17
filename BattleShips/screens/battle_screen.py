@@ -42,6 +42,10 @@ class BattleScreen(Screen):
         # update water animation
         self.water_anim.update(delta_time)
 
+        # enemy shoot
+        if not self.player_turn:
+            self._enemy_shoot()
+
         # get event
         for event in events:
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and self.player_turn:
@@ -115,12 +119,16 @@ class BattleScreen(Screen):
                 (mouse[1] - self.enemy_board_pos[1]) // config.CELL_SIZE)
 
 
+    def _enemy_shoot(self):
+        self.enemy.shoot(self.player)
+        self.player_turn = True
+
+
     def _shoot_at_enemy(self):
         index = self._get_cell_index_at_mouse()
 
         if 0 <= index[0] < 10 and 0 <= index[1] < 10:
             if self.enemy.board.shoot_at(index)[0]:
-                return
                 self.player_turn = False
 
 

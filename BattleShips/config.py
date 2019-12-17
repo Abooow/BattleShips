@@ -12,6 +12,9 @@ SCREEN_HEIGHT = 700
 # size of each cell
 CELL_SIZE = 40
 
+#
+
+
 # the main window
 window = None
 

@@ -50,9 +50,9 @@ class PlaceShipScreen(Screen):
 
         super().load_content()
         #Creates start, trash and random buttons
-        start_button = Button(rect=(780,637,186,51),image=(sprites.img_start_button), action=self._start_game_button)
-        trash_button = Button(rect=(434,637,77,51),image=(sprites.img_trash_button), action=self._trash_button)
-        random_button = Button(rect=(540,637,77,51),image=(sprites.img_random_button),action=self._random_button)
+        start_button = Button(rect=(780, 637, 186, 51), bg=None, hc=(0, 100, 0),  image=(sprites.img_start_button), action=self._start_game_button)
+        trash_button = Button(rect=(434, 637, 77, 51), bg=None, hc=(0, 100, 0), image=(sprites.img_trash_button), action=self._trash_button)
+        random_button = Button(rect=(540, 637, 77, 51), bg=None, hc=(0, 100, 0),  image=(sprites.img_random_button),action=self._random_button)
 
         #Adds the buttons to the "buttons" -list
         self.buttons.append(start_button)
