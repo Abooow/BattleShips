@@ -46,7 +46,7 @@ def init() -> None:
 
 
 def play_effect(effect) -> None:
-    ''' Play a sound effent
+    ''' Play a sound effect
     
     :param effect (Sound): the sound effect to play
 
