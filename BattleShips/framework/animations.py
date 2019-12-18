@@ -114,6 +114,8 @@ class Jet(Animation):
 
 class Missile(Animation):
     _new_anim_missile = surface_change.transform_many(sprites.anim_missile, (1, 1), 180)
+
+
     def __init__(self, start_position, max_y, speed, fps = 12, action=None):
         ''' 
         :param position (tuple[int,int]): (x, y) position where the explosion starts
@@ -124,7 +126,7 @@ class Missile(Animation):
 
         super().__init__(Missile._new_anim_missile, fps, loop=True)
 
-        self.position = start_position
+        self.position = (start_position[0] - 6, start_position[1])
         self.max_y = max_y
         self.speed = speed
         self.action = action
@@ -143,7 +145,7 @@ class Missile(Animation):
 
         if not self.done:
             self.position = (self.position[0], self.position[1] + self.speed)
-            if self.position[1] >= self.max_y:
+            if self.position[1] >= self.max_y + 45:
                 self.done = True
                 if self.action is not None:
                     self.action()

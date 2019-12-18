@@ -19,7 +19,11 @@ class AI():
         Board.place_ships_randomly(self.board)
 
             
-    def shoot(self, enemy) -> None:
+    def get_shoot_coordinate(self):
+        pass
+
+
+    def shoot(self, enemy, coordinate) -> None:
         ''' Shoot at a random coordinate
 
         :param enemy (Board): the enemy board to shoot on
@@ -70,40 +74,54 @@ class SmartAI(AI):
         self._available_directions = []
 
 
-    def shoot(self, enemy):
-        super().shoot(enemy)
+    def shoot(self, enemy, coordinate):
+        super().shoot(enemy, coordinate)
+
+        enemy.shoot_at(coordinate)
+
+
+    def get_shoot_coordinate(self, enemy):
+        super().get_shoot_coordinate()
 
         # if a ship is found
         if self._found_ship:
-            self._smart_shoot(enemy) # think before shooting
+            return self._get_smart_coordinate(enemy) # think before shooting
         else:
             # when a ship is not found, shoot random
-            self._choose_coordinate(enemy)
+            return self._get_random_coordinate(enemy)
 
 
-    def _choose_coordinate(self, enemy, errorlevel=0):
-            while True:
-                # get random coordinate
-                x = random.randint(0, 9)
-                y = random.randint(0, 9)
-                coordinate = (x, y)
+    def _get_random_coordinate(self, enemy, errorlevel=0) -> tuple:
+        ''' Get a almost random coordinate
 
-                if (not enemy.list[y][x].hit and 
-                    len(self._get_empy_cells_around(coordinate, enemy)) <= 2 and 
-                    errorlevel < 40):
-                    self._choose_coordinate(enemy, errorlevel + 1)
-                    break
+        :param enemy (Board): the enemy board
+        :param errorlevel (int): the number of attempt to shoot at enemy board
 
-                # shoot at that coordinate
-                shot = enemy.shoot_at(coordinate)
+        :returns: a coordinate
+        :rtype: tuple[int,int]
+        '''
 
-                # if shot was successful, then return, otherwise try again
-                if shot[0]:
-                    if shot[1] is not None:
-                        self._latest_hit = coordinate
-                        self._first_hit_cord = coordinate
-                        self._on_hit_ship(enemy)
-                    return
+        while True:
+            # get random coordinate
+            x = random.randint(0, 9)
+            y = random.randint(0, 9)
+            coordinate = (x, y)
+
+            if (not enemy.list[y][x].hit and 
+                len(self._get_empy_cells_around(coordinate, enemy)) <= 2 and 
+                errorlevel < 40):
+                self._get_random_coordinate(enemy, errorlevel + 1)
+                break
+
+            # if shot was successful, then return, otherwise try again
+            if enemy.can_shoot_at(coordinate):
+                cell = enemy.list[coordinate[1]][coordinate[0]]
+                if cell.ship is not None:
+                    self._latest_hit = coordinate
+                    self._first_hit_cord = coordinate
+                    self._on_hit_ship(enemy)
+                return coordinate
+        return coordinate
 
 
     def _get_empy_cells_around(self, coordinate, enemy):
@@ -123,12 +141,12 @@ class SmartAI(AI):
         return available_directions
 
 
-    def _smart_shoot(self, enemy):
+    def _get_smart_coordinate(self, enemy):
         if self._shoot_direction is None or (self._shoot_direction not in self._available_directions and 
                                              self._shoot_direction is not None):
             if len(self._available_directions) == 0:
                 self._found_ship = False
-                return
+                return self._get_random_coordinate(enemy)
 
             # get random coordinate from available_directions
             self._shoot_direction = random.choice(self._available_directions)
@@ -136,12 +154,12 @@ class SmartAI(AI):
         # shoot at that coordinate
         new_cord = (self._latest_hit[0] + self._shoot_direction[0],
                     self._latest_hit[1] + self._shoot_direction[1])
-        shot = enemy.shoot_at(new_cord)
 
         # if shot was successful
-        if shot[0]:
-            if shot[1] is not None:
-                if shot[1].have_sunken: # if the ship have sunken find new cell
+        if enemy.can_shoot_at(new_cord):
+            cell = enemy.list[new_cord[1]][new_cord[0]]
+            if cell.ship is not None:
+                if cell.ship.have_sunken: # if the ship have sunken find new cell
                     self._found_ship = False
                 else:
                     self._latest_hit = new_cord
@@ -154,8 +172,9 @@ class SmartAI(AI):
             # can't shoot here, have to try again
             self._available_directions.remove(self._shoot_direction)
             self._shoot_direction = (self._shoot_direction[0] * -1, self._shoot_direction[1] * -1)
-            self._smart_shoot(enemy)
+            self._get_smart_coordinate(enemy)
 
+        return new_cord
 
     def _on_hit_ship(self, enemy):
         self._found_ship = True

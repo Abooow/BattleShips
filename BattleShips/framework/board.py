@@ -97,6 +97,18 @@ class Board:
         return True
 
 
+    def can_shoot_at(self, coordinate) -> tuple:
+        ''' Shoot at this board at the given coordinate
+        
+        :param coordinate (tuple[int,int]): the coordinate to shoot at (x, y)
+
+        :return: first value: (True if a shot was successfully fired otherwise False) second value: (the ship that was hit, if any was hit, otherwise None)
+        :rtype: tuple[bool,Ship]
+        '''
+
+        return False if self.list[coordinate[1]][coordinate[0]].hit else True
+
+
     def shoot_at(self, coordinate) -> tuple:
         ''' Shoot at this board at the given coordinate
         
@@ -114,7 +126,7 @@ class Board:
             self.shots_fired.append(coordinate)
             
             # get the cell at this coordinate
-            cell =  self.list[coordinate[1]][coordinate[0]]
+            cell = self.list[coordinate[1]][coordinate[0]]
 
             # successful shot but missed a ship
             # cell.shoot_at() returns True if a ship was hit
