@@ -44,7 +44,7 @@ class Cell:
 
         self._fire_anim = animations.Fire()
         self._explotion_anim = animations.Explosion()
-        self._water_splash_anim = None
+        self._water_splash_anim = animations.WaterSplash()
         self._ship_sunken_explosion = False 
 
 
@@ -87,6 +87,10 @@ class Cell:
                 if self.ship.have_sunken and not self._ship_sunken_explosion:
                     self._ship_sunken_explosion = True
                     self._explotion_anim = animations.Explosion()
+            else:
+                # update water splash
+                if not self._water_splash_anim.done:
+                    self._water_splash_anim.update(delta_time)
 
 
     def draw(self, position) -> None:
@@ -160,3 +164,7 @@ class Cell:
                  # explosion anim
                 if not self._explotion_anim.done:
                     self._explotion_anim.draw((x - 76, y - 76))
+            else:
+                # update water splash
+                if not self._water_splash_anim.done:
+                    self._water_splash_anim.draw((x, y))

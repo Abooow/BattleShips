@@ -16,7 +16,7 @@ class Explosion(Animation):
         :param fps (int): the animation speed
         '''
 
-        super().__init__(sprites.anim_water_splash, fps, loop=False)
+        super().__init__(sprites.anim_explosion, fps, loop=False)
 
 
     def update(self, delta_time) -> None:
@@ -74,15 +74,13 @@ class Fire(Animation):
 
 
 class WaterSplash(Animation):
-    def __init__(self, position, fps = 12):
+    def __init__(self, fps = 12):
         ''' 
         :param position (tuple[int,int]): (x, y) position where the explosion starts
         :param fps (int): the animation speed
         '''
 
-        super().__init__(sprites.anim_explosion, fps, loop=False)
-
-        self.position = position
+        super().__init__(sprites.anim_water_splash, fps, loop=False)
 
 
     def update(self, delta_time) -> None:
@@ -97,14 +95,14 @@ class WaterSplash(Animation):
         super().update(delta_time)
 
 
-    def draw(self) -> None:
+    def draw(self, position) -> None:
         ''' Draws the explosion animation to the screen
 
         :returns: NoReturn
         :rtype: None
         '''
 
-        super().draw(self.position)
+        super().draw(position)
 
 
 class Water(Animation):

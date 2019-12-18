@@ -119,7 +119,7 @@ def init() -> None:
 
     # all anim_
     anim_explosion = [pygame.image.load(f'{path}animations/explosion/frame{i}.png') for i in range(4)]
-    anim_water_splash = [pygame.image.load(f'{path}animations/explosion/frame{i}.png') for i in range(4)]
+    anim_water_splash = [pygame.image.load(f'{path}animations/water_splash/frame{i}.png') for i in range(8)]
     anim_missile = [pygame.image.load(f'{path}animations/missile/frame{i}.png') for i in range(6)]
     anim_radar = [pygame.image.load(f'{path}animations/radar/frame{i}.png') for i in range(8)]
     anim_water = [pygame.image.load(f'{path}animations/water/frame{i}.png') for i in range(8)]
