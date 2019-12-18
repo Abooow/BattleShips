@@ -14,6 +14,7 @@ audio.init() # Initialize audio
 from screens.place_ships_screen import PlaceShipScreen
 from screens.battle_screen import BattleScreen
 from screens.menu_screen import MenuScreen
+from screens.win_screen import WinScreen
 from screens.test_screen import TestScreen
 #remove later
 from screens.test_emir import emir
@@ -30,7 +31,7 @@ pygame.display.set_caption('Modern Battleship Extreme Warfare')
 config.menu_screen = MenuScreen()
 
 # Sets the current screen to MenuScreen
-config.current_screen = MenuScreen()
+config.current_screen = WinScreen()
 
 # clock is used to get a framerate of 60fps
 clock = pygame.time.Clock()

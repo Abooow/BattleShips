@@ -10,6 +10,7 @@ import pygame
 # anim_ = animation, an array of images
 
 img_battle_screen_foreground = None
+img_accomplished = None
 img_crosshair = None
 img_explosion = None
 img_chopper = None
@@ -44,6 +45,10 @@ txt_airstrike = None
 txt_hellstrike = None
 txt_radarscan = None
 txt_menu = None
+txt_respect = None
+txt_menu_win_lose = None
+txt_restart_win_lose = None
+txt_quit_win_lose = None
 
 set_ship_texture0_sketch = None
 set_ship_texture0 = None
@@ -63,13 +68,13 @@ def init() -> None:
     :returns: nothing
     :rtype: None
     '''
-
-    global img_battle_screen_foreground, img_crosshair, img_explosion, img_chopper, img_boat1, img_boat2, img_boat3, img_boat4, img_cell
+    
+    global img_battle_screen_foreground, img_accomplished, img_crosshair, img_explosion, img_chopper, img_boat1, img_boat2, img_boat3, img_boat4, img_cell
     global img_start_button, img_place_ships_foreground, img_place_ships_background, img_random_button, img_trash_button
     global img_killstreak_nuke, img_killstreak_airstrike, img_killstreak_hellstrike, img_killstreak_radarscan
     global img_missmarker, img_hitmarker, img_marked_cell
     global txt_mission_accomplished, txt_place_your_ships, txt_main_menu, txt_game_name, txt_restart, txt_select, txt_start, txt_quit, txt_menu
-    global txt_nuke, txt_airstrike, txt_hellstrike, txt_radarscan
+    global txt_nuke, txt_airstrike, txt_hellstrike, txt_radarscan, txt_respect, txt_menu_win_lose, txt_restart_win_lose, txt_quit_win_lose
     global set_ship_texture0_sketch, set_ship_texture0
     global anim_explosion, anim_missile, anim_water, anim_radar, anim_fire, anim_jet
 
@@ -77,6 +82,7 @@ def init() -> None:
 
     # all img_
     img_battle_screen_foreground = pygame.image.load(f'{path}battle_screen/foreground.png')
+    img_accomplished = pygame.image.load(f'{path}win_screen/Accomplished.png')
     img_place_ships_foreground = pygame.image.load(f'{path}place_ship_screen/foreground.png')
     img_place_ships_background = pygame.image.load(f'{path}place_ship_screen/background.png')
     img_crosshair = pygame.image.load(f'{path}battle_screen/crosshair.png')
@@ -113,6 +119,10 @@ def init() -> None:
     txt_hellstrike = pygame.image.load(f'{path}battle_screen/killstreaks/NAMES/txt_hellstrike.png')
     txt_radarscan = pygame.image.load(f'{path}battle_screen/killstreaks/NAMES/txt_radarscan.png')
     txt_menu = pygame.image.load(f'{path}battle_screen/menu.png')
+    txt_respect = pygame.image.load(f'{path}win_screen/respect.png')
+    txt_menu_win_lose = pygame.image.load(f'{path}win_screen/buttons_for gameover_win screen/txt_mainmenu.png')
+    txt_restart_win_lose = pygame.image.load(f'{path}win_screen/buttons_for gameover_win screen/txt_restart.png')
+    txt_quit_win_lose = pygame.image.load(f'{path}win_screen/buttons_for gameover_win screen/txt_quit.png')
 
     # all set_
     set_ship_texture0_sketch = None
