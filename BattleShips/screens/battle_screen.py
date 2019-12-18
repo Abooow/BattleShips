@@ -11,8 +11,11 @@ from screens.screen import Screen
 
 
 class BattleScreen(Screen):
-    def __init__(self):
+    def __init__(self, board):
         super().__init__()
+
+
+        self.player = board
 
 
     def load_content(self) -> None:
@@ -29,12 +32,11 @@ class BattleScreen(Screen):
         self.player_turn = True
         self.change_turn = False
 
-        self.player = Board()
         self.enemy = ai.SmartAI()
         self.player_board_pos = (74, 93)
         self.enemy_board_pos = (549, 93)
 
-        Board.place_ships_randomly(self.player)
+        
 
 
     def update(self, delta_time):

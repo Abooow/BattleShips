@@ -194,7 +194,7 @@ class PlaceShipScreen(Screen):
 
 
     def _start_game_button(self):
-        config.current_screen = BattleScreen()
+        config.current_screen = BattleScreen(self.board)
 
     
     def _random_button(self):
