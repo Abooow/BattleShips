@@ -112,7 +112,11 @@ class PlaceShipScreen(Screen):
         # draw board
         self.board.draw(self.board_pos)
         #draw ship
-        self._draw_ship()
+        mouse = pygame.mouse.get_pos()
+        if mouse[1] <= 588:
+            self._draw_ship()
+
+        
 
         super().draw()
 

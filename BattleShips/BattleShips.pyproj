@@ -50,9 +50,6 @@
     <Compile Include="surface_change.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="txt_module.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="utils.py">
       <SubType>Code</SubType>
     </Compile>
