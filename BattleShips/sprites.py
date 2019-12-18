@@ -34,6 +34,7 @@ img_killstreak_airstrike = None
 img_killstreak_hellstrike = None
 img_killstreak_radarscan = None
 img_lose = None
+img_vignette = None
 
 txt_mission_accomplished = None
 txt_place_your_ships = None
@@ -52,6 +53,11 @@ txt_respect = None
 txt_menu_win_lose = None
 txt_restart_win_lose = None
 txt_quit_win_lose = None
+txt_choose_difficulty = None
+txt_retard = None
+txt_smart = None
+txt_einstein = None
+txt_putin = None
 
 set_ship_texture0_sketch = None
 set_ship_texture0 = None
@@ -76,9 +82,10 @@ def init() -> None:
     global img_battle_screen_foreground, img_accomplished, img_crosshair, img_explosion, img_chopper, img_boat1, img_boat2, img_boat3, img_boat4, img_cell
     global img_start_button, img_place_ships_foreground, img_place_ships_background, img_random_button, img_trash_button, img_lose
     global img_killstreak_nuke, img_killstreak_airstrike, img_killstreak_hellstrike, img_killstreak_radarscan
-    global img_missmarker, img_hitmarker, img_marked_cell
+    global img_missmarker, img_hitmarker, img_marked_cell, img_vignette
     global txt_mission_accomplished, txt_place_your_ships, txt_main_menu, txt_game_name, txt_restart, txt_select, txt_start, txt_quit, txt_menu
-    global txt_nuke, txt_airstrike, txt_hellstrike, txt_radarscan, txt_respect, txt_menu_win_lose, txt_restart_win_lose, txt_quit_win_lose
+    global txt_nuke, txt_airstrike, txt_hellstrike, txt_radarscan, txt_respect, txt_menu_win_lose, txt_restart_win_lose, txt_quit_win_lose, txt_choose_difficulty
+    global txt_retard, txt_smart, txt_einstein, txt_putin
     global set_ship_texture0_sketch, set_ship_texture0
     global anim_explosion, anim_water_splash, anim_missile, anim_water, anim_radar, anim_fire, anim_jet
     global img_mute_sound_button, img_unmute_sound_button
@@ -107,7 +114,8 @@ def init() -> None:
     img_killstreak_radarscan = pygame.image.load(f'{path}battle_screen/killstreaks/radarscan.png')
     img_mute_sound_button = pygame.image.load(f'{path}menu_screen/mute_music_button.png')
     img_unmute_sound_button = pygame.image.load(f'{path}menu_screen/unmute_music_button.png')
-    img_lose = pygame.image.load(f'{path}lose_screen/failed.png')
+    img_lose = pygame.image.load(f'{path}lose_screen/failed.png') 
+    img_vignette = pygame.image.load(f'{path}effects/vignette.png')
 
     img_start_button = pygame.image.load(f'{path}place_ship_screen/start_button.png')
     img_random_button = pygame.image.load(f'{path}place_ship_screen/random_button.png')
@@ -131,7 +139,11 @@ def init() -> None:
     txt_menu_win_lose = pygame.image.load(f'{path}win_screen/buttons_for gameover_win screen/txt_mainmenu.png')
     txt_restart_win_lose = pygame.image.load(f'{path}win_screen/buttons_for gameover_win screen/txt_restart.png')
     txt_quit_win_lose = pygame.image.load(f'{path}win_screen/buttons_for gameover_win screen/txt_quit.png')
-    
+    txt_choose_difficulty = pygame.image.load(f'{path}difficulty_screen/choose_difficulty.png') 
+    txt_retard = pygame.image.load(f'{path}difficulty_screen/ai_levels/retard.png') 
+    txt_smart = pygame.image.load(f'{path}difficulty_screen/ai_levels/smart.png') 
+    txt_einstein = pygame.image.load(f'{path}difficulty_screen/ai_levels/einstein.png') 
+    txt_putin = pygame.image.load(f'{path}difficulty_screen/ai_levels/putin.png') 
 
     # all set_
     set_ship_texture0_sketch = None

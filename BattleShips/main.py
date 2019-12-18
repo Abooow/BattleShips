@@ -17,6 +17,7 @@ from screens.menu_screen import MenuScreen
 from screens.win_screen import WinScreen
 from screens.lose_screen import LoseScreen
 from screens.test_screen import TestScreen
+from screens.difficulty_screen import DifficultyScreen
 
 
 # Initialize the game window
@@ -30,7 +31,7 @@ pygame.display.set_caption('Modern Battleship Extreme Warfare')
 config.menu_screen = MenuScreen()
 
 # Sets the current screen to MenuScreen
-config.current_screen = LoseScreen()
+config.current_screen = MenuScreen()
 
 # clock is used to get a framerate of 60fps
 clock = pygame.time.Clock()
