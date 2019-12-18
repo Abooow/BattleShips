@@ -64,11 +64,6 @@ class BattleScreen(Screen):
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and self.player_turn:
                 self._shoot_at_enemy()
 
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:
-                    self.player = Board()
-                    Board.place_ships_randomly(self.player)
-
 
         if self.missile_shot is not None:
             self.missile_shot.update(delta_time)

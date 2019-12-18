@@ -9,7 +9,7 @@ effect_explosion = None
 effect_heli = None
 effect_hitmarker = None
 effect_miss = None
-effect_missile_shooting = None
+effect_missile_launch_short = None
 effect_mission_accomplished = None
 effect_mission_failed = None
 effect_place_boat = None
@@ -21,7 +21,7 @@ song_main_menu = None
 def init() -> None:
 
     #effects 
-    global effect_explosion, effect_heli, effect_hitmarker, effect_miss, effect_missile_shooting, effect_mission_accomplished, effect_mission_failed, effect_place_boat
+    global effect_explosion, effect_heli, effect_hitmarker, effect_miss, effect_missile_launch_short, effect_mission_accomplished, effect_mission_failed, effect_place_boat
     #songs
     global song_game_background, song_main_menu
 
@@ -35,7 +35,7 @@ def init() -> None:
     effect_heli = pygame.mixer.Sound(f'{path_effects}effect_heli.ogg')
     effect_hitmarker = pygame.mixer.Sound(f'{path_effects}effect_hitmarker.ogg')
     effect_miss = pygame.mixer.Sound(f'{path_effects}effect_miss.ogg')
-    effect_missile_shooting = pygame.mixer.Sound(f'{path_effects}effect_missile_shooting.ogg')
+    effect_missile_launch_short = pygame.mixer.Sound(f'{path_effects}effect_missile_launch_short.ogg')
     effect_mission_accomplished = pygame.mixer.Sound(f'{path_effects}effect_mission_accomplished.ogg')
     effect_mission_failed = pygame.mixer.Sound(f'{path_effects}effect_mission_failed.ogg')
     effect_place_boat = pygame.mixer.Sound(f'{path_effects}effect_place_boat.ogg')
@@ -55,7 +55,7 @@ def play_effect(effect) -> None:
     '''
 
     # only play sound effect if sound_effects_on is True
-    if config.effects_on:
+    if config.sound_effects_on:
         effect.play()
 
 
