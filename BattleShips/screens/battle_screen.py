@@ -1,12 +1,12 @@
 import pygame
 import config
 import sprites
+import framework.ai as ai
+import framework.animations as animations
 
-from framework.ai import AI
 from framework.ship import Ship
 from framework.board import Board
 from framework.button import Button
-from framework.animation import Animation
 from screens.screen import Screen
 
 
@@ -25,11 +25,12 @@ class BattleScreen(Screen):
 
         self.buttons.append(escape_menu_button)
 
-        self.water_anim = Animation(sprites.anim_water, 11)
+        self.water_anim = animations.Water((0, 0))
         self.player_turn = True
+        self.change_turn = False
 
         self.player = Board()
-        self.enemy = AI()
+        self.enemy = ai.SmartAI()
         self.player_board_pos = (74, 93)
         self.enemy_board_pos = (549, 93)
 
@@ -60,7 +61,7 @@ class BattleScreen(Screen):
     def draw(self):
 
         # draw water animation
-        self.water_anim.draw((0, 0))
+        self.water_anim.draw()
 
         # draw player board
         self.player.draw(self.player_board_pos)

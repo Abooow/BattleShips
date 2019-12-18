@@ -44,8 +44,8 @@ class MenuScreen(Screen):
         '''
 
         super().load_content()
-        self.Water0 = Water(0,0)
-        self.Water1 = Water(0,500)
+        self.Water0 = Water((0,0))
+        self.Water1 = Water((0,512), 7)
 
         #start_button = Button(rect=(305,378,406,59),image=(sprites.txt_start),action=self._place_ships_menu)
         #quit_button = Button(rect=(305,474,406,59),image=(sprites.txt_quit),action=self._exit_button)

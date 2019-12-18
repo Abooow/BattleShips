@@ -97,5 +97,5 @@ class Animation():
         :rtype: None
         '''
 
-        if len(self.frames) > 0:
+        if len(self.frames) > 0 and not self.done:
             config.window.blit(self.frames[self._frame], position)

@@ -69,6 +69,7 @@ class Ship:
 
         # health of the ship (same as length)
         self.health = length
+        self.have_sunken = False
         # all parts of the ship that are hit/destroyed
         self.hit_parts = [False] * length
 
@@ -84,4 +85,9 @@ class Ship:
 
         self.health -= 1
         self.hit_parts[part] = True
-        return True if self.health <= 0 else False
+
+        if self.health <= 0:
+            self.have_sunken = True
+            return True
+        else:
+            return False

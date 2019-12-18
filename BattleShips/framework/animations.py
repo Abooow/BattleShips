@@ -10,18 +10,15 @@ from framework.animation import Animation
 
 
 class Explosion(Animation):
-    def __init__(self, x, y, fps = 12):
+    def __init__(self, position, fps = 12):
         ''' 
-        :param x (int): X position where the explosion starts
-        :param y (int): Y position where the explosion starts
+        :param position (tuple[int,int]): (x, y) position where the explosion starts
         :param fps (int): the animation speed
         '''
 
-        super().__init__(sprites.anim_explosion, fps, loop=True)
+        super().__init__(sprites.anim_explosion, fps, loop=False)
 
-        self.x = x
-        self.y = y
-        self.max_y = 550 - random.random() * 100
+        self.position = position
 
 
     def update(self, delta_time) -> None:
@@ -32,6 +29,7 @@ class Explosion(Animation):
         :returns: NoReturn
         :rtype: None
         '''
+
         super().update(delta_time)
 
 
@@ -42,22 +40,19 @@ class Explosion(Animation):
         :rtype: None
         '''
 
-        super().draw((self.x, self.y))
+        super().draw(self.position)
 
 
 class Water(Animation):
-    def __init__(self, x, y, fps = 12):
+    def __init__(self, position, offset = 0, fps = 12):
         ''' 
-        :param x (int): X position where the water starts
-        :param y (int): Y position where the water starts
+        :param position (tuple[int,int]): (x, y) position where the explosion starts
         :param fps (int): the animation speed
         '''
 
-        super().__init__(sprites.anim_water, fps, loop=True)
+        super().__init__(sprites.anim_water, fps, loop=True, offset=offset)
 
-        self.x = x
-        self.y = y
-        self.max_y = 550 - random.random() * 100
+        self.position = position
 
 
     def update(self, delta_time) -> None:
@@ -68,6 +63,7 @@ class Water(Animation):
         :returns: NoReturn
         :rtype: None
         '''
+
         super().update(delta_time)
 
 
@@ -77,7 +73,8 @@ class Water(Animation):
         :returns: NoReturn
         :rtype: None
         '''
-        super().draw((self.x, self.y))
+
+        super().draw(self.position)
 
 
 class Jet(Animation):
@@ -116,18 +113,21 @@ class Jet(Animation):
 
 
 class Missile(Animation):
-    def __init__(self, x, y, fps = 12):
+    _new_anim_missile = surface_change.transform_many(sprites.anim_missile, (1, 1), 180)
+    def __init__(self, start_position, max_y, speed, fps = 12, action=None):
         ''' 
-        :param x (int): X position where the missile starts
-        :param y (int): Y position where the missile starts
+        :param position (tuple[int,int]): (x, y) position where the explosion starts
+        :param end_y (int): max
+        :param speed (int): the rocket speed
         :param fps (int): the animation speed
         '''
 
-        super().__init__(sprites.anim_missile, fps, loop=True)
+        super().__init__(Missile._new_anim_missile, fps, loop=True)
 
-        self.x = x
-        self.y = y
-        self.max_y = 550 - random.random() * 100
+        self.position = start_position
+        self.max_y = max_y
+        self.speed = speed
+        self.action = action
 
 
     def update(self, delta_time) -> None:
@@ -138,13 +138,22 @@ class Missile(Animation):
         :returns: NoReturn
         :rtype: None
         '''
+
         super().update(delta_time)
 
-
+        if not self.done:
+            self.position = (self.position[0], self.position[1] + self.speed)
+            if self.position[1] >= self.max_y:
+                self.done = True
+                if self.action is not None:
+                    self.action()
+    
+                    
     def draw(self) -> None:
         ''' Draws the missile animation to the screen
 
         :returns: NoReturn
         :rtype: None
         '''
-        super().draw((self.x, self.y))
+
+        super().draw(self.position)

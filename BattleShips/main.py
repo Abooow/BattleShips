@@ -35,7 +35,7 @@ config.current_screen = config.menu_screen
 # clock is used to get a framerate of 60fps
 clock = pygame.time.Clock()
 
-
+fps = []
 def main() -> None:
     ''' The main function of the program
 
@@ -46,9 +46,12 @@ def main() -> None:
     # ---------------------- GameLoop
     while not config.quit_game:
         delta_time = clock.get_time()
+        fps.append(delta_time)
+        if len(fps) > 60:
+            del fps[0]
 
         if delta_time > 0:
-            pygame.display.set_caption(f'Modern Battleship Extreme Warfare - {1000 // delta_time}')
+            pygame.display.set_caption(f'Modern Battleship Extreme Warfare - {sum(fps) // 60}')
 
         # --------------------UPDATE--------------------
         config.current_screen.update(delta_time) # update everything in the current screen

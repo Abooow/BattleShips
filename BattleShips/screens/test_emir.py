@@ -19,10 +19,10 @@ class emir(Screen):
 
     def load_content(self):            
         super().load_content()
-        self.Water = Water(0,0)
-        self.Explosion = Explosion(0,0)
+        self.Water = Water((0,0))
+        self.Explosion = Explosion((0,0))
         self.Jet = Jet(300,300)
-        self.Missile = Missile(600,400)
+        self.Missile = Missile((600,-100), 600, 1)
 
     def update(self, delta_time):         
         super().update(delta_time)
