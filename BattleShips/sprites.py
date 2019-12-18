@@ -18,6 +18,8 @@ img_boat2 = None
 img_boat3 = None
 img_boat4 = None
 img_cell = None
+img_mute_sound_button = None
+img_unmute_sound_button = None
 img_start_button = None
 img_place_ships_foreground = None
 img_place_ships_background = None
@@ -56,8 +58,6 @@ anim_radar = None
 anim_fire = None
 anim_jet = None
 
-mute_music_button = None
-mute_effects_button = None
 
 
 def init() -> None:
@@ -75,7 +75,7 @@ def init() -> None:
     global txt_nuke, txt_airstrike, txt_hellstrike, txt_radarscan
     global set_ship_texture0_sketch, set_ship_texture0
     global anim_explosion, anim_water_splash, anim_missile, anim_water, anim_radar, anim_fire, anim_jet
-    global mute_music_button, mute_effects_button
+    global img_mute_sound_button, img_unmute_sound_button
 
     path = 'content/sprites/'
 
@@ -98,6 +98,8 @@ def init() -> None:
     img_killstreak_airstrike = pygame.image.load(f'{path}battle_screen/killstreaks/airstrike.png')
     img_killstreak_hellstrike = pygame.image.load(f'{path}battle_screen/killstreaks/hellstrike.png')
     img_killstreak_radarscan = pygame.image.load(f'{path}battle_screen/killstreaks/radarscan.png')
+    img_mute_sound_button = pygame.image.load(f'{path}menu_screen/mute_music_button.png')
+    img_unmute_sound_button = pygame.image.load(f'{path}menu_screen/unmute_music_button.png')
 
     img_start_button = pygame.image.load(f'{path}place_ship_screen/start_button.png')
     img_random_button = pygame.image.load(f'{path}place_ship_screen/random_button.png')
@@ -130,7 +132,3 @@ def init() -> None:
     anim_water = [pygame.image.load(f'{path}animations/water/frame{i}.png') for i in range(8)]
     anim_fire = [pygame.image.load(f'{path}animations/fire/frame{i}.png') for i in range(10)]
     anim_jet = [pygame.image.load(f'{path}animations/jet/frame{i}.png') for i in range(5)]
-
-    #mute sound_
-    mute_music_button = pygame.image.load(f'{path}menu_screen/mute_music_button.png')
-    mute_effects_button = pygame.image.load(f'{path}menu_screen/mute_music_button.png')

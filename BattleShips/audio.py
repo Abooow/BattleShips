@@ -55,7 +55,7 @@ def play_effect(effect) -> None:
     '''
 
     # only play sound effect if sound_effects_on is True
-    if config.effects_on:
+    if config.sound_effects_on:
         effect.play()
 
 
@@ -70,5 +70,9 @@ def play_song(path):
 
     # only play the song if sound_song_on is True
     pygame.mixer.music.load(path)
-    if config.song_on:
+    if config.sound_song_on:
         pygame.mixer.music.play(-1)
+
+
+def stop_music():
+    pass

@@ -12,11 +12,11 @@ SCREEN_HEIGHT = 700
 # size of each cell
 CELL_SIZE = 40
 
-#
-
-
 # the main window
 window = None
+
+# the font for all text
+font = None
 
 # an instance of the main menu
 menu_screen = None
@@ -26,6 +26,3 @@ current_screen = None
 
 # if True, then the program quits
 quit_game = False
-
-
-font = None

@@ -48,10 +48,14 @@ class MenuScreen(Screen):
         self.Water0 = Water((0,0))
         self.Water1 = Water((0,512), 7)
 
-        #start_button = Button(rect=(305,378,406,59),image=(sprites.txt_start),action=self._place_ships_menu)
-        #quit_button = Button(rect=(305,474,406,59),image=(sprites.txt_quit),action=self._exit_button)
-        sound_effects_button = Button(rect=(450,580, 50,50),image=sprites.mute_effects_button,hc = (0,0,255),bg = None)
-        sound_music_button = Button(rect=(525,580,50,50),image=sprites.mute_music_button,hc = (0,0,255),bg = None)
+        self.sound_effects_button = Button(rect=(450, 580, 50, 50),
+                                           image=sprites.img_unmute_sound_button,
+                                           hc = (0, 0, 255),bg = None,
+                                           action=self._sound_effects_button)
+        self.sound_music_button = Button(rect=(525, 580, 50, 50),
+                                         image=sprites.img_unmute_sound_button,
+                                         hc = (0,0,255), bg = None, 
+                                         action=self._sound_music_button)
        
        #start button width and height
         self.SW = sprites.txt_start.get_width()
@@ -70,8 +74,8 @@ class MenuScreen(Screen):
     
         self.buttons.append(start_button)
         self.buttons.append(quit_button)
-        self.buttons.append(sound_effects_button)
-        self.buttons.append(sound_music_button)
+        self.buttons.append(self.sound_effects_button)
+        self.buttons.append(self.sound_music_button)
 
 
         #clip = mp.VideoFileClip(r"content\sprites\puff.mp4")
@@ -145,17 +149,24 @@ class MenuScreen(Screen):
     
 
     def _sound_effects_button(self):
-        config.sound_effects_on = False
-        pass
+        if config.sound_effects_on:
+            config.sound_effects_on = False
+            self.sound_effects_button.image = sprites.img_mute_sound_button
+        else:
+            config.sound_effects_on = True
+            self.sound_effects_button.image = sprites.img_unmute_sound_button
 
 
     def _sound_music_button(self):
-        config.sound_song_on = False
+        if config.sound_song_on:
+            config.sound_song_on = False
+            self.sound_music_button.image = sprites.img_mute_sound_button
+        else:
+            config.sound_song_on = True
+            self.sound_music_button.image = sprites.img_unmute_sound_button
         pass
 
     
     def mute_button_txt(self):
         pygame.font.init()
         text = font.render('Soundbutton', True , (0,0,255))
-        
-
