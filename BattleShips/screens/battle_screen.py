@@ -24,7 +24,7 @@ class BattleScreen(Screen):
 
         super().load_content()
 
-        escape_menu_button = Button(rect=((config.SCREEN_WIDTH-57.5)*0.5,512,55,17),bg=(0,255,0),action=self._esc_menu_button)
+        escape_menu_button = Button(rect=((config.SCREEN_WIDTH-42)*0.5,515,sprites.txt_menu.get_width(),sprites.txt_menu.get_height()), image=sprites.txt_menu, action=self._esc_menu_button, bg=(None))
 
         #killstreaks buttons
         killstreak_nuke = Button(rect=(380,570,sprites.img_killstreak_nuke.get_width(),sprites.img_killstreak_nuke.get_height()), image=sprites.img_killstreak_nuke, action=self._killstreak_nuke)

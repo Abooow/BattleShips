@@ -43,6 +43,7 @@ txt_nuke = None
 txt_airstrike = None
 txt_hellstrike = None
 txt_radarscan = None
+txt_menu = None
 
 set_ship_texture0_sketch = None
 set_ship_texture0 = None
@@ -70,7 +71,7 @@ def init() -> None:
     global img_start_button, img_place_ships_foreground, img_place_ships_background, img_random_button, img_trash_button
     global img_killstreak_nuke, img_killstreak_airstrike, img_killstreak_hellstrike, img_killstreak_radarscan
     global img_missmarker, img_hitmarker, img_marked_cell
-    global txt_mission_accomplished, txt_place_your_ships, txt_main_menu, txt_game_name, txt_restart, txt_select, txt_start, txt_quit
+    global txt_mission_accomplished, txt_place_your_ships, txt_main_menu, txt_game_name, txt_restart, txt_select, txt_start, txt_quit, txt_menu
     global txt_nuke, txt_airstrike, txt_hellstrike, txt_radarscan
     global set_ship_texture0_sketch, set_ship_texture0
     global anim_explosion, anim_water_splash, anim_missile, anim_water, anim_radar, anim_fire, anim_jet
@@ -115,6 +116,7 @@ def init() -> None:
     txt_airstrike = pygame.image.load(f'{path}battle_screen/killstreaks/NAMES/txt_airstrike.png')
     txt_hellstrike = pygame.image.load(f'{path}battle_screen/killstreaks/NAMES/txt_hellstrike.png')
     txt_radarscan = pygame.image.load(f'{path}battle_screen/killstreaks/NAMES/txt_radarscan.png')
+    txt_menu = pygame.image.load(f'{path}battle_screen/menu.png')
 
     # all set_
     set_ship_texture0_sketch = None
