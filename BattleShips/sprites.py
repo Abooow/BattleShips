@@ -55,6 +55,8 @@ anim_radar = None
 anim_fire = None
 anim_jet = None
 
+mute_music_button = None
+mute_effects_button = None
 
 
 def init() -> None:
@@ -72,6 +74,7 @@ def init() -> None:
     global txt_nuke, txt_airstrike, txt_hellstrike, txt_radarscan
     global set_ship_texture0_sketch, set_ship_texture0
     global anim_explosion, anim_water_splash, anim_missile, anim_water, anim_radar, anim_fire, anim_jet
+    global mute_music_button, mute_effects_button
 
     path = 'content/sprites/'
 
@@ -125,3 +128,7 @@ def init() -> None:
     anim_water = [pygame.image.load(f'{path}animations/water/frame{i}.png') for i in range(8)]
     anim_fire = [pygame.image.load(f'{path}animations/fire/frame{i}.png') for i in range(10)]
     anim_jet = [pygame.image.load(f'{path}animations/jet/frame{i}.png') for i in range(5)]
+
+    #mute sound_
+    mute_music_button = pygame.image.load(f'{path}menu_screen/mute_music_button.png')
+    mute_effects_button = pygame.image.load(f'{path}menu_screen/mute_music_button.png')

@@ -8,6 +8,7 @@ import random
 import math
 import config
 import sprites
+import utils
 #import moviepy.editor as mp
 
 #from moviepy.editor import VideoFileClip
@@ -49,8 +50,8 @@ class MenuScreen(Screen):
 
         #start_button = Button(rect=(305,378,406,59),image=(sprites.txt_start),action=self._place_ships_menu)
         #quit_button = Button(rect=(305,474,406,59),image=(sprites.txt_quit),action=self._exit_button)
-        sound_effects_button = Button(rect=(305,580, 50,50),bg=(0,255,0))
-        sound_music_button = Button(rect=(375,580,50,50),bg=(0,255,0))
+        sound_effects_button = Button(rect=(450,580, 50,50),image=sprites.mute_effects_button,hc = (0,0,255),bg = None)
+        sound_music_button = Button(rect=(525,580,50,50),image=sprites.mute_music_button,hc = (0,0,255),bg = None)
        
        #start button width and height
         self.SW = sprites.txt_start.get_width()
@@ -65,8 +66,8 @@ class MenuScreen(Screen):
         self.QC = config.SCREEN_WIDTH-self.QW
 
         start_button = Button(rect=(self.SC * 0.5, 300, self.SW, self.SH), bg=(), image=sprites.txt_start, action=self._place_ships_menu)
-        quit_button = Button(rect=(self.QC * 0.5, 400, self.QW, self.QH), bg=(), image=sprites.txt_quit, action=self._exit_button)
-
+        quit_button = Button(rect=(self.QC * 0.5, 400, self.QW, self.QH),bg=None, image=sprites.txt_quit, action=self._exit_button)
+    
         self.buttons.append(start_button)
         self.buttons.append(quit_button)
         self.buttons.append(sound_effects_button)
@@ -126,6 +127,11 @@ class MenuScreen(Screen):
         config.window.blit(sprites.img_boat2, (320-self.boat2_x, 260-self.boat2_y))
         config.window.blit(sprites.img_boat1, (-400, 200-self.boat1_y))
         config.window.blit(sprites.img_chopper, (1000-self.heli_x, 0-self.heli_y))
+        
+
+        utils.draw_font('Music', (255,255,255), (523,550))
+        utils.draw_font('Effects', (255,255,255), (444,550))
+
 
         super().draw()
 
@@ -147,4 +153,9 @@ class MenuScreen(Screen):
         config.sound_song_on = False
         pass
 
+    
+    def mute_button_txt(self):
+        pygame.font.init()
+        text = font.render('Soundbutton', True , (0,0,255))
+        
 

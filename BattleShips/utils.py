@@ -1,5 +1,7 @@
 import random
 import sprites
+import config
+
 
 from framework.ship import Ship
 
@@ -27,3 +29,8 @@ def place_ships_randomly(board) -> None:
 
             if board.place_ship(ship):
                 del ships_available[0]
+
+
+def draw_font(text, color, position):
+    new_text = config.font.render(text, True , color)
+    config.window.blit(new_text, position)

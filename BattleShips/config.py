@@ -26,3 +26,6 @@ current_screen = None
 
 # if True, then the program quits
 quit_game = False
+
+
+font = None

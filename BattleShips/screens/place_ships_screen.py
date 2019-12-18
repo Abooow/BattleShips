@@ -112,7 +112,11 @@ class PlaceShipScreen(Screen):
         # draw board
         self.board.draw(self.board_pos)
         #draw ship
-        self._draw_ship()
+        mouse = pygame.mouse.get_pos()
+        if mouse[1] <= 588:
+            self._draw_ship()
+
+        
 
         super().draw()
 
@@ -190,7 +194,7 @@ class PlaceShipScreen(Screen):
 
 
     def _start_game_button(self):
-        config.current_screen = BattleScreen()
+        config.current_screen = BattleScreen(self.board)
 
     
     def _random_button(self):
