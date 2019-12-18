@@ -158,8 +158,8 @@ class Cell:
         if self.hit:
             if self.ship is not None:
                 # fire anim
-                self._fire_anim.draw((x - 25, y - 30))
-                self._fire_anim.draw((x - 13, y - 23))
+                self._fire_anim.draw((x - 25, y - 25))
+                self._fire_anim.draw((x - 13, y - 18))
 
                  # explosion anim
                 if not self._explotion_anim.done:
