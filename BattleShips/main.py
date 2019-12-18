@@ -35,6 +35,9 @@ config.current_screen = config.menu_screen
 # clock is used to get a framerate of 60fps
 clock = pygame.time.Clock()
 
+#Used font for txt
+config.font=pygame.font.SysFont('Tahoma',18, True, False)
+
 fps = []
 def main() -> None:
     ''' The main function of the program
