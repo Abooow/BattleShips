@@ -137,6 +137,20 @@ class Board:
                 return True, None
 
 
+    def update(self, delta_time) -> None:
+        ''' Updates all cells
+
+        :param delta_time (int): time since last frame
+
+        :returns: NoReturn
+        :rtype: None
+        '''
+
+        for row in self.list:
+            for col in row:
+                col.update(delta_time)
+
+
     def draw(self, position) -> None:
         ''' Draws every cell on that are on this board
 

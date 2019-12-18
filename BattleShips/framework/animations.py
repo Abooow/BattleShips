@@ -10,6 +10,70 @@ from framework.animation import Animation
 
 
 class Explosion(Animation):
+    def __init__(self, fps = 12):
+        ''' 
+        :param position (tuple[int,int]): (x, y) position where the explosion starts
+        :param fps (int): the animation speed
+        '''
+
+        super().__init__(sprites.anim_water_splash, fps, loop=False)
+
+
+    def update(self, delta_time) -> None:
+        ''' Updates the explosion animation
+
+        :param delta_time (int): time since last frame
+
+        :returns: NoReturn
+        :rtype: None
+        '''
+
+        super().update(delta_time)
+
+
+    def draw(self, position) -> None:
+        ''' Draws the explosion animation to the screen
+
+        :returns: NoReturn
+        :rtype: None
+        '''
+
+        super().draw(position)
+
+
+class Fire(Animation):
+    def __init__(self, fps = 12):
+        ''' 
+        :param position (tuple[int,int]): (x, y) position where the explosion starts
+        :param fps (int): the animation speed
+        '''
+
+        super().__init__(sprites.anim_fire, fps, loop=True)
+
+
+    def update(self, delta_time) -> None:
+        ''' Updates the explosion animation
+
+        :param delta_time (int): time since last frame
+
+        :returns: NoReturn
+        :rtype: None
+        '''
+
+        super().update(delta_time)
+
+
+    def draw(self, position) -> None:
+        ''' Draws the explosion animation to the screen
+
+        :returns: NoReturn
+        :rtype: None
+        '''
+
+        super().draw(position)
+
+
+class WaterSplash(Animation):
     def __init__(self, position, fps = 12):
         ''' 
         :param position (tuple[int,int]): (x, y) position where the explosion starts

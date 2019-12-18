@@ -5,8 +5,8 @@ import pygame
 import config
 import sprites
 import surface_change
+import framework.animations as animations
 
-from framework.animation import Animation
 from framework.ship import Ship
 
 
@@ -42,8 +42,9 @@ class Cell:
 
         self.hit = False
 
-        self._fire_anim = Animation(sprites.anim_fire, 12)
-        self._explotion_anim = Animation(sprites.anim_explosion, 12, loop=False)
+        self._fire_anim = animations.Fire()
+        self._explotion_anim = animations.Explosion()
+        self._water_splash_anim = None
 
 
     def shoot_at(self) -> bool:
@@ -72,12 +73,15 @@ class Cell:
         '''
 
         # no need to update any animation if the cell doesn't contain a ship or if the cell have not been shot at
-        if self.ship == None or not self.hit:
-            return
-        elif self.hit:
-            # TODO: fix animations, when hit, start explosion animation and fire animation
-            pass
+        if self.hit:
+            # explosion animation
+            if self.ship is not None:
+                # update explosion
+                if not self._explotion_anim.done:
+                    self._explotion_anim.update(delta_time)
 
+                # update fire
+                self._fire_anim.update(delta_time)
 
     def draw(self, position) -> None:
         ''' Draws everything that's in this cell
@@ -106,6 +110,8 @@ class Cell:
         elif self.hit: # not a ship part, draw miss marker if hit
             config.window.blit(sprites.img_missmarker, (x+1, y+1))
 
+        self._draw_animations(position)
+
 
     def draw_enemy(self, position) -> None:
         ''' Draws hit/miss but not the ship
@@ -132,4 +138,19 @@ class Cell:
                 config.window.blit(sprites.img_missmarker, (x+1, y+1))
                 #pygame.draw.rect(config.window, (100, 30, 30), (x+1, y+1, 40, 40))
                 
-        # TODO: draw explosion and fire animation if hit
+        self._draw_animations(position)
+
+
+    def _draw_animations(self, position):
+        x = position[0]
+        y = position[1]
+
+        if self.hit:
+            if self.ship is not None:
+                # fire anim
+                self._fire_anim.draw((x - 30, y - 30))
+                self._fire_anim.draw((x - 20, y - 20))
+
+                 # explosion anim
+                if not self._explotion_anim.done:
+                    self._explotion_anim.draw((x - 100, y - 100))

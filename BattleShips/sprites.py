@@ -40,6 +40,7 @@ set_ship_texture0_sketch = None
 set_ship_texture0 = None
 
 anim_explosion = None
+anim_water_splash = None
 anim_missile = None
 anim_water = None
 anim_radar = None
@@ -60,7 +61,7 @@ def init() -> None:
     global img_missmarker, img_hitmarker, img_marked_cell
     global txt_mission_accomplished, txt_place_your_ships, txt_main_menu, txt_game_name, txt_restart, txt_select, txt_start, txt_quit
     global set_ship_texture0_sketch, set_ship_texture0
-    global anim_explosion, anim_missile, anim_water, anim_radar, anim_fire, anim_jet
+    global anim_explosion, anim_water_splash, anim_missile, anim_water, anim_radar, anim_fire, anim_jet
 
     path = 'content/sprites/'
 
@@ -100,6 +101,7 @@ def init() -> None:
 
     # all anim_
     anim_explosion = [pygame.image.load(f'{path}animations/explosion/frame{i}.png') for i in range(4)]
+    anim_water_splash = [pygame.image.load(f'{path}animations/explosion/frame{i}.png') for i in range(4)]
     anim_missile = [pygame.image.load(f'{path}animations/missile/frame{i}.png') for i in range(6)]
     anim_radar = [pygame.image.load(f'{path}animations/radar/frame{i}.png') for i in range(8)]
     anim_water = [pygame.image.load(f'{path}animations/water/frame{i}.png') for i in range(8)]

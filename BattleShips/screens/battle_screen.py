@@ -45,7 +45,6 @@ class BattleScreen(Screen):
         # update water animation
         self.water_anim.update(delta_time)
 
-
         # enemy shoot
         if not self.player_turn and self.missile_shot is None:
             self._enemy_shoot()
@@ -64,6 +63,9 @@ class BattleScreen(Screen):
         if self.missile_shot is not None:
             self.missile_shot.update(delta_time)
 
+
+        self.player.update(delta_time)
+        self.enemy.board.update(delta_time)
 
 
     def draw(self):
