@@ -21,9 +21,19 @@ class BattleScreen(Screen):
 
         super().load_content()
 
-        escape_menu_button = Button(rect=(89,512,55,17),bg=(0,255,0),action=self._esc_menu_button)
+        escape_menu_button = Button(rect=((config.SCREEN_WIDTH-57.5)*0.5,512,55,17),bg=(0,255,0),action=self._esc_menu_button)
+
+        #killstreaks buttons
+        killstreak_nuke = Button(rect=(380,570,sprites.img_killstreak_nuke.get_width(),sprites.img_killstreak_nuke.get_height()), image=sprites.img_killstreak_nuke, action=self._killstreak_nuke)
+        killstreak_airstrike = Button(rect=(380,640,sprites.img_killstreak_airstrike.get_width(),sprites.img_killstreak_airstrike.get_height()), image=sprites.img_killstreak_airstrike, action=self._killstreak_airstrike)
+        killstreak_hellstrike = Button(rect=(600,570,sprites.img_killstreak_hellstrike.get_width(),sprites.img_killstreak_hellstrike.get_height()), image=sprites.img_killstreak_hellstrike, action=self._killstreak_hellstrike)
+        killstreak_radarscan = Button(rect=(600,640,sprites.img_killstreak_radarscan.get_width(),sprites.img_killstreak_radarscan.get_height()), image=sprites.img_killstreak_radarscan, action=self._killstreak_radarscan)
 
         self.buttons.append(escape_menu_button)
+        self.buttons.append(killstreak_nuke)
+        self.buttons.append(killstreak_airstrike)
+        self.buttons.append(killstreak_hellstrike)
+        self.buttons.append(killstreak_radarscan)
 
         self.missile_shot = None
 
@@ -96,6 +106,12 @@ class BattleScreen(Screen):
         self._draw_player_ship_health()
         # draw player's ships health squares bottom right
         self._draw_enemy_ship_health()
+
+        # killstreak names
+        config.window.blit(sprites.txt_nuke, (375, 555))
+        config.window.blit(sprites.txt_airstrike, (350, 625))
+        config.window.blit(sprites.txt_hellstrike, (560, 555))
+        config.window.blit(sprites.txt_radarscan, (560, 625))
 
         super().draw()
 
@@ -186,6 +202,19 @@ class BattleScreen(Screen):
 
     def _esc_menu_button(self):
         config.current_screen = config.menu_screen
+
+    #killstreaks
+    def _killstreak_nuke(self):
+        None
+
+    def _killstreak_airstrike(self):
+        None
+
+    def _killstreak_hellstrike(self):
+        None
+
+    def _killstreak_radarscan(self):
+        None
 
 
 class GameState():

@@ -65,7 +65,7 @@ class MenuScreen(Screen):
         self.QC = config.SCREEN_WIDTH-self.QW
 
         start_button = Button(rect=(self.SC * 0.5, 300, self.SW, self.SH), bg=(), image=sprites.txt_start, action=self._place_ships_menu)
-        quit_button = Button(rect=(self.QC * 0.5, 400, self.QW, self.QH), image=sprites.txt_quit, action=self._exit_button)
+        quit_button = Button(rect=(self.QC * 0.5, 400, self.QW, self.QH), bg=(), image=sprites.txt_quit, action=self._exit_button)
 
         self.buttons.append(start_button)
         self.buttons.append(quit_button)
@@ -139,10 +139,12 @@ class MenuScreen(Screen):
     
 
     def _sound_effects_button(self):
+        config.sound_effects_on = False
         pass
 
 
     def _sound_music_button(self):
+        config.sound_song_on = False
         pass
 
 

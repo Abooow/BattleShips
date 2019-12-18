@@ -26,6 +26,10 @@ img_trash_button = None
 img_missmarker = None
 img_hitmarker = None
 img_marked_cell = None
+img_killstreak_nuke = None
+img_killstreak_airstrike = None
+img_killstreak_hellstrike = None
+img_killstreak_radarscan = None
 
 txt_mission_accomplished = None
 txt_place_your_ships = None
@@ -35,6 +39,10 @@ txt_restart = None
 txt_select = None
 txt_start = None
 txt_quit = None
+txt_nuke = None
+txt_airstrike = None
+txt_hellstrike = None
+txt_radarscan = None
 
 set_ship_texture0_sketch = None
 set_ship_texture0 = None
@@ -58,8 +66,10 @@ def init() -> None:
 
     global img_battle_screen_foreground, img_crosshair, img_explosion, img_chopper, img_boat1, img_boat2, img_boat3, img_boat4, img_cell
     global img_start_button, img_place_ships_foreground, img_place_ships_background, img_random_button, img_trash_button
+    global img_killstreak_nuke, img_killstreak_airstrike, img_killstreak_hellstrike, img_killstreak_radarscan
     global img_missmarker, img_hitmarker, img_marked_cell
     global txt_mission_accomplished, txt_place_your_ships, txt_main_menu, txt_game_name, txt_restart, txt_select, txt_start, txt_quit
+    global txt_nuke, txt_airstrike, txt_hellstrike, txt_radarscan
     global set_ship_texture0_sketch, set_ship_texture0
     global anim_explosion, anim_water_splash, anim_missile, anim_water, anim_radar, anim_fire, anim_jet
 
@@ -80,6 +90,10 @@ def init() -> None:
     img_missmarker = pygame.image.load(f'{path}board/missmarker.png')
     img_hitmarker = pygame.image.load(f'{path}board/hitmarker.png')
     img_marked_cell = pygame.image.load(f'{path}board/marked_cell.png')
+    img_killstreak_nuke = pygame.image.load(f'{path}battle_screen/killstreaks/nuke.png')
+    img_killstreak_airstrike = pygame.image.load(f'{path}battle_screen/killstreaks/airstrike.png')
+    img_killstreak_hellstrike = pygame.image.load(f'{path}battle_screen/killstreaks/hellstrike.png')
+    img_killstreak_radarscan = pygame.image.load(f'{path}battle_screen/killstreaks/radarscan.png')
 
     img_start_button = pygame.image.load(f'{path}place_ship_screen/start_button.png')
     img_random_button = pygame.image.load(f'{path}place_ship_screen/random_button.png')
@@ -94,6 +108,10 @@ def init() -> None:
     txt_select = pygame.image.load(f'{path}buttons/select.png')
     txt_start = pygame.image.load(f'{path}buttons/start.png')
     txt_quit = pygame.image.load(f'{path}buttons/quit.png')
+    txt_nuke = pygame.image.load(f'{path}battle_screen/killstreaks/NAMES/txt_nuke.png')
+    txt_airstrike = pygame.image.load(f'{path}battle_screen/killstreaks/NAMES/txt_airstrike.png')
+    txt_hellstrike = pygame.image.load(f'{path}battle_screen/killstreaks/NAMES/txt_hellstrike.png')
+    txt_radarscan = pygame.image.load(f'{path}battle_screen/killstreaks/NAMES/txt_radarscan.png')
 
     # all set_
     set_ship_texture0_sketch = None
