@@ -31,6 +31,7 @@ img_killstreak_nuke = None
 img_killstreak_airstrike = None
 img_killstreak_hellstrike = None
 img_killstreak_radarscan = None
+img_lose = None
 
 txt_mission_accomplished = None
 txt_place_your_ships = None
@@ -70,7 +71,7 @@ def init() -> None:
     '''
     
     global img_battle_screen_foreground, img_accomplished, img_crosshair, img_explosion, img_chopper, img_boat1, img_boat2, img_boat3, img_boat4, img_cell
-    global img_start_button, img_place_ships_foreground, img_place_ships_background, img_random_button, img_trash_button
+    global img_start_button, img_place_ships_foreground, img_place_ships_background, img_random_button, img_trash_button, img_lose
     global img_killstreak_nuke, img_killstreak_airstrike, img_killstreak_hellstrike, img_killstreak_radarscan
     global img_missmarker, img_hitmarker, img_marked_cell
     global txt_mission_accomplished, txt_place_your_ships, txt_main_menu, txt_game_name, txt_restart, txt_select, txt_start, txt_quit, txt_menu
@@ -100,6 +101,7 @@ def init() -> None:
     img_killstreak_airstrike = pygame.image.load(f'{path}battle_screen/killstreaks/airstrike.png')
     img_killstreak_hellstrike = pygame.image.load(f'{path}battle_screen/killstreaks/hellstrike.png')
     img_killstreak_radarscan = pygame.image.load(f'{path}battle_screen/killstreaks/radarscan.png')
+    img_lose = pygame.image.load(f'{path}lose_screen/failed.png')
 
     img_start_button = pygame.image.load(f'{path}place_ship_screen/start_button.png')
     img_random_button = pygame.image.load(f'{path}place_ship_screen/random_button.png')
@@ -123,6 +125,7 @@ def init() -> None:
     txt_menu_win_lose = pygame.image.load(f'{path}win_screen/buttons_for gameover_win screen/txt_mainmenu.png')
     txt_restart_win_lose = pygame.image.load(f'{path}win_screen/buttons_for gameover_win screen/txt_restart.png')
     txt_quit_win_lose = pygame.image.load(f'{path}win_screen/buttons_for gameover_win screen/txt_quit.png')
+    
 
     # all set_
     set_ship_texture0_sketch = None
