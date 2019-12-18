@@ -45,6 +45,7 @@ class Cell:
         self._fire_anim = animations.Fire()
         self._explotion_anim = animations.Explosion()
         self._water_splash_anim = None
+        self._ship_sunken_explosion = False 
 
 
     def shoot_at(self) -> bool:
@@ -82,6 +83,11 @@ class Cell:
 
                 # update fire
                 self._fire_anim.update(delta_time)
+
+                if self.ship.have_sunken and not self._ship_sunken_explosion:
+                    self._ship_sunken_explosion = True
+                    self._explotion_anim = animations.Explosion()
+
 
     def draw(self, position) -> None:
         ''' Draws everything that's in this cell
@@ -148,9 +154,9 @@ class Cell:
         if self.hit:
             if self.ship is not None:
                 # fire anim
-                self._fire_anim.draw((x - 30, y - 30))
-                self._fire_anim.draw((x - 20, y - 20))
+                self._fire_anim.draw((x - 25, y - 30))
+                self._fire_anim.draw((x - 13, y - 23))
 
                  # explosion anim
                 if not self._explotion_anim.done:
-                    self._explotion_anim.draw((x - 100, y - 100))
+                    self._explotion_anim.draw((x - 76, y - 76))
