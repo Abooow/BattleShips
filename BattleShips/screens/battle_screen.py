@@ -169,12 +169,15 @@ class BattleScreen(Screen):
         # won
         ships = self.enemy.board.ships
         if len([ship for ship in ships if ship.health == 0]) == len(ships):
+            pygame.mixer.music.stop()
             config.current_screen = WinScreen(self.placeship_screen)
 
         # lost
         ships = self.player.ships
         if len([ship for ship in ships if ship.health == 0]) == len(ships):
+            pygame.mixer.music.stop()
             config.current_screen = LoseScreen(self.placeship_screen)
+            #audio.play_song(audio.effect_mission_failed)
 
 
     def _shoot(self, board, index) -> None:

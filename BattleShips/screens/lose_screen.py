@@ -59,12 +59,13 @@ class LoseScreen(Screen):
     def _main_menu(self):
         pygame.mixer.stop()
         config.current_screen = config.menu_screen
+        audio.play_song(audio.song_main_menu)
 
 
     def _place_ships_menu(self):
         pygame.mixer.stop()
         config.current_screen = self.placeship_screen
-
+        audio.play_song(audio.song_main_menu)
 
     def _exit_button(self):
         pygame.mixer.stop()
