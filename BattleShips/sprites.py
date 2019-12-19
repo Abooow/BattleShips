@@ -38,6 +38,9 @@ img_killstreak_radarscan = None
 img_lose = None
 img_empty = None
 img_vignette = None
+img_hand_place_ships = None
+img_hand_left = None
+img_hand_right = None
 
 txt_mission_accomplished = None
 txt_place_your_ships = None
@@ -94,7 +97,7 @@ def init() -> None:
     global img_killstreak_nuke, img_killstreak_airstrike, img_killstreak_hellstrike, img_killstreak_radarscan
     global img_mute_sound_button, img_unmute_sound_button
     global img_missmarker, img_hitmarker, img_marked_cell, img_vignette
-    global img_empty
+    global img_empty, img_hand_place_ships, img_hand_left, img_hand_right
     
     global txt_mission_accomplished, txt_place_your_ships, txt_main_menu, txt_game_name, txt_restart, txt_select, txt_start, txt_quit, txt_menu
     global txt_nuke, txt_airstrike, txt_hellstrike, txt_radarscan, txt_respect, txt_menu_win_lose, txt_restart_win_lose, txt_quit_win_lose, txt_choose_difficulty
@@ -136,6 +139,9 @@ def init() -> None:
     img_empty = pygame.image.load(f'{path}empty.png')
     img_lose = pygame.image.load(f'{path}lose_screen/failed.png') 
     img_vignette = pygame.image.load(f'{path}effects/vignette.png')
+    img_hand_place_ships = pygame.image.load(f'{path}place_ship_screen/hand.png')
+    img_hand_left = pygame.image.load(f'{path}battle_screen/hand_left.png')
+    img_hand_right = pygame.image.load(f'{path}battle_screen/hand_right.png')
 
     img_start_button = pygame.image.load(f'{path}place_ship_screen/start_button.png')
     img_random_button = pygame.image.load(f'{path}place_ship_screen/random_button.png')

@@ -5,6 +5,7 @@ everything that have to do with PlaceShips state should be in in here
 
 import pygame
 import random
+import math
 import config
 import sprites
 import utils
@@ -50,10 +51,10 @@ class PlaceShipScreen(Screen):
 
         super().load_content()
         #Creates start, trash and random buttons
-        self.start_button = Button(rect=(780, 637, 186, 51), bg=None, hc=(0, 100, 0),  image=(sprites.img_start_button), action=self._start_game_button)
-        self.start_button.visible = False
-        trash_button = Button(rect=(434, 637, 77, 51), bg=None, hc=(0, 100, 0), image=(sprites.img_trash_button), action=self._trash_button)
-        random_button = Button(rect=(540, 637, 77, 51), bg=None, hc=(0, 100, 0),  image=(sprites.img_random_button),action=self._random_button)
+        self.start_button = Button(rect=(780, 637, 186, 51), bg=None, hc=(70, 200, 70),  image=(sprites.img_start_button), action=self._start_game_button)
+        self.start_button.viseble = False
+        trash_button = Button(rect=(434, 637, 77, 51), bg=None, hc=(70, 200, 70), image=(sprites.img_trash_button), action=self._trash_button)
+        random_button = Button(rect=(540, 637, 77, 51), bg=None, hc=(70, 200, 70),  image=(sprites.img_random_button),action=self._random_button)
 
         #Adds the buttons to the "buttons" -list
         self.buttons.append(self.start_button)
@@ -66,6 +67,8 @@ class PlaceShipScreen(Screen):
         self.ships_available = [PlaceableShip(ship) for ship in config.ship_types]
         self.placed_ships = []
         
+        self.hand_y = 0
+
         self._create_ship_buttons()
 
         
@@ -100,6 +103,8 @@ class PlaceShipScreen(Screen):
         else:
             self.start_button.visible = False
 
+        self.hand_y += 1
+
 
     def draw(self) -> None:
         ''' Draws everything to the screen
@@ -126,6 +131,9 @@ class PlaceShipScreen(Screen):
         
         # draw foreground
         config.window.blit(sprites.img_place_ships_foreground, (0, 0))
+
+        # draw hand
+        config.window.blit(sprites.img_hand_place_ships, (630 + math.sin(self.hand_y/5)*10, -5 + math.sin(self.hand_y/5)*10))
 
         # draw available ships
         self._draw_ships_background()

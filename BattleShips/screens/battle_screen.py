@@ -1,4 +1,5 @@
 import pygame
+import math
 import config
 import sprites
 import audio
@@ -25,7 +26,7 @@ class BattleScreen(Screen):
 
         super().load_content()
         audio.play_song(audio.song_game_background)
-        escape_menu_button = Button(rect=((config.SCREEN_WIDTH-42)*0.5,515,sprites.txt_menu.get_width(),sprites.txt_menu.get_height()), image=sprites.txt_menu, action=self._esc_menu_button, bg=(None))
+        escape_menu_button = Button(rect=((config.SCREEN_WIDTH-52)*0.5,515,sprites.txt_menu.get_width(),sprites.txt_menu.get_height()), image=sprites.txt_menu, action=self._esc_menu_button, bg=(None))
 
         #killstreaks buttons
         killstreak_nuke = Button(rect=(380,570,sprites.img_killstreak_nuke.get_width(),sprites.img_killstreak_nuke.get_height()), image=sprites.img_killstreak_nuke, action=self._killstreak_nuke)
@@ -44,10 +45,15 @@ class BattleScreen(Screen):
         self.water_anim = animations.Water((0, 0))
         self.player_turn = True
         self.change_turn = False
+        self.can_shoot = True
+        self.timer = 0
 
         self.enemy = ai.SmartAI()
         self.player_board_pos = (74, 93)
         self.enemy_board_pos = (549, 93)
+
+        self.delay  = 800
+        self.hand_x = 0
 
         
 
@@ -59,12 +65,14 @@ class BattleScreen(Screen):
         self.water_anim.update(delta_time)
 
         # enemy shoot
-        if not self.player_turn and self.missile_shot is None:
+        if not self.player_turn and self.timer > self.delay and self.missile_shot is None:
             self._enemy_shoot()
+        elif not self.player_turn and self.missile_shot is None:
+            self.timer += delta_time
 
         # get event
         for event in events:
-            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and self.player_turn:
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and self.player_turn and self.can_shoot:
                 self._shoot_at_enemy()
 
 
@@ -72,6 +80,7 @@ class BattleScreen(Screen):
             self.missile_shot.update(delta_time)
 
 
+        self.hand_x += 1
         self.player.update(delta_time)
         self.enemy.board.update(delta_time)
 
@@ -81,6 +90,8 @@ class BattleScreen(Screen):
         # draw water animation
         self.water_anim.draw()
 
+        config.window.blit(sprites.img_vignette, (0, -175))
+
         # draw player board
         self.player.draw(self.player_board_pos)
 
@@ -88,13 +99,18 @@ class BattleScreen(Screen):
         self.enemy.board.draw_enemy(self.enemy_board_pos)
 
         # when it's players turn
-        if self.player_turn and self.missile_shot is None:
+        if self.player_turn and self.can_shoot and self.missile_shot is None:
             self._draw_hovering_cell() # draw the hovering cell
             self._draw_crosshair()     # draw crosshair
 
             
         # draw foreground
         config.window.blit(sprites.img_battle_screen_foreground, (0, 0))
+
+        # draw hand
+        hand_img = sprites.img_hand_left if self.player_turn else sprites.img_hand_right
+        offset = -40 if self.player_turn else 0
+        config.window.blit(hand_img, (460 + math.sin(self.hand_x/5)*10 + offset, 3))
         
          # draw the attack missile
         if self.missile_shot is not None:
@@ -150,6 +166,7 @@ class BattleScreen(Screen):
 
     def _shoot(self, board, index) -> None:
         self.player_turn = not self.player_turn
+        self.can_shoot = True
         self.missile_shot = None
         board.shoot_at(index)
 
@@ -157,7 +174,8 @@ class BattleScreen(Screen):
     def _create_missile(self, enemy, position, shoot_cord):
         start_pos = (position[0], -75)
         end_pos = position[1] + shoot_cord[1] * config.CELL_SIZE
-        self.missile_shot = animations.Missile(start_pos, end_pos, speed=15, 
+
+        self.missile_shot = animations.Missile(start_pos, end_pos, speed=10 + shoot_cord[1] * 2, 
                                                action=lambda: self._shoot(enemy, shoot_cord))
 
 
@@ -174,6 +192,8 @@ class BattleScreen(Screen):
             if self.enemy.board.can_shoot_at(coord):
                 position = (self.enemy_board_pos[0] + coord[0] * config.CELL_SIZE, 0)
                 self._create_missile(self.enemy.board, position, coord)
+                self.can_shoot = False
+                self.timer = 0
 
 
     def _draw_hovering_cell(self):

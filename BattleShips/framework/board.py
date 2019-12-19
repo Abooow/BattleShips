@@ -107,7 +107,7 @@ class Board:
 
         '''
 
-        if 0 > coordinate[0] > 9 and 0 > coordinate[1] > 9:
+        if (coordinate[0] < 0 or coordinate[0] > 9 or coordinate[1] < 0 or coordinate[1] > 9): 
             return False
 
         return False if self.list[coordinate[1]][coordinate[0]].hit else True
@@ -123,7 +123,7 @@ class Board:
         '''
         
         # checks if the coordinate have been used
-        if coordinate in self.shots_fired:   
+        if coordinate in self.shots_fired or not self.can_shoot_at(coordinate):   
             return False, None 
         else:
             # coordinate have not been used, add it to shots_fired list
