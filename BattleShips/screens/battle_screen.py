@@ -233,7 +233,9 @@ class BattleScreen(Screen):
 
 
     def _esc_menu_button(self):
+        pygame.mixer.music.stop()
         config.current_screen = config.menu_screen
+        audio.play_song(audio.song_main_menu)
 
     #killstreaks
     def _killstreak_nuke(self):
