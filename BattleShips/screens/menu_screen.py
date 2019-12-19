@@ -113,8 +113,8 @@ class MenuScreen(Screen):
             self.heli_x = 0
 
         self.boat2_x += 2
-        if self.boat2_x == 1500:
-            self.boat2_x = -500
+        if self.boat2_x == 800:
+            self.boat2_x = -700
         self.boat2_y = math.sin(self.boat2_x/100)*5
 
         self.boat1_y = math.sin(self.boat2_x/100)*5
