@@ -129,10 +129,10 @@ class BattleScreen(Screen):
         config.window.blit(sprites.txt_radarscan, (560, 625))
 
         #killstreak points
-        config.window.blit(sprites.txt_7, (350, 585))
-        config.window.blit(sprites.txt_3, (570, 585))
-        config.window.blit(sprites.txt_3, (570, 655))
-        config.window.blit(sprites.txt_5, (350, 655))
+        #config.window.blit(sprites.txt_7, (350, 585))
+        #config.window.blit(sprites.txt_3, (570, 585))
+        #config.window.blit(sprites.txt_3, (570, 655))
+        #config.window.blit(sprites.txt_5, (350, 655))
 
         super().draw()
 
