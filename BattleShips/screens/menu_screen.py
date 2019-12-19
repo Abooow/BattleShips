@@ -44,9 +44,8 @@ class MenuScreen(Screen):
         :returns: NoReturn
         :rtype: None
         '''
-
-        super().load_content()
         audio.play_song(audio.song_main_menu)
+        super().load_content()
         self.Water0 = Water((0,0))
         self.Water1 = Water((0,512), 7)
 

@@ -167,4 +167,4 @@ class Cell:
             else:
                 # update water splash
                 if not self._water_splash_anim.done:
-                    self._water_splash_anim.draw((x, y))
+                    self._water_splash_anim.draw((x-30, y-25))
