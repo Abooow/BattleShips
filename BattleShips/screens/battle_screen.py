@@ -1,6 +1,7 @@
 import pygame
 import config
 import sprites
+import audio
 import framework.ai as ai
 import framework.animations as animations
 
@@ -23,7 +24,7 @@ class BattleScreen(Screen):
         '''
 
         super().load_content()
-
+        audio.play_song(audio.song_game_background)
         escape_menu_button = Button(rect=((config.SCREEN_WIDTH-42)*0.5,515,sprites.txt_menu.get_width(),sprites.txt_menu.get_height()), image=sprites.txt_menu, action=self._esc_menu_button, bg=(None))
 
         #killstreaks buttons
