@@ -15,6 +15,7 @@ from screens.place_ships_screen import PlaceShipScreen
 from screens.battle_screen import BattleScreen
 from screens.menu_screen import MenuScreen
 from screens.win_screen import WinScreen
+from screens.intro_screen import IntroScreen
 from screens.lose_screen import LoseScreen
 from screens.test_screen import TestScreen
 from screens.difficulty_screen import DifficultyScreen
@@ -25,12 +26,13 @@ config.window = pygame.display.set_mode((config.SCREEN_WIDTH, config.SCREEN_HEIG
 pygame.display.set_caption('Modern Battleship Extreme Warfare')
 
 # Icon
-#icon = pygame.image.load('content\sprites\icon.png')
-#pygame.display.set_icon(icon)
+icon = pygame.image.load('content/sprites/icon.png')
+pygame.display.set_icon(icon)
 
 #Used font for txt
 config.font = pygame.font.SysFont('Tahoma',18, True, False)
 
+#(image_set, length)
 config.ship_types = [(0, 2), 
                      (1, 2), 
                      (2, 2), 
@@ -40,9 +42,8 @@ config.ship_types = [(0, 2),
                      (2, 4), 
                      (0, 5)]
 
-config.menu_screen = MenuScreen()
 # Sets the current screen to MenuScreen
-config.current_screen = MenuScreen()
+config.current_screen = IntroScreen()
 
 # clock is used to get a framerate of 60fps
 clock = pygame.time.Clock()

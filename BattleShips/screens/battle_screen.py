@@ -54,7 +54,7 @@ class BattleScreen(Screen):
         self.player_board_pos = (74, 93)
         self.enemy_board_pos = (549, 93)
 
-        self.delay  = 0
+        self.delay  = 500
         self.hand_x = 0
 
         

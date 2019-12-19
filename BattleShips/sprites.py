@@ -68,6 +68,7 @@ txt_3 = None
 txt_5 = None
 txt_7 = None
 txt_credits_button = None
+txt_credits = None
 
 set_ship_texture0_sketch = None
 set_ship_texture1_sketch = None
@@ -105,7 +106,7 @@ def init() -> None:
     
     global txt_mission_accomplished, txt_place_your_ships, txt_main_menu, txt_game_name, txt_restart, txt_select, txt_start, txt_quit, txt_menu
     global txt_nuke, txt_airstrike, txt_hellstrike, txt_radarscan, txt_respect, txt_menu_win_lose, txt_restart_win_lose, txt_quit_win_lose, txt_choose_difficulty
-    global txt_retard, txt_smart, txt_einstein, txt_putin, txt_credits_button, txt_3, txt_5, txt_7
+    global txt_retard, txt_smart, txt_einstein, txt_putin, txt_credits_button, txt_credits, txt_3, txt_5, txt_7
     
     global set_ship_texture0_sketch, set_ship_texture1_sketch, set_ship_texture2_sketch
     global set_ship_texture0, set_ship_texture1, set_ship_texture2
@@ -178,6 +179,7 @@ def init() -> None:
     txt_5 = pygame.image.load(f'{path}battle_screen/5p.png')
     txt_7 = pygame.image.load(f'{path}battle_screen/7p.png')
     txt_credits_button = pygame.image.load(f'{path}menu_screen/Credits.png')
+    txt_credits = pygame.image.load(f'{path}credits/credits_text.png')
 
     # all set_
     set_ship_texture0_sketch = [pygame.image.load(f'{path}ship_parts/set0/sketch_version/part{i}.png') for i in range(3)]

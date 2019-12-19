@@ -32,6 +32,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="main.py" />
+    <Compile Include="screens\intro_screen.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="screens\menu_screen.py">
       <SubType>Code</SubType>
     </Compile>

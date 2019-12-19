@@ -20,6 +20,7 @@ from framework.board import Board
 from framework.button import Button
 from framework.animations import Water
 from screens.place_ships_screen import PlaceShipScreen
+from screens.credits_screen import CreditScreen
 
 
 class MenuScreen(Screen):
@@ -72,7 +73,7 @@ class MenuScreen(Screen):
 
         start_button = Button(rect=(self.SC * 0.5, 300, self.SW, self.SH), bg=(), image=sprites.txt_start, action=self._place_ships_menu)
         quit_button = Button(rect=(self.QC * 0.5, 400, self.QW, self.QH),bg=None, image=sprites.txt_quit, action=self._exit_button)
-        credits_button = Button(rect=(465,650, 99,15), bg = None, image=sprites.txt_credits,  action = self._credits_button)
+        credits_button = Button(rect=(465,650, 99,15), bg = None, image=sprites.txt_credits_button,  action = self._credits_button)
     
         self.buttons.append(start_button)
         self.buttons.append(quit_button)
@@ -181,8 +182,7 @@ class MenuScreen(Screen):
         text = font.render('Soundbutton', True , (0,0,255))
 
 
-    #Go to Credits Screen
     def _credits_button(self):
-        pass 
+        config.current_screen = CreditScreen()
     
         

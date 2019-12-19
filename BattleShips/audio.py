@@ -16,6 +16,7 @@ effect_place_boat = None
 
 #songs
 song_game_background = None
+song_credits = None
 song_main_menu = None
 
 def init() -> None:
@@ -23,7 +24,7 @@ def init() -> None:
     #effects 
     global effect_explosion, effect_heli, effect_hitmarker, effect_miss, effect_missile_launch_short, effect_mission_accomplished, effect_mission_failed, effect_place_boat
     #songs
-    global song_game_background, song_main_menu
+    global song_game_background, song_credits, song_main_menu
 
     #effects 
     path_effects = 'Content/audio/effects/'
@@ -42,6 +43,7 @@ def init() -> None:
 
     #load_songs
     song_game_background = f'{path_songs}song_game_background.mp3'
+    song_credits = f'{path_songs}song_credits.mp3'
     song_main_menu = f'{path_songs}song_main_menu.mp3'
 
 
