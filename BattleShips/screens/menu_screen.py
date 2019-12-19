@@ -73,11 +73,13 @@ class MenuScreen(Screen):
 
         start_button = Button(rect=(self.SC * 0.5, 300, self.SW, self.SH), bg=(), image=sprites.txt_start, action=self._place_ships_menu)
         quit_button = Button(rect=(self.QC * 0.5, 400, self.QW, self.QH),bg=None, image=sprites.txt_quit, action=self._exit_button)
+        credits_button = Button(rect=(465,650, 99,15), bg = None, image=sprites.txt_credits,  action = self._credits_button)
     
         self.buttons.append(start_button)
         self.buttons.append(quit_button)
         self.buttons.append(self.sound_effects_button)
         self.buttons.append(self.sound_music_button)
+        self.buttons.append(credits_button)
 
 
         #clip = mp.VideoFileClip(r"content\sprites\puff.mp4")
@@ -139,6 +141,8 @@ class MenuScreen(Screen):
 
         utils.draw_font('Music', (255,255,255), (523,550))
         utils.draw_font('Effects', (255,255,255), (444,550))
+        
+
 
 
         super().draw()
@@ -176,3 +180,10 @@ class MenuScreen(Screen):
     def mute_button_txt(self):
         pygame.font.init()
         text = font.render('Soundbutton', True , (0,0,255))
+
+
+    #Go to Credits Screen
+    def _credits_button(self):
+        pass 
+    
+        
