@@ -207,15 +207,19 @@ class BattleScreen(Screen):
 
     #killstreaks
     def _killstreak_nuke(self):
+        #7 hits
         None
 
     def _killstreak_airstrike(self):
+        #5 hits
         None
 
     def _killstreak_hellstrike(self):
+        #3 hits
         None
 
     def _killstreak_radarscan(self):
+        #4 hits
         None
 
 

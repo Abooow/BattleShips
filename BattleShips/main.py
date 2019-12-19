@@ -30,7 +30,7 @@ pygame.display.set_caption('Modern Battleship Extreme Warfare')
 config.menu_screen = MenuScreen()
 
 # Sets the current screen to MenuScreen
-config.current_screen = LoseScreen()
+config.current_screen = MenuScreen()
 
 # clock is used to get a framerate of 60fps
 clock = pygame.time.Clock()
