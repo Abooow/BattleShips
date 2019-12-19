@@ -24,6 +24,8 @@ img_unmute_sound_button = None
 img_start_button = None
 img_place_ships_foreground = None
 img_place_ships_background = None
+img_place_ships_blueprint = None
+img_place_ships_ships_background = None
 img_random_button = None
 img_trash_button = None
 img_missmarker = None
@@ -34,6 +36,11 @@ img_killstreak_airstrike = None
 img_killstreak_hellstrike = None
 img_killstreak_radarscan = None
 img_lose = None
+img_empty = None
+img_vignette = None
+img_hand_place_ships = None
+img_hand_left = None
+img_hand_right = None
 
 txt_mission_accomplished = None
 txt_place_your_ships = None
@@ -52,9 +59,20 @@ txt_respect = None
 txt_menu_win_lose = None
 txt_restart_win_lose = None
 txt_quit_win_lose = None
+txt_choose_difficulty = None
+txt_retard = None
+txt_smart = None
+txt_einstein = None
+txt_putin = None
 
 set_ship_texture0_sketch = None
+set_ship_texture1_sketch = None
+set_ship_texture2_sketch = None
 set_ship_texture0 = None
+set_ship_texture1 = None
+set_ship_texture2 = None
+set_ship_textures = None
+set_ship_textures_sketch = None
 
 anim_explosion = None
 anim_water_splash = None
@@ -74,14 +92,23 @@ def init() -> None:
     '''
     
     global img_battle_screen_foreground, img_accomplished, img_crosshair, img_explosion, img_chopper, img_boat1, img_boat2, img_boat3, img_boat4, img_cell
-    global img_start_button, img_place_ships_foreground, img_place_ships_background, img_random_button, img_trash_button, img_lose
+    global img_place_ships_foreground, img_place_ships_background, img_place_ships_blueprint, img_place_ships_ships_background
+    global img_start_button, img_random_button, img_trash_button, img_lose
     global img_killstreak_nuke, img_killstreak_airstrike, img_killstreak_hellstrike, img_killstreak_radarscan
-    global img_missmarker, img_hitmarker, img_marked_cell
-    global txt_mission_accomplished, txt_place_your_ships, txt_main_menu, txt_game_name, txt_restart, txt_select, txt_start, txt_quit, txt_menu
-    global txt_nuke, txt_airstrike, txt_hellstrike, txt_radarscan, txt_respect, txt_menu_win_lose, txt_restart_win_lose, txt_quit_win_lose
-    global set_ship_texture0_sketch, set_ship_texture0
-    global anim_explosion, anim_water_splash, anim_missile, anim_water, anim_radar, anim_fire, anim_jet
     global img_mute_sound_button, img_unmute_sound_button
+    global img_missmarker, img_hitmarker, img_marked_cell, img_vignette
+    global img_empty, img_hand_place_ships, img_hand_left, img_hand_right
+    
+    global txt_mission_accomplished, txt_place_your_ships, txt_main_menu, txt_game_name, txt_restart, txt_select, txt_start, txt_quit, txt_menu
+    global txt_nuke, txt_airstrike, txt_hellstrike, txt_radarscan, txt_respect, txt_menu_win_lose, txt_restart_win_lose, txt_quit_win_lose, txt_choose_difficulty
+    global txt_retard, txt_smart, txt_einstein, txt_putin
+    
+    global set_ship_texture0_sketch, set_ship_texture1_sketch, set_ship_texture2_sketch
+    global set_ship_texture0, set_ship_texture1, set_ship_texture2
+    global set_ship_textures, set_ship_textures_sketch
+    
+    global anim_explosion, anim_water_splash, anim_missile, anim_water, anim_radar, anim_fire, anim_jet
+
 
     path = 'content/sprites/'
 
@@ -90,6 +117,8 @@ def init() -> None:
     img_accomplished = pygame.image.load(f'{path}win_screen/Accomplished.png')
     img_place_ships_foreground = pygame.image.load(f'{path}place_ship_screen/foreground.png')
     img_place_ships_background = pygame.image.load(f'{path}place_ship_screen/background.png')
+    img_place_ships_blueprint = pygame.image.load(f'{path}place_ship_screen/blueprint.png')
+    img_place_ships_ships_background = pygame.image.load(f'{path}place_ship_screen/ships_background.png')
     img_crosshair = pygame.image.load(f'{path}battle_screen/crosshair.png')
     img_explosion = pygame.image.load(f'{path}menu_screen/explosion.png')
     img_chopper = pygame.image.load(f'{path}menu_screen/chopper.png')
@@ -107,7 +136,12 @@ def init() -> None:
     img_killstreak_radarscan = pygame.image.load(f'{path}battle_screen/killstreaks/radarscan.png')
     img_mute_sound_button = pygame.image.load(f'{path}menu_screen/mute_music_button.png')
     img_unmute_sound_button = pygame.image.load(f'{path}menu_screen/unmute_music_button.png')
-    img_lose = pygame.image.load(f'{path}lose_screen/failed.png')
+    img_empty = pygame.image.load(f'{path}empty.png')
+    img_lose = pygame.image.load(f'{path}lose_screen/failed.png') 
+    img_vignette = pygame.image.load(f'{path}effects/vignette.png')
+    img_hand_place_ships = pygame.image.load(f'{path}place_ship_screen/hand.png')
+    img_hand_left = pygame.image.load(f'{path}battle_screen/hand_left.png')
+    img_hand_right = pygame.image.load(f'{path}battle_screen/hand_right.png')
 
     img_start_button = pygame.image.load(f'{path}place_ship_screen/start_button.png')
     img_random_button = pygame.image.load(f'{path}place_ship_screen/random_button.png')
@@ -131,11 +165,22 @@ def init() -> None:
     txt_menu_win_lose = pygame.image.load(f'{path}win_screen/buttons_for gameover_win screen/txt_mainmenu.png')
     txt_restart_win_lose = pygame.image.load(f'{path}win_screen/buttons_for gameover_win screen/txt_restart.png')
     txt_quit_win_lose = pygame.image.load(f'{path}win_screen/buttons_for gameover_win screen/txt_quit.png')
-    
+    txt_choose_difficulty = pygame.image.load(f'{path}difficulty_screen/choose_difficulty.png') 
+    txt_retard = pygame.image.load(f'{path}difficulty_screen/ai_levels/retard.png') 
+    txt_smart = pygame.image.load(f'{path}difficulty_screen/ai_levels/smart.png') 
+    txt_einstein = pygame.image.load(f'{path}difficulty_screen/ai_levels/einstein.png') 
+    txt_putin = pygame.image.load(f'{path}difficulty_screen/ai_levels/putin.png') 
 
     # all set_
-    set_ship_texture0_sketch = None
+    set_ship_texture0_sketch = [pygame.image.load(f'{path}ship_parts/set0/sketch_version/part{i}.png') for i in range(3)]
+    set_ship_texture1_sketch = [pygame.image.load(f'{path}ship_parts/set1/sketch_version/part{i}.png') for i in range(3)]
+    set_ship_texture2_sketch = [pygame.image.load(f'{path}ship_parts/set2/sketch_version/part{i}.png') for i in range(3)]
     set_ship_texture0 = [pygame.image.load(f'{path}ship_parts/set0/part{i}.png') for i in range(3)]
+    set_ship_texture1 = [pygame.image.load(f'{path}ship_parts/set1/part{i}.png') for i in range(3)]
+    set_ship_texture2 = [pygame.image.load(f'{path}ship_parts/set2/part{i}.png') for i in range(3)]
+    set_ship_textures_sketch = [set_ship_texture0_sketch, set_ship_texture1_sketch, set_ship_texture2_sketch]
+    set_ship_textures = [set_ship_texture0, set_ship_texture1, set_ship_texture2]
+
 
     # all anim_
     anim_explosion = [pygame.image.load(f'{path}animations/explosion/frame{i}.png') for i in range(4)]

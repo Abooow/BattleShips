@@ -34,17 +34,17 @@ class Board:
         rtype: None
         '''
         
-        ships_available = [2, 2, 2, 3, 3, 4, 4, 5]
+        ships_available = config.ship_types[:]
         while len(ships_available) > 0:
             xpos = random.randint(0,9)
             ypos = random.randint(0,9)
             pos_tuple = (xpos, ypos)
 
             # create a ship
-            ship = Ship(sprites.set_ship_texture0, 
+            ship = Ship(sprites.set_ship_textures_sketch[ships_available[0][0]], 
                         pos_tuple, 
-                        ships_available[0], 
-                        [(1, 0), (-1, 0), (0, 1), (0, -1)][random.randint(0, 3)])
+                        ships_available[0][1], 
+                        random.choice([(1, 0), (-1, 0), (0, 1), (0, -1)]))
 
             if board.place_ship(ship):
                 del ships_available[0]
@@ -104,7 +104,11 @@ class Board:
 
         :return: first value: (True if a shot was successfully fired otherwise False) second value: (the ship that was hit, if any was hit, otherwise None)
         :rtype: tuple[bool,Ship]
+
         '''
+
+        if (coordinate[0] < 0 or coordinate[0] > 9 or coordinate[1] < 0 or coordinate[1] > 9): 
+            return False
 
         return False if self.list[coordinate[1]][coordinate[0]].hit else True
 
@@ -119,7 +123,7 @@ class Board:
         '''
         
         # checks if the coordinate have been used
-        if coordinate in self.shots_fired:   
+        if coordinate in self.shots_fired or not self.can_shoot_at(coordinate):   
             return False, None 
         else:
             # coordinate have not been used, add it to shots_fired list

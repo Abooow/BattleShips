@@ -9,6 +9,7 @@ import math
 import config
 import sprites
 import utils
+import audio
 #import moviepy.editor as mp
 
 #from moviepy.editor import VideoFileClip
@@ -45,6 +46,7 @@ class MenuScreen(Screen):
         '''
 
         super().load_content()
+        audio.play_song(audio.song_main_menu)
         self.Water0 = Water((0,0))
         self.Water1 = Water((0,512), 7)
 
@@ -90,6 +92,7 @@ class MenuScreen(Screen):
         self.boat2_y = 0
 
         self.boat1_y = 0
+        self.boat3_y = 0
 
 
     def update(self, delta_time) -> None:
@@ -110,13 +113,13 @@ class MenuScreen(Screen):
         if self.heli_x == 2000:
             self.heli_x = 0
 
-        self.boat2_x += 5
+        self.boat2_x += 2
         if self.boat2_x == 1500:
             self.boat2_x = -500
         self.boat2_y = math.sin(self.boat2_x/100)*5
 
         self.boat1_y = math.sin(self.boat2_x/100)*5
-
+        self.boat3_y = math.sin(self.boat2_x/100)*8
 
     def draw(self) -> None:
         ''' Draws everything to the screen
@@ -127,11 +130,12 @@ class MenuScreen(Screen):
 
         self.Water0.draw()
         self.Water1.draw()
+        config.window.blit(sprites.img_vignette, (0, 0))
         config.window.blit(sprites.txt_game_name, ((config.SCREEN_WIDTH-sprites.txt_game_name.get_width())*0.5, 20))
-        config.window.blit(sprites.img_boat2, (320-self.boat2_x, 260-self.boat2_y))
+        config.window.blit(sprites.img_boat2, (320-self.boat2_x, 100-self.boat2_y))
         config.window.blit(sprites.img_boat1, (-400, 200-self.boat1_y))
+        config.window.blit(sprites.img_boat3, (500, 280-self.boat3_y))
         config.window.blit(sprites.img_chopper, (1000-self.heli_x, 0-self.heli_y))
-        
 
         utils.draw_font('Music', (255,255,255), (523,550))
         utils.draw_font('Effects', (255,255,255), (444,550))
@@ -160,10 +164,12 @@ class MenuScreen(Screen):
     def _sound_music_button(self):
         if config.sound_song_on:
             config.sound_song_on = False
+            pygame.mixer.music.pause()
             self.sound_music_button.image = sprites.img_mute_sound_button
         else:
             config.sound_song_on = True
             self.sound_music_button.image = sprites.img_unmute_sound_button
+            pygame.mixer_music.unpause()
         pass
 
     

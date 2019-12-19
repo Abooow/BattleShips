@@ -18,6 +18,9 @@ window = None
 # the font for all text
 font = None
 
+# all ships types
+ship_types = None
+
 # an instance of the main menu
 menu_screen = None
 

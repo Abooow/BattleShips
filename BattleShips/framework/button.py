@@ -42,7 +42,6 @@ class Button():
         self.image = image
         self.action = action
 
-        self.active = True
         self.visible = True
         
 
@@ -54,7 +53,7 @@ class Button():
         :rtype: None
         '''
 
-        if self.active and self.action != None and self._is_hovering():
+        if self.visible and self.action != None and self._is_hovering():
             # instantiate the function associated with the button
             self.action()
 
@@ -66,27 +65,28 @@ class Button():
         :rtype: None
         '''
 
-        # draw only plain color if image is None
-        if self.image == None:
+        if self.visible:
+            # draw only plain color if image is None
+            if self.image is None:
 
-            # draw hovering color when hovering
-            if self.bg and self._is_hovering():
-                self._draw_hovering()
+                # draw hovering color when hovering
+                if self.bg is None and self._is_hovering():
+                    self._draw_hovering()
+                elif self.bg is not None:
+                    pygame.draw.rect(config.window, self.bg, self.rect)
             else:
-                pygame.draw.rect(config.window, self.bg, self.rect)
-        else:
-            # draw image it's not None
+                # draw image it's not None
 
-            # draw hovering color when hovering
-            if self.bg and self._is_hovering():
-                self._draw_hovering()
+                # draw hovering color when hovering
+                if self.bg is None and self._is_hovering():
+                    self._draw_hovering()
 
-            # centers the image inside the button 
-            size = self.image.get_rect().size
-            x = (self.rect[0] + self.rect[2] * 0.5) - size[0] * 0.5
-            y = (self.rect[1] + self.rect[3] * 0.5) - size[1] * 0.5
-            img = surface_change.colorize(self.image, self.hc) if self._is_hovering() else self.image
-            config.window.blit(img, (x, y))
+                # centers the image inside the button 
+                size = self.image.get_rect().size
+                x = (self.rect[0] + self.rect[2] * 0.5) - size[0] * 0.5
+                y = (self.rect[1] + self.rect[3] * 0.5) - size[1] * 0.5
+                img = surface_change.colorize(self.image, self.hc) if self._is_hovering() else self.image
+                config.window.blit(img, (x, y))
 
 
     def _draw_hovering(self) -> None:
@@ -96,11 +96,12 @@ class Button():
         :rtype: None
         '''
 
-        if self.bg == None:
-            return
+        if self.visible:
+            if self.bg == None:
+                return
 
-        bg = (self.bg[0] * 0.65, self.bg[1] * 0.65, self.bg[2] * 0.65)
-        pygame.draw.rect(config.window, bg, self.rect)
+            bg = (self.bg[0] * 0.65, self.bg[1] * 0.65, self.bg[2] * 0.65)
+            pygame.draw.rect(config.window, bg, self.rect)
 
 
     def _is_hovering(self) -> bool:

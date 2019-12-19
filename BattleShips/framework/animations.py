@@ -2,6 +2,7 @@
 '''
 
 import pygame
+import audio
 import sprites
 import config
 import random
@@ -30,6 +31,8 @@ class Explosion(Animation):
 
         super().update(delta_time)
 
+        if self._frame == 0:
+            audio.play_effect(audio.effect_explosion)
 
     def draw(self, position) -> None:
         ''' Draws the explosion animation to the screen
@@ -93,6 +96,11 @@ class WaterSplash(Animation):
         '''
 
         super().update(delta_time)
+
+        if self._frame == 0:
+            audio.play_effect(audio.effect_miss)
+
+
 
 
     def draw(self, position) -> None:
@@ -188,6 +196,9 @@ class Missile(Animation):
 
         super().__init__(Missile._new_anim_missile, fps, loop=True)
 
+        if self._frame == 0:
+            audio.play_effect(audio.effect_missile_launch_short)
+
         self.position = (start_position[0] - 6, start_position[1])
         self.max_y = max_y
         self.speed = speed
@@ -221,3 +232,7 @@ class Missile(Animation):
         '''
 
         super().draw(self.position)
+
+
+
+
