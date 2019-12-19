@@ -11,15 +11,14 @@ import config
 from screens.screen import Screen
 from framework.button import Button
 from framework.animation import Animation
-from screens.place_ships_screen import PlaceShipScreen
-from screens.menu_screen import MenuScreen
-
 
 
 class LoseScreen(Screen):
 
-    def __init__(self):
+    def __init__(self, placeship_screen):
         super().__init__()
+
+        self.placeship_screen = placeship_screen
 
 
     def load_content(self):            
@@ -46,21 +45,26 @@ class LoseScreen(Screen):
         self.buttons.append(menu_button)
         self.buttons.append(quit_button)
 
+
     def update(self, delta_time):         
         super().update(delta_time)     
+
 
     def draw(self):
         config.window.blit(sprites.img_lose, (0, -100))
 
         super().draw() # draws the buttons
 
+
     def _main_menu(self):
         pygame.mixer.stop()
-        config.current_screen = MenuScreen()
+        config.current_screen = config.menu_screen
+
 
     def _place_ships_menu(self):
         pygame.mixer.stop()
-        config.current_screen = PlaceShipScreen()
+        config.current_screen = self.placeship_screen
+
 
     def _exit_button(self):
         pygame.mixer.stop()
