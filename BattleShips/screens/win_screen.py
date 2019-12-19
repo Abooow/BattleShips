@@ -11,15 +11,14 @@ import config
 from screens.screen import Screen
 from framework.button import Button
 from framework.animation import Animation
-from screens.place_ships_screen import PlaceShipScreen
-from screens.menu_screen import MenuScreen
-
 
 
 class WinScreen(Screen):
 
-    def __init__(self):
+    def __init__(self, placeship_screen):
         super().__init__()
+
+        self.placeship_screen = placeship_screen
 
 
     def load_content(self):            
@@ -47,6 +46,7 @@ class WinScreen(Screen):
         self.buttons.append(menu_button)
         self.buttons.append(quit_button)
 
+
     def update(self, delta_time):         
         super().update(delta_time)
 
@@ -54,19 +54,23 @@ class WinScreen(Screen):
         if self.moveX < (config.SCREEN_WIDTH-sprites.txt_respect.get_width())*0.5+25:
             self.moveX += 5     
 
+
     def draw(self):
         config.window.blit(sprites.img_accomplished, (0, -100))
         config.window.blit(sprites.txt_respect, (self.moveX, 300))
 
         super().draw() # draws the buttons
 
+
     def _main_menu(self):
         pygame.mixer.stop()
-        config.current_screen = MenuScreen()
+        config.current_screen = config.menu_screen
+
 
     def _place_ships_menu(self):
         pygame.mixer.stop()
-        config.current_screen = PlaceShipScreen()
+        config.current_screen = self.placeship_screen
+
 
     def _exit_button(self):
         pygame.mixer.stop()

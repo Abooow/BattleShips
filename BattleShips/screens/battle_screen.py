@@ -10,13 +10,15 @@ from framework.ship import Ship
 from framework.board import Board
 from framework.button import Button
 from screens.screen import Screen
+from screens.win_screen import WinScreen
+from screens.lose_screen import LoseScreen
 
 
 class BattleScreen(Screen):
-    def __init__(self, board):
+    def __init__(self, placeship_screen, board):
         super().__init__()
 
-
+        self.placeship_screen = placeship_screen
         self.player = board
 
 
@@ -52,12 +54,10 @@ class BattleScreen(Screen):
         self.player_board_pos = (74, 93)
         self.enemy_board_pos = (549, 93)
 
-        self.delay  = 800
+        self.delay  = 0
         self.hand_x = 0
 
         
-
-
     def update(self, delta_time):
         events = super().update(delta_time)
 
@@ -69,6 +69,7 @@ class BattleScreen(Screen):
             self._enemy_shoot()
         elif not self.player_turn and self.missile_shot is None:
             self.timer += delta_time
+
 
         # get event
         for event in events:
@@ -164,11 +165,24 @@ class BattleScreen(Screen):
                 (mouse[1] - self.enemy_board_pos[1]) // config.CELL_SIZE)
 
 
+    def _check_if_won(self):
+        # won
+        ships = self.enemy.board.ships
+        if len([ship for ship in ships if ship.health == 0]) == len(ships):
+            config.current_screen = WinScreen(self.placeship_screen)
+
+        # lost
+        ships = self.player.ships
+        if len([ship for ship in ships if ship.health == 0]) == len(ships):
+            config.current_screen = LoseScreen(self.placeship_screen)
+
+
     def _shoot(self, board, index) -> None:
         self.player_turn = not self.player_turn
         self.can_shoot = True
         self.missile_shot = None
         board.shoot_at(index)
+        self._check_if_won()
 
 
     def _create_missile(self, enemy, position, shoot_cord):
