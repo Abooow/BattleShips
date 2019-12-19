@@ -64,6 +64,9 @@ txt_retard = None
 txt_smart = None
 txt_einstein = None
 txt_putin = None
+txt_3 = None
+txt_5 = None
+txt_7 = None
 
 set_ship_texture0_sketch = None
 set_ship_texture1_sketch = None
@@ -101,7 +104,7 @@ def init() -> None:
     
     global txt_mission_accomplished, txt_place_your_ships, txt_main_menu, txt_game_name, txt_restart, txt_select, txt_start, txt_quit, txt_menu
     global txt_nuke, txt_airstrike, txt_hellstrike, txt_radarscan, txt_respect, txt_menu_win_lose, txt_restart_win_lose, txt_quit_win_lose, txt_choose_difficulty
-    global txt_retard, txt_smart, txt_einstein, txt_putin
+    global txt_retard, txt_smart, txt_einstein, txt_putin, txt_3, txt_5, txt_7
     
     global set_ship_texture0_sketch, set_ship_texture1_sketch, set_ship_texture2_sketch
     global set_ship_texture0, set_ship_texture1, set_ship_texture2
@@ -170,6 +173,9 @@ def init() -> None:
     txt_smart = pygame.image.load(f'{path}difficulty_screen/ai_levels/smart.png') 
     txt_einstein = pygame.image.load(f'{path}difficulty_screen/ai_levels/einstein.png') 
     txt_putin = pygame.image.load(f'{path}difficulty_screen/ai_levels/putin.png') 
+    txt_3 = pygame.image.load(f'{path}battle_screen/3p.png')
+    txt_5 = pygame.image.load(f'{path}battle_screen/5p.png')
+    txt_7 = pygame.image.load(f'{path}battle_screen/7p.png')
 
     # all set_
     set_ship_texture0_sketch = [pygame.image.load(f'{path}ship_parts/set0/sketch_version/part{i}.png') for i in range(3)]
