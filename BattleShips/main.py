@@ -27,16 +27,26 @@ pygame.display.set_caption('Modern Battleship Extreme Warfare')
 #icon = pygame.image.load('content\sprites\icon.png')
 #pygame.display.set_icon(icon)
 
-config.menu_screen = MenuScreen()
+#Used font for txt
+config.font = pygame.font.SysFont('Tahoma',18, True, False)
 
+config.ship_types = [(0, 2), 
+                     (1, 2), 
+                     (2, 2), 
+                     (1, 3), 
+                     (2, 3), 
+                     (1, 4), 
+                     (2, 4), 
+                     (0, 5)]
+
+config.menu_screen = MenuScreen()
 # Sets the current screen to MenuScreen
-config.current_screen = LoseScreen()
+config.current_screen = PlaceShipScreen()
+
 
 # clock is used to get a framerate of 60fps
 clock = pygame.time.Clock()
 
-#Used font for txt
-config.font=pygame.font.SysFont('Tahoma',18, True, False)
 
 fps = []
 def main() -> None:
@@ -50,11 +60,11 @@ def main() -> None:
     while not config.quit_game:
         delta_time = clock.get_time()
         fps.append(delta_time)
-        if len(fps) > 60:
+        if len(fps) > 30:
             del fps[0]
 
         if delta_time > 0:
-            pygame.display.set_caption(f'Modern Battleship Extreme Warfare - {sum(fps) // 60}')
+            pygame.display.set_caption(f'Modern Battleship Extreme Warfare - {sum(fps) // 30}')
 
         # --------------------UPDATE--------------------
         config.current_screen.update(delta_time) # update everything in the current screen

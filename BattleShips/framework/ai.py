@@ -2,6 +2,7 @@
 '''
 
 import random
+import utils
 import sprites
 
 from framework.board import Board
@@ -108,7 +109,7 @@ class SmartAI(AI):
             coordinate = (x, y)
 
             if (not enemy.list[y][x].hit and 
-                len(self._get_empy_cells_around(coordinate, enemy)) <= 2 and 
+                len(self._get_empy_cells_around(coordinate, enemy)) <= 3 and 
                 errorlevel < 40):
                 self._get_random_coordinate(enemy, errorlevel + 1)
                 break
@@ -159,7 +160,7 @@ class SmartAI(AI):
         if enemy.can_shoot_at(new_cord):
             cell = enemy.list[new_cord[1]][new_cord[0]]
             if cell.ship is not None:
-                if cell.ship.have_sunken: # if the ship have sunken find new cell
+                if cell.ship.health == 1: # if the ship have sunken find new cell
                     self._found_ship = False
                 else:
                     self._latest_hit = new_cord
@@ -175,6 +176,7 @@ class SmartAI(AI):
             self._get_smart_coordinate(enemy)
 
         return new_cord
+
 
     def _on_hit_ship(self, enemy):
         self._found_ship = True
